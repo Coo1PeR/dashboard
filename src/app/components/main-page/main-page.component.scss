@@ -1,0 +1,19 @@
+div {
+  width: 50%;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  margin-bottom: 8px;
+}
+
+.button-add {
+  position: absolute;
+  top: 90%;
+  left: 80%;
+}
+
+mat-spinner {
+  top: 50%;
+  margin: auto;
+}
