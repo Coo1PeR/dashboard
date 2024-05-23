@@ -1,7 +1,11 @@
-import {Injectable} from '@angular/core';
-import {State, Action, StateContext} from '@ngxs/store';
+import {inject, Injectable} from '@angular/core';
+import {State, Action, StateContext, Selector} from '@ngxs/store';
 import {ProductsAction} from './products.actions';
-import {Product} from "../../interfaces/interfaces";
+import {Product, UserFull} from "../../interfaces/interfaces";
+import {UsersAction} from "../users/users.actions";
+import {tap} from "rxjs";
+import {UsersStateModel} from "../users/users.state";
+import {GetDataService} from "../../services/get-data.service";
 
 export interface ProductsStateModel {
   products: Product[];
@@ -16,4 +20,20 @@ export interface ProductsStateModel {
 
 @Injectable()
 
-export class ProductsState {}
+export class ProductsState {
+  private getDataService = inject(GetDataService)
+
+  @Action(ProductsAction.FetchProducts)
+  fetchProducts(ctx: StateContext<ProductsStateModel>) {
+    return this.getDataService.getProducts().pipe(
+      tap((products: Product[]) => {
+        ctx.patchState({ products: products });
+      })
+    );
+  }
+
+  @Selector()
+  static getProductsFull(state: ProductsStateModel) {
+    return state.products;
+  }
+}

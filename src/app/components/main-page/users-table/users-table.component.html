@@ -1,0 +1,4 @@
+<p>users-table works!</p>
+<div *ngFor="let user of users$ | async">
+  <p>{{ user.username }} {{ user.email }}</p>
+</div>

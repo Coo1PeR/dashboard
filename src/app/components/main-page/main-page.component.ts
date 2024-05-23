@@ -6,6 +6,8 @@ import {LoginState} from "../../store/login/login.state";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import { CommonModule } from '@angular/common';
+import {UsersTableComponent} from "./users-table/users-table.component";
+import {StatisticsComponent} from "./statistics/statistics.component";
 
 
 @Component({
@@ -16,6 +18,8 @@ import { CommonModule } from '@angular/common';
     MatButton,
     MatProgressSpinner,
     CommonModule,
+    UsersTableComponent,
+    StatisticsComponent,
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
