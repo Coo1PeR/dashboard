@@ -1,6 +1,6 @@
 <section class="login-form">
   <h1>Логин</h1>
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 <!--    <form [formGroup]="loginForm" (submit)="loginApplication()">-->
 
     <mat-form-field>
@@ -13,7 +13,7 @@
       <input type="password" id="input-password"  formControlName="password" matInput required>
     </mat-form-field>
     <div class="button-row">
-      <button mat-raised-button type="submit" color="primary" routerLink="main">Войти</button>
+      <button mat-raised-button type="submit" color="primary">Войти</button>
       <!-- <button mat-raised-button type="submit" color="primary" [routerLink]="['/home', startPage]">Войти</button> -->
     </div>
   </form>

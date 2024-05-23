@@ -1,10 +1,12 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatButton} from "@angular/material/button";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {MatInput} from "@angular/material/input";
 import {MainPageComponent} from "../main-page/main-page.component";
+import {Store} from "@ngxs/store";
+import {SetLoginData} from "../../store/login/login.state";
 //
 @Component({
   selector: 'app-login-page',
@@ -21,11 +23,22 @@ import {MainPageComponent} from "../main-page/main-page.component";
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
+  private store = inject(Store);
+  private router = inject(Router);
+
   loginForm = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.minLength(4)]),
     password: new FormControl('', Validators.required),
   });
 
-  @Input() startPage!: MainPageComponent;
+  onSubmit() {
+    if (this.loginForm.valid) {
+      const login = this.loginForm.get('login')?.value as string;
+      const password = this.loginForm.get('password')?.value as string;
+      this.store.dispatch(new SetLoginData({login, password}))
+      this.router.navigate(['/main']);
+
+    }
+  }
 
 }
