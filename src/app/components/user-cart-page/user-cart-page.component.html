@@ -1,0 +1,9 @@
+<div *ngIf="user$ | async as user; else loading">
+  <h1>Информация о пользователе</h1>
+  <p><strong>Имя:</strong> {{ user.name.firstname }}</p>
+  <p><strong>Фамилия:</strong> {{ user.name.lastname }}</p>
+  <p><strong>Телефон:</strong> {{ user.phone }}</p>
+</div>
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

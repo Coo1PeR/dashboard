@@ -8,12 +8,18 @@ import {CartsState} from "./store/carts/carts.state";
 import {ProductsState} from "./store/products/products.state";
 import {LoginState} from "./store/login/login.state";
 import {provideHttpClient} from "@angular/common/http";
+import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
+import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
-    importProvidersFrom(NgxsModule.forRoot([UsersState, CartsState, ProductsState, LoginState])),
+    importProvidersFrom([
+      NgxsModule.forRoot([UsersState, CartsState, ProductsState, LoginState]),
+      NgxsLoggerPluginModule.forRoot(),
+      NgxsReduxDevtoolsPluginModule.forRoot()
+    ]),
     provideHttpClient()
   ],
 

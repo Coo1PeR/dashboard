@@ -19,8 +19,8 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+  <!-- Обработка события клика на строке -->
+  <tr mat-row *matRowDef="let user; columns: displayedColumns;" (click)="onRowClicked(user)"></tr>
 </table>
 
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-
