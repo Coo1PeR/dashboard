@@ -1,9 +1,28 @@
-<div *ngIf="user$ | async as user; else loading">
-  <h1>Информация о пользователе</h1>
-  <p><strong>Имя:</strong> {{ user.name.firstname }}</p>
-  <p><strong>Фамилия:</strong> {{ user.name.lastname }}</p>
-  <p><strong>Телефон:</strong> {{ user.phone }}</p>
+<!--<div *ngIf="user$ | async as user; else loading">-->
+<!--  <h1>Информация о пользователе</h1>-->
+<!--  <p><strong>Имя:</strong> {{ user.name.firstname }}</p>-->
+<!--  <p><strong>Фамилия:</strong> {{ user.name.lastname }}</p>-->
+<!--  <p><strong>Телефон:</strong> {{ user.phone }}</p>-->
+<!--</div>-->
+<!--<ng-template #loading>-->
+<!--  <mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+<!--</ng-template>-->
+
+<div *ngIf="user$ | async as user">
+  <mat-card>
+    <mat-card-content>
+      <section *ngIf="user.profileImage" class="profile-image">
+        <img [src]="user.profileImage" alt="Profile Image" />
+      </section>
+      <section class="text">
+        <h2>{{ user.name.firstname }}</h2>
+        <p>{{ user.email }}</p>
+        <p>{{ user.phone }}</p>
+      </section>
+    </mat-card-content>
+  </mat-card>
+
+  <section class="table">
+    <p>app-shopping-list</p>
+  </section>
 </div>
-<ng-template #loading>
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-template>

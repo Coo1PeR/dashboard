@@ -6,6 +6,7 @@ import {Store} from "@ngxs/store";
 import {UsersState} from "../../store/users/users.state";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {MatCard, MatCardContent} from "@angular/material/card";
 
 @Component({
   selector: 'app-user-cart-page',
@@ -13,7 +14,9 @@ import {AsyncPipe, NgIf} from "@angular/common";
   imports: [
     MatProgressBar,
     AsyncPipe,
-    NgIf
+    NgIf,
+    MatCard,
+    MatCardContent
   ],
   templateUrl: './user-cart-page.component.html',
   styleUrl: './user-cart-page.component.scss'

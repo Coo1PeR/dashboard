@@ -1,0 +1,27 @@
+
+.text {
+  padding: 20px 0 0 40px;
+  //background-image: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+.table {
+  padding: 10px;
+}
+
+mat-card {
+  margin: 10px 20px 10px 20px;
+  background-color: #3f51b5
+}
+
+.profile-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+}
