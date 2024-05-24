@@ -1,23 +1,24 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {combineLatest, map, Observable, shareReplay, switchMap} from "rxjs";
-import {Cart, Product, UserFull} from "../interfaces/interfaces";
-import {Store} from "@ngxs/store";
-import {UsersAction} from "../store/users/users.actions";
-import {ProductsAction} from "../store/products/products.actions";
-import {CartsAction} from "../store/carts/carts.actions";
-import {UsersState} from "../store/users/users.state";
-import {ProductsState} from "../store/products/products.state";
-import {CartsState} from "../store/carts/carts.state";
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
+import { Cart, Product, UserFull } from '../interfaces/interfaces';
+import { Store } from '@ngxs/store';
+import { UsersAction } from '../store/users/users.actions';
+import { ProductsAction } from '../store/products/products.actions';
+import { CartsAction } from '../store/carts/carts.actions';
+import { UsersState } from '../store/users/users.state';
+import { ProductsState } from '../store/products/products.state';
+import { CartsState } from '../store/carts/carts.state';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class GetDataService {
   private http = inject(HttpClient);
   private store = inject(Store);
-
+  private usersLoaded = false;
+  private users$ = new BehaviorSubject<UserFull[]>([]);
 
   url: string = 'https://fakestoreapi.com';
 
@@ -34,13 +35,17 @@ export class GetDataService {
   }
 
   fetchAllData(): Observable<UserFull[]> {
+    if (this.usersLoaded) {
+      return this.users$.asObservable();
+    }
+
     return this.store.dispatch(new UsersAction.FetchUsers()).pipe(
       switchMap(() => this.store.dispatch(new CartsAction.FetchCarts())),
       switchMap(() => this.store.dispatch(new ProductsAction.FetchProducts())),
       switchMap(() => combineLatest([
         this.store.select(UsersState.getUserFull),
         this.store.select(CartsState.getCartsFull),
-        this.store.select(ProductsState.getProductsFull),
+        this.store.select(ProductsState.getProductsFull)
       ]).pipe(
         map(([users, carts, products]) => {
           return users.map(user => {
@@ -54,9 +59,12 @@ export class GetDataService {
             return { ...user, totalPurchase, userFullName: `${user.name.firstname} ${user.name.lastname}` };
           });
         }),
-        shareReplay(1)
+        tap(usersWithTotalPurchase => {
+          this.users$.next(usersWithTotalPurchase);
+          this.usersLoaded = true;
+        }),
+        //shareReplay(1)
       ))
     );
   }
-
 }
