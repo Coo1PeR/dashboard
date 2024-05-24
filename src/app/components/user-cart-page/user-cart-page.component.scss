@@ -1,7 +1,6 @@
 
 .text {
   padding: 20px 0 0 40px;
-  //background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
 
 .table {
@@ -13,15 +12,23 @@ mat-card {
   background-color: #3f51b5
 }
 
-.profile-image {
+.container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  height: 100%;
+}
+.column {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.button {
+  flex: 1;
+  background-color: lightgray;
+  text-align: center;
+}
+.main {
+  flex: 5;
+}
 
-  img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-  }
+button {
+  margin-top: 40px;
 }
