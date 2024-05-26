@@ -60,3 +60,11 @@ export interface User {
   phone: string;
   __v: number
 }
+
+export interface CartProduct {
+  productId: number;
+  title: string;
+  price: number;
+  quantity: number;
+  sum?: number;
+}

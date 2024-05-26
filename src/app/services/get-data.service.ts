@@ -56,7 +56,7 @@ export class GetDataService {
                 return cartTotal + (product ? product.price * cartProduct.quantity : 0);
               }, 0);
             }, 0);
-            return { ...user, totalPurchase, userFullName: `${user.name.firstname} ${user.name.lastname}` };
+            return { ...user, totalPurchase, userFullName: `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}` };
           });
         }),
         tap(usersWithTotalPurchase => {
@@ -65,6 +65,28 @@ export class GetDataService {
         }),
         //shareReplay(1)
       ))
+    );
+  }
+
+  getUserPurchases(userId: number): Observable<any[]> {
+    return combineLatest([
+      this.store.select(CartsState.getCartsFull),
+      this.store.select(ProductsState.getProductsFull)
+    ]).pipe(
+      map(([carts, products]) => {
+        const userCarts = carts.filter(cart => cart.userId === userId);
+        return userCarts.flatMap(cart =>
+          cart.products.map(cartProduct => {
+            const product = products.find(p => p.id === cartProduct.productId);
+            return {
+              title: product?.title || 'Unknown Product',
+              price: product?.price || 0,
+              quantity: cartProduct.quantity,
+              sum: (product?.price || 0) * cartProduct.quantity
+            };
+          })
+        );
+      })
     );
   }
 }

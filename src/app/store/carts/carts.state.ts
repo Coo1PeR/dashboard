@@ -32,6 +32,46 @@ export class CartsState {
     );
   }
 
+  @Action(CartsAction.IncreaseProductQuantity)
+  increaseProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.IncreaseProductQuantity) {
+    const state = ctx.getState();
+    const updatedCarts = state.carts.map(cart => {
+      if (cart.userId === action.userId) {
+        return {
+          ...cart,
+          products: cart.products.map(product => {
+            if (product.productId === action.productId) {
+              return { ...product, quantity: product.quantity + 1 };
+            }
+            return product;
+          })
+        };
+      }
+      return cart;
+    });
+    ctx.patchState({ carts: updatedCarts });
+  }
+
+  @Action(CartsAction.DecreaseProductQuantity)
+  decreaseProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.DecreaseProductQuantity) {
+    const state = ctx.getState();
+    const updatedCarts = state.carts.map(cart => {
+      if (cart.userId === action.userId) {
+        return {
+          ...cart,
+          products: cart.products.map(product => {
+            if (product.productId === action.productId && product.quantity > 1) {
+              return { ...product, quantity: product.quantity - 1 };
+            }
+            return product;
+          })
+        };
+      }
+      return cart;
+    });
+    ctx.patchState({ carts: updatedCarts });
+  }
+
   @Selector()
   static getCartsFull(state: CartsStateModel) {
     return state.carts;
