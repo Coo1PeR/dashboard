@@ -2,7 +2,10 @@ import {Component, inject, Input, OnInit} from '@angular/core';
 import {GetDataService} from "../../../services/get-data.service";
 import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
-import {CurrencyPipe} from "@angular/common";
+import {CurrencyPipe, NgForOf} from "@angular/common";
+import {CartsAction} from "../../../store/carts/carts.actions";
+import {Store} from "@ngxs/store";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-shopping-table',
@@ -10,7 +13,9 @@ import {CurrencyPipe} from "@angular/common";
   imports: [
     MatTableModule,
     MatButton,
-    CurrencyPipe
+    CurrencyPipe,
+    MatIcon,
+    NgForOf
   ],
   templateUrl: './shopping-table.component.html',
   styleUrl: './shopping-table.component.scss'
@@ -18,23 +23,35 @@ import {CurrencyPipe} from "@angular/common";
 
 export class ShoppingTableComponent implements OnInit {
   @Input() userId!: number;
-  purchases: any[] = [];
+  carts: any[] = [];
   displayedColumns: string[] = ['title', 'price', 'quantity', 'sum'];
+  private store = inject(Store);
 
   private getDataService = inject(GetDataService);
 
   ngOnInit() {
-    this.getDataService.getUserPurchases(this.userId).subscribe(purchases => {
-      this.purchases = purchases;
-    });
-    console.log(this.userId)
+    this.loadCarts();
   }
 
+  loadCarts() {
+    this.getDataService.getUserCarts(this.userId).subscribe(carts => {
+      this.carts = carts;
+    });
+  }
 
-  decreaseQuantity(purchase: any) {
-    if (purchase.quantity > 1) {
-      purchase.quantity--;
-      purchase.sum = purchase.price * purchase.quantity;
+  increaseQuantity(cartId: number, product: any) {
+    const newQuantity = product.quantity + 1;
+    this.store.dispatch(new CartsAction.SetProductQuantity(this.userId, cartId, product.productId, newQuantity));
+    product.quantity = newQuantity;
+    product.sum = product.price * newQuantity;
+  }
+
+  decreaseQuantity(cartId: number, product: any) {
+    if (product.quantity > 1) {
+      const newQuantity = product.quantity - 1;
+      this.store.dispatch(new CartsAction.SetProductQuantity(this.userId, cartId, product.productId, newQuantity));
+      product.quantity = newQuantity;
+      product.sum = product.price * newQuantity;
     }
   }
 }

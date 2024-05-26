@@ -68,25 +68,31 @@ export class GetDataService {
     );
   }
 
-  getUserPurchases(userId: number): Observable<any[]> {
+  getUserCarts(userId: number): Observable<any[]> {
     return combineLatest([
       this.store.select(CartsState.getCartsFull),
       this.store.select(ProductsState.getProductsFull)
     ]).pipe(
       map(([carts, products]) => {
         const userCarts = carts.filter(cart => cart.userId === userId);
-        return userCarts.flatMap(cart =>
-          cart.products.map(cartProduct => {
-            const product = products.find(p => p.id === cartProduct.productId);
-            return {
-              title: product?.title || 'Unknown Product',
-              price: product?.price || 0,
-              quantity: cartProduct.quantity,
-              sum: (product?.price || 0) * cartProduct.quantity
-            };
-          })
-        );
+        return userCarts.map(cart => {
+          return {
+            id: cart.id,
+            products: cart.products.map(cartProduct => {
+              const product = products.find(p => p.id === cartProduct.productId);
+              return {
+                productId: cartProduct.productId,
+                title: product?.title || 'Unknown Product',
+                price: product?.price || 0,
+                quantity: cartProduct.quantity,
+                sum: (product?.price || 0) * cartProduct.quantity
+              };
+            })
+          };
+        });
       })
     );
   }
+
+
 }

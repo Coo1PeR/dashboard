@@ -8,14 +8,9 @@ export namespace CartsAction {
     static readonly type = '[Carts] Fetch Carts';
   }
 
-  export class IncreaseProductQuantity {
-    static readonly type = '[Cart] Increase Product Quantity';
-    constructor(public userId: number, public productId: number) {}
-  }
-
-  export class DecreaseProductQuantity {
-    static readonly type = '[Cart] Decrease Product Quantity';
-    constructor(public userId: number, public productId: number) {}
+  export class SetProductQuantity {
+    static readonly type = '[Cart] Set Product Quantity';
+    constructor(public userId: number, public cartId: number, public productId: number, public quantity: number) {}
   }
 }
 
