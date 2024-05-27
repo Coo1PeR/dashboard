@@ -23,7 +23,7 @@ export interface ProductsStateModel {
 export class ProductsState {
   private getDataService = inject(GetDataService)
 
-  @Action(ProductsAction.FetchProducts)
+  @Action(ProductsAction.Fetch)
   fetchProducts(ctx: StateContext<ProductsStateModel>) {
     return this.getDataService.getProducts().pipe(
       tap((products: Product[]) => {

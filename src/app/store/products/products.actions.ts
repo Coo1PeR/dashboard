@@ -4,7 +4,7 @@ export class ProductsAction {
 }
 
 export namespace ProductsAction {
-  export class FetchProducts {
+  export class Fetch {
     static readonly type = '[Products] Fetch Products';
   }
 }

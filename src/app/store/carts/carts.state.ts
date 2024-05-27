@@ -23,7 +23,7 @@ export interface CartsStateModel {
 export class CartsState {
   private getDataService = inject(GetDataService)
 
-  @Action(CartsAction.FetchCarts)
+  @Action(CartsAction.Fetch)
   fetchCarts(ctx: StateContext<CartsStateModel>) {
     return this.getDataService.getCarts().pipe(
       tap((carts: Cart[]) => {
@@ -37,8 +37,8 @@ export class CartsState {
     return state.carts;
   }
 
-  @Action(CartsAction.SetProductQuantity)
-  setProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.SetProductQuantity) {
+  @Action(CartsAction.SetQuantity)
+  setProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.SetQuantity) {
     const state = ctx.getState();
     const updatedCarts = state.carts.map(cart => {
       if (cart.id === action.cartId && cart.userId === action.userId) {

@@ -8,14 +8,12 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 export interface UsersStateModel {
   users: UserFull[];
-  //userFull: UserFull[];
 }
 
 @State<UsersStateModel>({
   name: 'users',
   defaults: {
     users: [],
-    //userFull: [],
   }
 })
 
@@ -23,10 +21,8 @@ export interface UsersStateModel {
 
 export class UsersState {
   private getDataService = inject(GetDataService)
-  //static userFull: UserFull;
 
-
-  @Action(UsersAction.FetchUsers)
+  @Action(UsersAction.Fetch)
   fetchUsers(ctx: StateContext<UsersStateModel>) {
     return this.getDataService.getUsers().pipe(
       tap((users: UserFull[]) => {
@@ -35,23 +31,9 @@ export class UsersState {
     );
   }
 
-  @Action(UsersAction.UpdateUserDetails)
-  updateUserDetails({ getState, patchState }: StateContext<UsersStateModel>, { payload }: UsersAction.UpdateUserDetails) {
-    const state = getState();
-    const users = state.users.map(user => {
-      if (user.id === payload.id) {
-        return {
-          ...user,
-          totalPurchase: payload.totalPurchase,
-          userFullName: payload.userFullName
-        };
-      }
-      return user;
-    });
-
-    patchState({
-      users
-    });
+  @Action(UsersAction.UpdateTotalPurchase)
+  updateTotalPurchase(ctx: StateContext<UsersStateModel>, { users }: UsersAction.UpdateTotalPurchase) {
+    ctx.patchState({ users });
   }
 
   @Selector()

@@ -10,7 +10,6 @@ import { CartsAction } from '../store/carts/carts.actions';
 import { UsersState } from '../store/users/users.state';
 import { ProductsState } from '../store/products/products.state';
 import { CartsState } from '../store/carts/carts.state';
-import UpdateUserDetails = UsersAction.UpdateUserDetails;
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,12 @@ export class GetDataService {
   url: string = 'https://fakestoreapi.com';
 
   getUsers(): Observable<UserFull[]> {
-    return this.http.get<UserFull[]>(`${this.url}/users`);
+    return this.http.get<UserFull[]>(`${this.url}/users`).pipe(map((users) => {
+      return users.map((user) => {
+        const userFullName = `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}`;
+        return { ...user, userFullName }
+      })
+    }));
   }
 
   getProducts(): Observable<Product[]> {
@@ -61,42 +65,10 @@ export class GetDataService {
     );
   }
 
-  fetchAllData(): Observable<UserFull[]> {
-    if (this.usersLoaded) {
-      return this.users$.asObservable();
-    }
 
-    return combineLatest([
-      this.fetchUsers(),
-      this.fetchCarts(),
-      this.fetchProducts()
-    ]).pipe(
-      map(([users, carts, products]) => this.processUserData(users, carts, products)),
-      tap(usersWithTotalPurchase => {
-        console.log('Users with total purchase:', usersWithTotalPurchase); // Логируем результат
-        //this.store.dispatch(new UpdateUserDetails(this., ));
-
-        this.users$.next(usersWithTotalPurchase);
-        this.usersLoaded = true;
-      })
-    );
-  }
-
-  private fetchUsers(): Observable<UserFull[]> {
-    return this.store.dispatch(new UsersAction.FetchUsers()).pipe(
-      switchMap(() => this.store.select(UsersState.getUserFull))
-    );
-  }
-
-  private fetchCarts(): Observable<Cart[]> {
-    return this.store.dispatch(new CartsAction.FetchCarts()).pipe(
-      switchMap(() => this.store.select(CartsState.getCartsFull))
-    );
-  }
-
-  private fetchProducts(): Observable<Product[]> {
-    return this.store.dispatch(new ProductsAction.FetchProducts()).pipe(
-      switchMap(() => this.store.select(ProductsState.getProductsFull))
+  totalPurchase(): Observable<UserFull[]> {
+    return combineLatest([this.getUsers(), this.getCarts(), this.getProducts()]).pipe(
+      map(([users, carts, products]) => this.processUserData(users, carts, products))
     );
   }
 
@@ -109,8 +81,8 @@ export class GetDataService {
           return cartTotal + (product ? product.price * cartProduct.quantity : 0);
         }, 0);
       }, 0);
-      const userFullName = `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}`;
-      return { ...user, totalPurchase, userFullName };
+
+      return { ...user, totalPurchase };
     });
   }
 }

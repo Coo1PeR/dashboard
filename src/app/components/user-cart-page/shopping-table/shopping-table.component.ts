@@ -44,7 +44,7 @@ export class ShoppingTableComponent implements OnInit {
 
   increaseQuantity(cartId: number, product: any) {
     const newQuantity = product.quantity + 1;
-    this.store.dispatch(new CartsAction.SetProductQuantity(this.userId, cartId, product.productId, newQuantity));
+    this.store.dispatch(new CartsAction.SetQuantity(this.userId, cartId, product.productId, newQuantity));
     product.quantity = newQuantity;
     product.sum = product.price * newQuantity;
   }
@@ -52,7 +52,7 @@ export class ShoppingTableComponent implements OnInit {
   decreaseQuantity(cartId: number, product: any) {
     if (product.quantity > 1) {
       const newQuantity = product.quantity - 1;
-      this.store.dispatch(new CartsAction.SetProductQuantity(this.userId, cartId, product.productId, newQuantity));
+      this.store.dispatch(new CartsAction.SetQuantity(this.userId, cartId, product.productId, newQuantity));
       product.quantity = newQuantity;
       product.sum = product.price * newQuantity;
     }
