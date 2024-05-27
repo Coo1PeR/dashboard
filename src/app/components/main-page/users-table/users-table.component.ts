@@ -40,20 +40,21 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new UsersAction.Fetch()).subscribe(() => {
-      this.store.select(UsersState.getUserFull).subscribe((users: UserFull[]) => {
-        this.dataSource.data = users;
-        this.store.dispatch(new CartsAction.Fetch())
+      combineLatest([
+        this.store.dispatch(new UsersAction.Fetch()),
+        this.store.dispatch(new CartsAction.Fetch()),
         this.store.dispatch(new ProductsAction.Fetch())
-        this.isLoading = false;
+      ]).subscribe(() => {
+        this.getDataService.totalPurchase().subscribe((usersWithTotal: UserFull[]) => {
+          this.store.dispatch(new UsersAction.UpdateTotalPurchase(usersWithTotal)).subscribe(() => {
+            this.store.select(UsersState.getUserFull).subscribe((users: UserFull[]) => {
+              this.dataSource.data = users;
+              this.isLoading = false;
+            });
+          });
+        });
       });
-    });
 
-    totalPurchase(): Observable<UserFull[]> {
-      return combineLatest([this.getUsers(), this.getCarts(), this.getProducts()]).pipe(
-        map(([users, carts, products]) => this.processUserData(users, carts, products))
-      );
-    }
   }
 
   ngAfterViewInit() {
@@ -62,19 +63,5 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
 
   onRowClicked(user: UserFull) {
     this.openUserCartService.openUserCartPage(user);
-  }
-
-  processUserData(users: UserFull[], carts: Cart[], products: Product[]): UserFull[] {
-    return users.map(user => {
-      const userCarts = carts.filter(cart => cart.userId === user.id);
-      const totalPurchase = userCarts.reduce((total, cart) => {
-        return total + cart.products.reduce((cartTotal, cartProduct) => {
-          const product = products.find(p => p.id === cartProduct.productId);
-          return cartTotal + (product ? product.price * cartProduct.quantity : 0);
-        }, 0);
-      }, 0);
-
-      return { ...user, totalPurchase };
-    });
   }
 }

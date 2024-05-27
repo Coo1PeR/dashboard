@@ -40,4 +40,9 @@ export class UsersState {
   static getUserFull(state: UsersStateModel) {
     return state.users;
   }
+
+  @Selector()
+  static hasUsers(state: UsersStateModel) {
+    return state.users.length > 0;
+  }
 }
