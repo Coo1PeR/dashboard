@@ -1,5 +1,6 @@
 <div *ngFor="let cart of carts">
-  <h3>Cart ID: {{ cart.id }}</h3>
+  <mat-card-content><h4>Cart ID: {{ cart.id }}</h4></mat-card-content>
+
   <table mat-table [dataSource]="cart.products">
 
     <ng-container matColumnDef="title">

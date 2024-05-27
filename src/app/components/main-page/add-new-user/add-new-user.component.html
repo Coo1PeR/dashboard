@@ -1,0 +1,31 @@
+<div>
+  <form [formGroup]="newUserForm" (submit)="addUser()">
+    <section>
+      <mat-form-field>
+        <mat-label>Фамилия</mat-label>
+        <input type="text" formControlName="lastName" matInput>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Имя</mat-label>
+        <input type="text" formControlName="firstName" matInput>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" formControlName="email" matInput>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Номер телефона</mat-label>
+        <input type="tel" formControlName="phone" matInput>
+      </mat-form-field>
+
+    </section>
+    <mat-divider></mat-divider>
+    <section>
+      <button mat-flat-button color="primary" (click)="openAddPhoto()">Продолжить</button>
+    </section>
+
+  </form>
+</div>

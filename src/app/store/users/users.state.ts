@@ -7,15 +7,15 @@ import {pipe, tap} from "rxjs";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 export interface UsersStateModel {
-  users: User[];
-  userFull: UserFull[];
+  users: UserFull[];
+  //userFull: UserFull[];
 }
 
 @State<UsersStateModel>({
   name: 'users',
   defaults: {
     users: [],
-    userFull: [],
+    //userFull: [],
   }
 })
 
@@ -25,17 +25,37 @@ export class UsersState {
   private getDataService = inject(GetDataService)
   //static userFull: UserFull;
 
+
   @Action(UsersAction.FetchUsers)
   fetchUsers(ctx: StateContext<UsersStateModel>) {
     return this.getDataService.getUsers().pipe(
       tap((users: UserFull[]) => {
-        ctx.patchState({ userFull: users });
+        ctx.patchState({ users: users });
       })
     );
   }
 
+  @Action(UsersAction.UpdateUserDetails)
+  updateUserDetails({ getState, patchState }: StateContext<UsersStateModel>, { payload }: UsersAction.UpdateUserDetails) {
+    const state = getState();
+    const users = state.users.map(user => {
+      if (user.id === payload.id) {
+        return {
+          ...user,
+          totalPurchase: payload.totalPurchase,
+          userFullName: payload.userFullName
+        };
+      }
+      return user;
+    });
+
+    patchState({
+      users
+    });
+  }
+
   @Selector()
   static getUserFull(state: UsersStateModel) {
-    return state.userFull;
+    return state.users;
   }
 }

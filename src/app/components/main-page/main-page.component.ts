@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButton} from "@angular/material/button";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -8,6 +8,8 @@ import {Observable} from "rxjs";
 import { CommonModule } from '@angular/common';
 import {UsersTableComponent} from "./users-table/users-table.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
+import {Dialog} from "@angular/cdk/dialog";
+import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
 
 
 @Component({
@@ -25,6 +27,13 @@ import {StatisticsComponent} from "./statistics/statistics.component";
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent {
+  dialog = inject(Dialog);
+
+
   @Select(LoginState.getLogin) login$!: Observable<string>;
   @Select(LoginState.getPassword) password$!: Observable<string>;
+
+  openAddUser() {
+    this.dialog.open(AddNewUserComponent, {});
+  }
 }

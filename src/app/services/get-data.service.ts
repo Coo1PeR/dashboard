@@ -10,6 +10,7 @@ import { CartsAction } from '../store/carts/carts.actions';
 import { UsersState } from '../store/users/users.state';
 import { ProductsState } from '../store/products/products.state';
 import { CartsState } from '../store/carts/carts.state';
+import UpdateUserDetails = UsersAction.UpdateUserDetails;
 
 @Injectable({
   providedIn: 'root'
@@ -32,40 +33,6 @@ export class GetDataService {
 
   getCarts(): Observable<Cart[]> {
     return this.http.get<Cart[]>(`${this.url}/carts`);
-  }
-
-  fetchAllData(): Observable<UserFull[]> {
-    if (this.usersLoaded) {
-      return this.users$.asObservable();
-    }
-
-    return this.store.dispatch(new UsersAction.FetchUsers()).pipe(
-      switchMap(() => this.store.dispatch(new CartsAction.FetchCarts())),
-      switchMap(() => this.store.dispatch(new ProductsAction.FetchProducts())),
-      switchMap(() => combineLatest([
-        this.store.select(UsersState.getUserFull),
-        this.store.select(CartsState.getCartsFull),
-        this.store.select(ProductsState.getProductsFull)
-      ]).pipe(
-        map(([users, carts, products]) => {
-          return users.map(user => {
-            const userCarts = carts.filter(cart => cart.userId === user.id);
-            const totalPurchase = userCarts.reduce((total, cart) => {
-              return total + cart.products.reduce((cartTotal, cartProduct) => {
-                const product = products.find(p => p.id === cartProduct.productId);
-                return cartTotal + (product ? product.price * cartProduct.quantity : 0);
-              }, 0);
-            }, 0);
-            return { ...user, totalPurchase, userFullName: `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}` };
-          });
-        }),
-        tap(usersWithTotalPurchase => {
-          this.users$.next(usersWithTotalPurchase);
-          this.usersLoaded = true;
-        }),
-        //shareReplay(1)
-      ))
-    );
   }
 
   getUserCarts(userId: number): Observable<any[]> {
@@ -94,5 +61,56 @@ export class GetDataService {
     );
   }
 
+  fetchAllData(): Observable<UserFull[]> {
+    if (this.usersLoaded) {
+      return this.users$.asObservable();
+    }
 
+    return combineLatest([
+      this.fetchUsers(),
+      this.fetchCarts(),
+      this.fetchProducts()
+    ]).pipe(
+      map(([users, carts, products]) => this.processUserData(users, carts, products)),
+      tap(usersWithTotalPurchase => {
+        console.log('Users with total purchase:', usersWithTotalPurchase); // Логируем результат
+        //this.store.dispatch(new UpdateUserDetails(this., ));
+
+        this.users$.next(usersWithTotalPurchase);
+        this.usersLoaded = true;
+      })
+    );
+  }
+
+  private fetchUsers(): Observable<UserFull[]> {
+    return this.store.dispatch(new UsersAction.FetchUsers()).pipe(
+      switchMap(() => this.store.select(UsersState.getUserFull))
+    );
+  }
+
+  private fetchCarts(): Observable<Cart[]> {
+    return this.store.dispatch(new CartsAction.FetchCarts()).pipe(
+      switchMap(() => this.store.select(CartsState.getCartsFull))
+    );
+  }
+
+  private fetchProducts(): Observable<Product[]> {
+    return this.store.dispatch(new ProductsAction.FetchProducts()).pipe(
+      switchMap(() => this.store.select(ProductsState.getProductsFull))
+    );
+  }
+
+  private processUserData(users: UserFull[], carts: Cart[], products: Product[]): UserFull[] {
+    return users.map(user => {
+      const userCarts = carts.filter(cart => cart.userId === user.id);
+      const totalPurchase = userCarts.reduce((total, cart) => {
+        return total + cart.products.reduce((cartTotal, cartProduct) => {
+          const product = products.find(p => p.id === cartProduct.productId);
+          return cartTotal + (product ? product.price * cartProduct.quantity : 0);
+        }, 0);
+      }, 0);
+      const userFullName = `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}`;
+      return { ...user, totalPurchase, userFullName };
+    });
+  }
 }

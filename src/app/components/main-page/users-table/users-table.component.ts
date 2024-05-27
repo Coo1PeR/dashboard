@@ -1,14 +1,14 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
-import {HttpClientModule} from "@angular/common/http";
-import {Observable, tap} from "rxjs";
-import {UserFull} from "../../../interfaces/interfaces";
-import {AsyncPipe, CommonModule, CurrencyPipe, NgForOf} from "@angular/common";
-import {MatTableModule} from '@angular/material/table';
-import {MatSort, MatSortModule} from '@angular/material/sort';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatTableDataSource} from '@angular/material/table';
-import {GetDataService} from "../../../services/get-data.service";
-import {OpenUserCartService} from "../../../services/open-user-cart.service";
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
+import { Observable, tap } from "rxjs";
+import { UserFull } from "../../../interfaces/interfaces";
+import { AsyncPipe, CommonModule, CurrencyPipe, NgForOf } from "@angular/common";
+import { MatTableModule } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { GetDataService } from "../../../services/get-data.service";
+import { OpenUserCartService } from "../../../services/open-user-cart.service";
 
 @Component({
   selector: 'app-users-table',
@@ -30,9 +30,11 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.usersWithTotalPurchase$ = this.getDataService.fetchAllData().pipe(
-      tap(
-        () => this.isLoading = false
-      )
+      tap(users => {
+        this.dataSource.data = users;
+        this.isLoading = false;
+        console.log('Users data:', users); // Логируем данные
+      })
     );
 
     this.usersWithTotalPurchase$.subscribe(users => {
@@ -47,5 +49,4 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   onRowClicked(user: UserFull) {
     this.openUserCartService.openUserCartPage(user);
   }
-
 }
