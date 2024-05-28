@@ -1,42 +1,46 @@
-import {Component, ElementRef, inject, input, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {Dialog, DialogModule} from "@angular/cdk/dialog";
-import {NgIf} from "@angular/common";
-import {MatButtonModule} from "@angular/material/button";
-import {GetDataService} from "../../../services/get-data.service";
+import {Store} from "@ngxs/store";
+import {UserFull} from "../../../interfaces/interfaces";
 import {OpenUserCartService} from "../../../services/open-user-cart.service";
+import {UsersState} from "../../../store/users/users.state";
+import {UsersAction} from "../../../store/users/users.actions";
+import {MatButton} from "@angular/material/button";
+import {NgIf} from "@angular/common";
+import {Dialog} from "@angular/cdk/dialog";
 
 @Component({
   selector: 'app-add-user-photo',
   standalone: true,
-  imports: [MatButtonModule, DialogModule, NgIf],
   templateUrl: './add-user-photo.component.html',
-  styleUrl: './add-user-photo.component.scss'
+  imports: [
+    MatButton,
+    NgIf
+  ],
+  styleUrls: ['./add-user-photo.component.scss']
 })
 export class AddUserPhotoComponent {
-  public dialog= inject(Dialog)
-  private matDialog=inject(MatDialog)
-  private getDataService = inject(GetDataService);
-  private openUserCartService = inject(OpenUserCartService);
-
-
-
-  @ViewChild('dropZone', { static: true }) dropZone!: ElementRef;
+  @ViewChild('dropZone', {static: true}) dropZone!: ElementRef;
   imageUrl: string | ArrayBuffer | null = '';
+
+  private dialog = inject(Dialog)
+  private store = inject(Store)
+  private openUserCartService = inject(OpenUserCartService)
+
+
+  ngOnInit() {
+    this.initializeDragAndDrop();
+  }
 
   initializeDragAndDrop() {
     const dropZoneElement = this.dropZone.nativeElement;
 
-    dropZoneElement.addEventListener('dragover', (event: DragEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-      dropZoneElement.classList.add('drag-over');
-    });
-
-    dropZoneElement.addEventListener('dragleave', (event: DragEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-      dropZoneElement.classList.remove('drag-over');
+    ['dragover', 'dragleave'].forEach(eventName => {
+      dropZoneElement.addEventListener(eventName, (event: DragEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropZoneElement.classList.toggle('drag-over', eventName === 'dragover');
+      });
     });
 
     dropZoneElement.addEventListener('drop', (event: DragEvent) => {
@@ -44,8 +48,8 @@ export class AddUserPhotoComponent {
       event.stopPropagation();
       dropZoneElement.classList.remove('drag-over');
 
-      if (event.dataTransfer?.files.length) {
-        const file = event.dataTransfer.files[0];
+      const file = event.dataTransfer?.files[0];
+      if (file) {
         this.handleFile(file);
       }
     });
@@ -56,29 +60,36 @@ export class AddUserPhotoComponent {
     reader.onload = () => {
       this.imageUrl = reader.result;
 
-      // Save the image as a base64 string to the user profile
-      if (typeof this.imageUrl === 'string') {
-        this.saveUserProfileImage(this.imageUrl);
+      const lastUser = this.getLastUser();
+      if (lastUser) {
+        const updatedUser: UserFull = {
+          ...lastUser,
+          profileImage: reader.result as string
+        };
+        this.updateUserProfile(updatedUser);
       }
     };
     reader.readAsDataURL(file);
   }
 
-  saveUserProfileImage(base64Image: string) {
-    // Example: Saving to the last user added in the users array
+  updateUserProfile(updatedUser: UserFull) {
+    this.store.dispatch(new UsersAction.Update(updatedUser))
+  };
+
+  closeDialogAndOpenUserPage(user: UserFull) {
+    this.openUserCartService.openUserCartPage(user);
   }
 
   complete() {
-
-    // Получаем последнего пользователя
-    const lastUserIndex = 'userFull.length - 1';
-    const lastUser = +'userFull[lastUserIndex]';
-
-    // Закрываем диалог add-photo.component
     this.dialog.closeAll();
-
-    // Открываем страницу с информацией о пользователе
-    //this.openUserCartService.openUserCartPage(lastUser);
+    const lastUser = this.getLastUser();
+    if (lastUser) {
+      this.openUserCartService.openUserCartPage(lastUser);
+    }
   }
 
+  getLastUser(): UserFull | undefined {
+    const users = this.store.selectSnapshot(UsersState.getUserFull);
+    return users.length > 0 ? users[users.length - 1] : undefined;
+  }
 }

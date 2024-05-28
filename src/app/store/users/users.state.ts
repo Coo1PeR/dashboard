@@ -36,6 +36,29 @@ export class UsersState {
     ctx.patchState({ users });
   }
 
+  @Action(UsersAction.AddUser)
+  addUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.AddUser) {
+    const state = ctx.getState();
+    ctx.patchState({
+      users: [...state.users, user]
+    });
+  }
+
+  @Action(UsersAction.Update)
+  updateUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.Update) {
+    const state = ctx.getState();
+    const updatedUsers = state.users.map(u => {
+      if (u.id === user.id) {
+        return user;
+      } else {
+        return u;
+      }
+    });
+    ctx.patchState({
+      users: updatedUsers
+    });
+  }
+
   @Selector()
   static getUserFull(state: UsersStateModel) {
     return state.users;

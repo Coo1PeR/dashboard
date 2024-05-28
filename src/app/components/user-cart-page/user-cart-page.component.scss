@@ -32,3 +32,16 @@ mat-card {
 button {
   margin-top: 40px;
 }
+
+.profile-image {
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 40px;
+
+  img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+}

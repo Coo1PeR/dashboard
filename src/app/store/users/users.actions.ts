@@ -15,10 +15,19 @@ export namespace UsersAction {
     constructor(public payload: { id: number; totalPurchase: number; userFullName: string }) {}
   }
 
-
   export class UpdateTotalPurchase {
     static readonly type = '[Users] Update Total Purchase';
     constructor(public users: UserFull[]) {}
+  }
+
+  export class AddUser {
+    static readonly type = '[Users] Add User';
+    constructor(public user: UserFull) {}
+  }
+
+  export class Update {
+    static readonly type = '[Users] Update User';
+    constructor(public user: UserFull) {}
   }
 }
 
