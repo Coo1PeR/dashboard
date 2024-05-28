@@ -4,10 +4,6 @@ import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
 import { Cart, Product, UserFull } from '../interfaces/interfaces';
 import { Store } from '@ngxs/store';
-import { UsersAction } from '../store/users/users.actions';
-import { ProductsAction } from '../store/products/products.actions';
-import { CartsAction } from '../store/carts/carts.actions';
-import { UsersState } from '../store/users/users.state';
 import { ProductsState } from '../store/products/products.state';
 import { CartsState } from '../store/carts/carts.state';
 
@@ -17,8 +13,6 @@ import { CartsState } from '../store/carts/carts.state';
 export class GetDataService {
   private http = inject(HttpClient);
   private store = inject(Store);
-  private usersLoaded = false;
-  private users$ = new BehaviorSubject<UserFull[]>([]);
 
   url: string = 'https://fakestoreapi.com';
 

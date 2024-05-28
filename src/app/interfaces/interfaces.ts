@@ -25,13 +25,6 @@ export interface Product {
   }
 }
 
-export interface Purchases {
-  "title": string;
-  "price": number;
-  "quantity": number;
-  "sum": number;
-}
-
 export interface UserFull extends User {
   totalPurchase: number;
   userFullName: string;
@@ -59,12 +52,4 @@ export interface User {
   };
   phone: string;
   __v: number
-}
-
-export interface CartProduct {
-  productId: number;
-  title: string;
-  price: number;
-  quantity: number;
-  sum?: number;
 }

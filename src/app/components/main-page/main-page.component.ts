@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {MatTabsModule} from "@angular/material/tabs";
+import {MatTabChangeEvent, MatTabsModule} from "@angular/material/tabs";
 import {MatButton} from "@angular/material/button";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {LoginState} from "../../store/login/login.state";
@@ -28,6 +28,12 @@ import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
 })
 export class MainPageComponent {
   dialog = inject(Dialog);
+
+  selectedIndex: number = 0;
+
+  onTabChange(event: MatTabChangeEvent) {
+    this.selectedIndex = event.index;
+  }
 
 
   @Select(LoginState.getLogin) login$!: Observable<string>;

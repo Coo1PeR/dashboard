@@ -41,11 +41,11 @@ export class CartsState {
   setProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.SetQuantity) {
     const state = ctx.getState();
     const updatedCarts = state.carts.map(cart => {
-      if (cart.id === action.cartId && cart.userId === action.userId) {
+      if (cart.id === +action.cartId && cart.userId === +action.userId) {
         return {
           ...cart,
           products: cart.products.map(product => {
-            if (product.productId === action.productId) {
+            if (product.productId === +action.productId) {
               return {
                 ...product,
                 quantity: action.quantity
@@ -63,4 +63,5 @@ export class CartsState {
       carts: updatedCarts
     });
   }
+
 }

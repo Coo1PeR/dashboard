@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
-import {combineLatest, Observable, of} from "rxjs";
-import {Cart, Product, UserFull} from "../../../interfaces/interfaces";
+import {combineLatest, of} from "rxjs";
+import {UserFull} from "../../../interfaces/interfaces";
 import {AsyncPipe, CommonModule, CurrencyPipe, NgForOf} from "@angular/common";
 import {MatTableModule} from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
@@ -14,7 +14,8 @@ import {Store} from "@ngxs/store";
 import {UsersAction} from "../../../store/users/users.actions";
 import {CartsAction} from "../../../store/carts/carts.actions";
 import {ProductsAction} from "../../../store/products/products.actions";
-import {switchMap, tap} from "rxjs/operators";
+import {switchMap} from "rxjs/operators";
+import {CartsState} from "../../../store/carts/carts.state";
 
 @Component({
   selector: 'app-users-table',
@@ -60,10 +61,39 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       this.isLoading = false;
     });
 
-    // Always subscribe to changes in the store to ensure we have the latest data
-    this.store.select(UsersState.getUserFull).subscribe((users: UserFull[]) => {
-      this.dataSource.data = users;
-    });
+    this.dataSource.data = this.store.selectSnapshot(UsersState.getUserFull);
+
+    ///////////////////////////////////////////////
+    // this.store.selectOnce(UsersState.getUserFull).pipe(
+    //   switchMap(users => {
+    //     if (users.length === 0) {
+    //       // If no data, dispatch actions to fetch it
+    //       return combineLatest([
+    //         this.store.dispatch(new UsersAction.Fetch()),
+    //         this.store.dispatch(new CartsAction.Fetch()),
+    //         this.store.dispatch(new ProductsAction.Fetch())
+    //       ]);
+    //     } else {
+    //       return of(users);
+    //     }
+    //   })
+    // ).pipe(
+    //   switchMap(() => this.store.select(UsersState.getUserFull))
+    // ).subscribe((users: UserFull[]) => {
+    //   this.dataSource.data = users;
+    //   this.isLoading = false;
+    // });
+    //
+    // this.store.select(UsersState.getUserFull).subscribe((users: UserFull[]) => {
+    //   this.dataSource.data = users;
+    // });
+    //
+    // this.store.select(CartsState.getCartsFull).pipe(
+    //   switchMap(() => this.getDataService.totalPurchase()),
+    //   switchMap((usersWithTotal: UserFull[]) =>
+    //     this.store.dispatch(new UsersAction.UpdateTotalPurchase(usersWithTotal))
+    //   )
+    // ).subscribe();
   }
 
   ngAfterViewInit() {
