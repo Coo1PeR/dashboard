@@ -4,7 +4,6 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {MatInput} from "@angular/material/input";
-import {MainPageComponent} from "../main-page/main-page.component";
 import {Store} from "@ngxs/store";
 import {SetLoginData} from "../../store/login/login.state";
 //
@@ -39,6 +38,7 @@ export class LoginPageComponent {
       this.router.navigate(['/main']);
 
     }
+    console.log(this.loginForm)
   }
 
 }

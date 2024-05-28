@@ -1,11 +1,11 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
-import { Cart, Product, UserFull } from '../interfaces/interfaces';
-import { Store } from '@ngxs/store';
-import { ProductsState } from '../store/products/products.state';
-import { CartsState } from '../store/carts/carts.state';
+import {Injectable, inject} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable, combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Cart, Product, UserFull} from '../interfaces/interfaces';
+import {Store} from '@ngxs/store';
+import {ProductsState} from '../store/products/products.state';
+import {CartsState} from '../store/carts/carts.state';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class GetDataService {
     return this.http.get<UserFull[]>(`${this.url}/users`).pipe(map((users) => {
       return users.map((user) => {
         const userFullName = `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}`;
-        return { ...user, userFullName }
+        return {...user, userFullName}
       })
     }));
   }
@@ -76,7 +76,7 @@ export class GetDataService {
         }, 0);
       }, 0);
 
-      return { ...user, totalPurchase };
+      return {...user, totalPurchase};
     });
   }
 }

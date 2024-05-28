@@ -35,7 +35,6 @@ export class MainPageComponent {
     this.selectedIndex = event.index;
   }
 
-
   @Select(LoginState.getLogin) login$!: Observable<string>;
   @Select(LoginState.getPassword) password$!: Observable<string>;
 

@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Dialog} from "@angular/cdk/dialog";
 import {AddUserPhotoComponent} from "../add-user-photo/add-user-photo.component";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatDivider} from "@angular/material/divider";
 import {MatButton} from "@angular/material/button";
@@ -21,7 +21,8 @@ import {UsersState} from "../../../store/users/users.state";
     MatInput,
     MatDivider,
     MatButton,
-    MatLabel
+    MatLabel,
+    MatError
   ],
   templateUrl: './add-new-user.component.html',
   styleUrl: './add-new-user.component.scss'
@@ -32,8 +33,8 @@ export class AddNewUserComponent {
 
 
   newUserForm = new FormGroup({
-    lastName: new FormControl('', Validators.required),
-    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [
       Validators.required,
