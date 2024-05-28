@@ -1,6 +1,6 @@
 import {Component, inject, Input} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {MatInput} from "@angular/material/input";
@@ -16,7 +16,8 @@ import {SetLoginData} from "../../store/login/login.state";
     MatButton,
     RouterLink,
     MatInput,
-    MatLabel
+    MatLabel,
+    MatError
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
@@ -27,7 +28,7 @@ export class LoginPageComponent {
 
   loginForm = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
   onSubmit() {
@@ -37,8 +38,9 @@ export class LoginPageComponent {
       this.store.dispatch(new SetLoginData({login, password}))
       this.router.navigate(['/main']);
 
+      console.log(`Login: ${login}`)
+      console.log(`Password: ${password}`)
     }
-    console.log(this.loginForm)
   }
 
 }
