@@ -17,8 +17,8 @@ export namespace UsersAction {
   }
 
   export class UpdateTotalPurchase {
-    static readonly type = '[Users] Update Total Purchase';
-    constructor(public users: UserFull[]) {}
+    static readonly type = '[User] Update Total Purchase';
+    constructor(public userId: number, public totalPurchase: number) {}
   }
 
   export class AddUser {

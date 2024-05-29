@@ -56,12 +56,12 @@ export class AddNewUserComponent {
     let newUser: UserFull = {
       address: {
         geolocation: {
-          lat: +'',
-          long: +'',
+          lat: 0,
+          long: 0,
         },
         city: '',
         street: '',
-        number: +'',
+        number: 0,
         zipcode: '',
       },
       id: id,
@@ -73,8 +73,8 @@ export class AddNewUserComponent {
         lastname: lastName,
       },
       phone: phone,
-      __v: +'',
-      totalPurchase: +'',
+      __v: 0,
+      totalPurchase: 0,
       userFullName: `${lastName.charAt(0).toUpperCase()}${lastName.slice(1)} ${firstName.charAt(0).toUpperCase()}${firstName.slice(1)}`,
       profileImage: '',
     }

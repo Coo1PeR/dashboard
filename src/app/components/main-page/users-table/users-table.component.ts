@@ -11,6 +11,7 @@ import {UsersState} from "../../../core/stores/users/users.state";
 import {Store} from "@ngxs/store";
 import {CartsState} from "../../../core/stores/carts/carts.state";
 import {ProductsState} from "../../../core/stores/products/products.state";
+import {UsersAction} from "../../../core/stores/users/users.actions";
 
 @Component({
   selector: 'app-users-table',
@@ -44,7 +45,13 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     this.store.select(CartsState.getCartsFull).subscribe(carts => {
       const users = this.dataSource.data;
       const products = this.store.selectSnapshot(ProductsState.getProductsFull);
-      this.dataSource.data = this.processUserData(users, carts, products);
+      const updatedUsers = this.processUserData(users, carts, products);
+      this.dataSource.data = updatedUsers;
+
+      // Диспатч экшена для обновления totalPurchase
+      updatedUsers.forEach(user => {
+        this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
+      });
     });
   }
 
@@ -54,16 +61,25 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
 
   processUserData(users: UserFull[], carts: Cart[], products: Product[]): UserFull[] {
     return users.map(user => {
-      const userCarts = carts.filter(cart => cart.userId === user.id);
-      const totalPurchase = userCarts.reduce((total, cart) => {
-        return total + cart.products.reduce((cartTotal, cartProduct) => {
-          const product = products.find(product => product.id === cartProduct.productId);
-          return cartTotal + (product ? product.price * cartProduct.quantity : 0);
-        }, 0);
-      }, 0);
-
-      return {...user, totalPurchase};
+      const userCarts = this.getUserCarts(user.id, carts);
+      const totalPurchase = Math.round(this.calculateTotalPurchase(userCarts, products));
+      return { ...user, totalPurchase };
     });
+  }
+
+  private getUserCarts(userId: number, carts: Cart[]): Cart[] {
+    return carts.filter(cart => cart.userId === userId);
+  }
+
+  private calculateCartTotal(cart: Cart, products: Product[]): number {
+    return cart.products.reduce((cartTotal, cartProduct) => {
+      const product = products.find(product => product.id === cartProduct.productId);
+      return cartTotal + (product ? product.price * cartProduct.quantity : 0);
+    }, 0);
+  }
+
+  private calculateTotalPurchase(userCarts: Cart[], products: Product[]): number {
+    return userCarts.reduce((total, cart) => total + this.calculateCartTotal(cart, products), 0);
   }
 
   onRowClicked(user: UserFull) {

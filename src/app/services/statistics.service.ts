@@ -1,12 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { Router } from "@angular/router";
 import { Observable, combineLatest } from "rxjs";
 import { UsersState } from "../core/stores/users/users.state";
-import { map, switchMap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { Cart, Product, UserFull } from '../interfaces/interfaces';
 import { CartsState } from "../core/stores/carts/carts.state";
 import {Select, Store} from "@ngxs/store";
-import { GetDataService } from "./get-data.service";
 import {ProductsState} from "../core/stores/products/products.state";
 
 // TODO move to core/services
@@ -17,9 +15,7 @@ export class StatisticsService {
   @Select(CartsState.getCartsFull) carts$!: Observable<Cart[]>;
   @Select(ProductsState.getProductsFull) products$!: Observable<Product[]>;
 
-  private router = inject(Router);
   private store = inject(Store);
-  private getDataService = inject(GetDataService);
 
   // Метод для вычисления соотношения купленных всех видов товаров и их количества
   // TODO extract interface

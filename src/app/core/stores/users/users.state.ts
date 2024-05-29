@@ -32,17 +32,15 @@ export class UsersState {
   }
 
   @Action(UsersAction.UpdateTotalPurchase)
-  updateTotalPurchase(ctx: StateContext<UsersStateModel>, { users }: UsersAction.UpdateTotalPurchase) {
-    ctx.patchState({ users });
-  }
-
-  @Action(UsersAction.AddUser)
-  addUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.AddUser) {
+  updateTotalPurchase(ctx: StateContext<UsersStateModel>, action: UsersAction.UpdateTotalPurchase) {
     const state = ctx.getState();
-    // TODO check State Operators (ngxs docs)
-    ctx.patchState({
-      users: [...state.users, user]
+    const users = state.users.map(user => {
+      if (user.id === action.userId) {
+        return { ...user, totalPurchase: action.totalPurchase };
+      }
+      return user;
     });
+    ctx.setState({ ...state, users });
   }
 
   @Action(UsersAction.Update)

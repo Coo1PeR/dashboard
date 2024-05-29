@@ -1,11 +1,9 @@
 import {Component, OnInit, inject, ViewChild} from '@angular/core';
-import {CanvasJSAngularChartsModule} from '@canvasjs/angular-charts';
 import {StatisticsService} from '../../../services/statistics.service';
 import {RouterOutlet} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {
   ChartComponent,
-  ApexOptions,
   NgApexchartsModule,
   ApexAxisChartSeries,
   ApexChart,
@@ -26,7 +24,6 @@ export type ChartOptions = {
   imports: [
     CommonModule,
     RouterOutlet,
-    CanvasJSAngularChartsModule,
     NgApexchartsModule,
   ],
   templateUrl: './statistics.component.html',
@@ -34,8 +31,6 @@ export type ChartOptions = {
 })
 
 export class StatisticsComponent implements OnInit {
-  public productChartOptions: object | undefined;
-  public userChartOptions: object | undefined;
   private statisticsService = inject(StatisticsService);
 
   /////////////
@@ -56,7 +51,6 @@ export class StatisticsComponent implements OnInit {
   private loadProductsData() {
     this.statisticsService.calculateProductRatio().subscribe(data => {
       this.productData = data;
-      this.renderProductChart();
       this.renderProductChartApex()
     });
   }
@@ -64,34 +58,8 @@ export class StatisticsComponent implements OnInit {
   private loadUsersData() {
     this.statisticsService.calculateTotalPurchase().subscribe(data => {
       this.userData = data;
-      this.renderUserChart();
       this.renderUserChartApex();
-
     });
-  }
-
-  public renderProductChart() {
-    this.productChartOptions = {
-      title: {
-        text: 'Соотношение купленных всех видов товаров и их количества'
-      },
-      data: [{
-        type: 'column',
-        dataPoints: this.productData.map(item => ({label: item.productTitle, y: item.productTotalPurchase}))
-      }]
-    };
-  }
-
-  public renderUserChart() {
-    this.userChartOptions = {
-      title: {
-        text: 'Пользователи и их общая сумма покупок'
-      },
-      data: [{
-        type: 'column',
-        dataPoints: this.userData.map(item => ({label: item.userFullName, y: item.userTotalPurchaseSum}))
-      }]
-    };
   }
 
   /////////////////
