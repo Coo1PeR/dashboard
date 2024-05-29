@@ -24,6 +24,14 @@ export interface Product {
     "count": number
   }
 }
+
+export interface ProductCart {
+  "price": number,
+  "productId": number,
+  "quantity": number,
+  "sum": number,
+  "title": string
+}
 // TODO split to different files
 export interface UserFull extends User {
   totalPurchase: number;

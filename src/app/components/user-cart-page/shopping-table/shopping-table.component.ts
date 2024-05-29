@@ -7,6 +7,7 @@ import {CartsAction} from "../../../store/carts/carts.actions";
 import {Store} from "@ngxs/store";
 import {MatIcon} from "@angular/material/icon";
 import {MatCardContent} from "@angular/material/card";
+import {Cart, Product, ProductCart} from "../../../interfaces/interfaces";
 
 @Component({
   selector: 'app-shopping-table',
@@ -26,8 +27,7 @@ import {MatCardContent} from "@angular/material/card";
 
 export class ShoppingTableComponent implements OnInit {
   @Input() userId!: number;
-  // TODO any
-  carts: any[] = [];
+  carts: Cart[] = [];
   displayedColumns: string[] = ['title', 'price', 'quantity', 'sum'];
   private store = inject(Store);
 
@@ -43,15 +43,15 @@ export class ShoppingTableComponent implements OnInit {
     });
   }
 
-  // TODO any
-  increaseQuantity(cartId: number, product: any) {
+  increaseQuantity(cartId: number, product:  ProductCart) {
+    console.log(product)
     const newQuantity = product.quantity + 1;
     this.store.dispatch(new CartsAction.SetQuantity(this.userId, cartId, product.productId, newQuantity));
     product.quantity = newQuantity;
     product.sum = product.price * newQuantity;
   }
 
-  decreaseQuantity(cartId: number, product: any) {
+  decreaseQuantity(cartId: number, product: ProductCart) {
     if (product.quantity > 1) {
       const newQuantity = product.quantity - 1;
       this.store.dispatch(new CartsAction.SetQuantity(this.userId, cartId, product.productId, newQuantity));
