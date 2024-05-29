@@ -1,10 +1,9 @@
 import {inject, Injectable} from '@angular/core';
-import {State, Action, StateContext, Selector} from '@ngxs/store';
+import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {UsersAction} from './users.actions';
-import {User, UserFull} from "../../../interfaces/interfaces";
+import {UserFull} from "../../../interfaces/interfaces";
 import {GetDataService} from "../../../services/get-data.service";
-import {pipe, tap} from "rxjs";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {tap} from "rxjs";
 
 export interface UsersStateModel {
   users: UserFull[];
@@ -22,11 +21,21 @@ export interface UsersStateModel {
 export class UsersState {
   private getDataService = inject(GetDataService)
 
+  @Selector()
+  static Users(state: UsersStateModel) {
+    return state.users;
+  }
+
+  @Selector()
+  static hasUsers(state: UsersStateModel) {
+    return state.users.length > 0;
+  }
+
   @Action(UsersAction.Fetch)
   fetchUsers(ctx: StateContext<UsersStateModel>) {
     return this.getDataService.getUsers().pipe(
       tap((users: UserFull[]) => {
-        ctx.patchState({ users: users });
+        ctx.patchState({users: users});
       })
     );
   }
@@ -36,15 +45,15 @@ export class UsersState {
     const state = ctx.getState();
     const users = state.users.map(user => {
       if (user.id === action.userId) {
-        return { ...user, totalPurchase: action.totalPurchase };
+        return {...user, totalPurchase: action.totalPurchase};
       }
       return user;
     });
-    ctx.setState({ ...state, users });
+    ctx.setState({...state, users});
   }
 
   @Action(UsersAction.Update)
-  updateUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.Update) {
+  updateUser(ctx: StateContext<UsersStateModel>, {user}: UsersAction.Update) {
     const state = ctx.getState();
     const updatedUsers = state.users.map(u => {
       if (u.id === user.id) {
@@ -57,16 +66,5 @@ export class UsersState {
     ctx.patchState({
       users: updatedUsers
     });
-  }
-
-  // TODO move to tok
-  @Selector()
-  static Users(state: UsersStateModel) {
-    return state.users;
-  }
-
-  @Selector()
-  static hasUsers(state: UsersStateModel) {
-    return state.users.length > 0;
   }
 }
