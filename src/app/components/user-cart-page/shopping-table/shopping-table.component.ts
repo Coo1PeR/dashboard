@@ -1,5 +1,4 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
-import {GetDataService} from "../../../services/get-data.service";
 import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
 import {CurrencyPipe} from "@angular/common";
@@ -8,6 +7,10 @@ import {Store} from "@ngxs/store";
 import {MatIcon} from "@angular/material/icon";
 import {MatCardContent} from "@angular/material/card";
 import {Cart, ProductCart} from "../../../interfaces/interfaces";
+import {combineLatest, Observable} from "rxjs";
+import {CartsState} from "../../../core/stores/carts/carts.state";
+import {ProductsState} from "../../../core/stores/products/products.state";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-shopping-table',
@@ -29,14 +32,12 @@ export class ShoppingTableComponent implements OnInit {
   displayedColumns: string[] = ['title', 'price', 'quantity', 'sum'];
   private store = inject(Store);
 
-  private getDataService = inject(GetDataService);
-
   ngOnInit() {
     this.loadCarts();
   }
 
   loadCarts() {
-    this.getDataService.getUserCarts(this.userId).subscribe(carts => {
+    this.getUserCarts(this.userId).subscribe(carts => {
       this.carts = carts;
     });
   }
@@ -56,6 +57,32 @@ export class ShoppingTableComponent implements OnInit {
       product.quantity = newQuantity;
       product.sum = product.price * newQuantity;
     }
+  }
+
+  getUserCarts(userId: number): Observable<any> {
+    return combineLatest([
+      this.store.select(CartsState.getCartsFull),
+      this.store.select(ProductsState.getProductsFull)
+    ]).pipe(
+      map(([carts, products]) => {
+        const userCarts = carts.filter(cart => cart.userId === userId);
+        return userCarts.map(cart => {
+          return {
+            id: cart.id,
+            products: cart.products.map(cartProduct => {
+              const product = products.find(p => p.id === cartProduct.productId);
+              return {
+                productId: cartProduct.productId,
+                title: product?.title || 'Unknown Product',
+                price: product?.price || 0,
+                quantity: cartProduct.quantity,
+                sum: (product?.price || 0) * cartProduct.quantity
+              };
+            })
+          };
+        });
+      })
+    );
   }
 }
 
