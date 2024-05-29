@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {combineLatest, of} from "rxjs";
 import {UserFull} from "../../../interfaces/interfaces";
@@ -23,7 +23,7 @@ import {switchMap} from "rxjs/operators";
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss']
 })
-export class UsersTableComponent implements OnInit {
+export class UsersTableComponent implements OnInit, AfterViewInit {
   private getDataService = inject(GetDataService);
   private openUserCartService = inject(OpenUserCartService);
   private store = inject(Store);
@@ -52,6 +52,7 @@ export class UsersTableComponent implements OnInit {
             ),
             switchMap(() => this.store.select(UsersState.getUserFull))
           );
+
         } else {
           return of(users);
         }
@@ -96,6 +97,9 @@ export class UsersTableComponent implements OnInit {
     //     this.stores.dispatch(new UsersAction.UpdateTotalPurchase(usersWithTotal))
     //   )
     // ).subscribe();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   onRowClicked(user: UserFull) {

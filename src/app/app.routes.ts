@@ -6,6 +6,11 @@ import {UserCartPageComponent} from "./components/user-cart-page/user-cart-page.
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
     component: LoginPageComponent,
     title: 'Login Page',
   },
