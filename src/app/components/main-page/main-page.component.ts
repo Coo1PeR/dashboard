@@ -7,6 +7,7 @@ import {UsersTableComponent} from "./users-table/users-table.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
 import {Dialog} from "@angular/cdk/dialog";
 import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
+import {UsersAction} from "../../core/stores/users/users.actions";
 
 
 @Component({
