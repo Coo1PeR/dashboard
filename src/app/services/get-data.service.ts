@@ -76,8 +76,7 @@ export class GetDataService {
       const userCarts = carts.filter(cart => cart.userId === user.id);
       const totalPurchase = userCarts.reduce((total, cart) => {
         return total + cart.products.reduce((cartTotal, cartProduct) => {
-          // TODO p :)
-          const product = products.find(p => p.id === cartProduct.productId);
+          const product = products.find(product => product.id === cartProduct.productId);
           return cartTotal + (product ? product.price * cartProduct.quantity : 0);
         }, 0);
       }, 0);
