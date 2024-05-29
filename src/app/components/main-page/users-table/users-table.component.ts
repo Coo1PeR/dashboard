@@ -36,19 +36,17 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
 
     combineLatest([
-      this.store.select(UsersState.Users),
-      this.store.select(CartsState.Carts),
-      this.store.select(ProductsState.Products)
+      this.store.selectOnce(UsersState.Users),
+      this.store.selectOnce(CartsState.Carts),
+      this.store.selectOnce(ProductsState.Products)
     ]).subscribe(([users, carts, products]) => {
       const updatedUsers = this.processUserData(users, carts, products);
       this.dataSource.data = updatedUsers;
       this.isLoading = false;
 
-      // Диспатч экшена для обновления totalPurchase только если его нет в сторе
+      // Диспатч экшена для обновления totalPurchase
       updatedUsers.forEach(user => {
-        if (user.totalPurchase === undefined || user.totalPurchase === null) {
           this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
-        }
       });
     });
 
@@ -58,17 +56,12 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       const updatedUsers = this.processUserData(users, carts, products);
       this.dataSource.data = updatedUsers;
 
-      // Диспатч экшена для обновления totalPurchase
-      updatedUsers.forEach(user => {
-        this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
+      // Диспатч экшена для обновления только изменившихся totalPurchase
+      updatedUsers.forEach((user, index) => {
+        if (user.totalPurchase !== users[index].totalPurchase) {
+          this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
+        }
       });
-
-      // // Диспатч экшена для обновления только изменившихся totalPurchase
-      // updatedUsers.forEach((user, index) => {
-      //   if (user.totalPurchase !== users[index].totalPurchase) {
-      //     this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
-      //   }
-      // });
     });
   }
 
