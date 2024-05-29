@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {State, Action, StateContext, Selector} from '@ngxs/store';
 import {UsersAction} from './users.actions';
-import {User, UserFull} from "../../interfaces/interfaces";
-import {GetDataService} from "../../services/get-data.service";
+import {User, UserFull} from "../../../interfaces/interfaces";
+import {GetDataService} from "../../../services/get-data.service";
 import {pipe, tap} from "rxjs";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 

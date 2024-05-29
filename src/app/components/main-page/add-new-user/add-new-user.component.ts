@@ -7,10 +7,10 @@ import {MatInput} from "@angular/material/input";
 import {MatDivider} from "@angular/material/divider";
 import {MatButton} from "@angular/material/button";
 import {MatListModule} from "@angular/material/list";
-import {UsersAction} from "../../../store/users/users.actions";
+import {UsersAction} from "../../../core/stores/users/users.actions";
 import {Store} from "@ngxs/store";
 import {UserFull} from "../../../interfaces/interfaces";
-import {UsersState} from "../../../store/users/users.state";
+import {UsersState} from "../../../core/stores/users/users.state";
 
 @Component({
   selector: 'app-add-new-user',

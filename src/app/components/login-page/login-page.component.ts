@@ -5,7 +5,7 @@ import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {MatInput} from "@angular/material/input";
 import {Store} from "@ngxs/store";
-import {SetLoginData} from "../../store/login/login.state";
+import {SetLoginData} from "../../core/stores/login/login.state";
 //
 @Component({
   selector: 'app-login-page',

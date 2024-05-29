@@ -3,7 +3,7 @@ import {GetDataService} from "../../../services/get-data.service";
 import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
-import {CartsAction} from "../../../store/carts/carts.actions";
+import {CartsAction} from "../../../core/stores/carts/carts.actions";
 import {Store} from "@ngxs/store";
 import {MatIcon} from "@angular/material/icon";
 import {MatCardContent} from "@angular/material/card";

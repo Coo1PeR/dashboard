@@ -2,8 +2,8 @@ import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {UserFull} from "../../../interfaces/interfaces";
 import {OpenUserCartService} from "../../../services/open-user-cart.service";
-import {UsersState} from "../../../store/users/users.state";
-import {UsersAction} from "../../../store/users/users.actions";
+import {UsersState} from "../../../core/stores/users/users.state";
+import {UsersAction} from "../../../core/stores/users/users.actions";
 import {MatButton} from "@angular/material/button";
 import {Dialog} from "@angular/cdk/dialog";
 

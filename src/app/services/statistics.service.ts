@@ -1,13 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from "@angular/router";
 import { Observable, combineLatest } from "rxjs";
-import { UsersState } from "../store/users/users.state";
+import { UsersState } from "../core/stores/users/users.state";
 import { map, switchMap } from "rxjs/operators";
 import { Cart, Product, UserFull } from '../interfaces/interfaces';
-import { CartsState } from "../store/carts/carts.state";
+import { CartsState } from "../core/stores/carts/carts.state";
 import { Store } from "@ngxs/store";
 import { GetDataService } from "./get-data.service";
-import {ProductsState} from "../store/products/products.state";
+import {ProductsState} from "../core/stores/products/products.state";
 
 // TODO move to core/services
 @Injectable({
@@ -52,7 +52,7 @@ export class StatisticsService {
   // Метод для подсчета общей суммы покупок пользователей
   calculateTotalPurchase(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
     // TODO check takeUntilDestroyed
-    // TODO check store.selectSnapshot
+    // TODO check stores.selectSnapshot
     return this.store.select(UsersState.getUserFull).pipe(
       map((users: UserFull[]) => {
         return users.map(user => ({

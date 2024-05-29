@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs';
 import { UserFull } from '../../interfaces/interfaces';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { UsersState } from '../../store/users/users.state';
+import { UsersState } from '../../core/stores/users/users.state';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';

@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {State, Action, StateContext, Selector} from '@ngxs/store';
 import {ProductsAction} from './products.actions';
-import {Product, UserFull} from "../../interfaces/interfaces";
+import {Product, UserFull} from "../../../interfaces/interfaces";
 import {UsersAction} from "../users/users.actions";
 import {tap} from "rxjs";
 import {UsersStateModel} from "../users/users.state";
-import {GetDataService} from "../../services/get-data.service";
+import {GetDataService} from "../../../services/get-data.service";
 
 export interface ProductsStateModel {
   products: Product[];

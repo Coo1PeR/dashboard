@@ -4,8 +4,8 @@ import {Observable, combineLatest} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Cart, Product, UserFull} from '../interfaces/interfaces';
 import {Store} from '@ngxs/store';
-import {ProductsState} from '../store/products/products.state';
-import {CartsState} from '../store/carts/carts.state';
+import {ProductsState} from '../core/stores/products/products.state';
+import {CartsState} from '../core/stores/carts/carts.state';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class GetDataService {
 
   // TODO extract, because not API
   // TODO any :)
-  getUserCarts(userId: number): Observable<any[]> {
+  getUserCarts(userId: number): Observable<any> {
     return combineLatest([
       this.store.select(CartsState.getCartsFull),
       this.store.select(ProductsState.getProductsFull)
