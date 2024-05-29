@@ -1,20 +1,12 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {LoginPageComponent} from "./components/login-page/login-page.component";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
-import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     // TODO remove unused modules
-    RouterOutlet,
-    LoginPageComponent,
-    HttpClientModule,
-    CanvasJSAngularChartsModule,
-    CommonModule
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
