@@ -67,4 +67,12 @@ export class UsersState {
       users: updatedUsers
     });
   }
+
+  @Action(UsersAction.AddUser)
+  addUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.AddUser) {
+    const state = ctx.getState();
+    ctx.patchState({
+      users: [...state.users, user]
+    });
+  }
 }
