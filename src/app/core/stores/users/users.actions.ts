@@ -1,4 +1,4 @@
-import {UserFull} from "../../../interfaces/interfaces";
+import {UserFull} from "../../../interfaces/interfaces.user";
 
 // TODO rename Action and Actions Namespace
 export class UsersAction {

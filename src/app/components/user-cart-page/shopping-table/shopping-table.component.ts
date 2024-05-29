@@ -6,11 +6,12 @@ import {CartsAction} from "../../../core/stores/carts/carts.actions";
 import {Store} from "@ngxs/store";
 import {MatIcon} from "@angular/material/icon";
 import {MatCardContent} from "@angular/material/card";
-import {Cart, ProductCart} from "../../../interfaces/interfaces";
 import {combineLatest, Observable} from "rxjs";
 import {CartsState} from "../../../core/stores/carts/carts.state";
 import {ProductsState} from "../../../core/stores/products/products.state";
 import {map} from "rxjs/operators";
+import {Cart} from "../../../interfaces/interface.cart";
+import {ProductCart} from "../../../interfaces/interface.product";
 
 @Component({
   selector: 'app-shopping-table',

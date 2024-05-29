@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {ProductsAction} from './products.actions';
-import {Product} from "../../../interfaces/interfaces";
 import {tap} from "rxjs";
 import {GetDataService} from "../../../services/get-data.service";
+import {Product} from "../../../interfaces/interface.product";
 
 export interface ProductsStateModel {
   products: Product[];

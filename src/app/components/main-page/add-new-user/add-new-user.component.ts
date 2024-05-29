@@ -9,7 +9,7 @@ import {MatButton} from "@angular/material/button";
 import {MatListModule} from "@angular/material/list";
 import {UsersAction} from "../../../core/stores/users/users.actions";
 import {Store} from "@ngxs/store";
-import {UserFull} from "../../../interfaces/interfaces";
+import {UserFull} from "../../../interfaces/interfaces.user";
 import {UsersState} from "../../../core/stores/users/users.state";
 
 @Component({

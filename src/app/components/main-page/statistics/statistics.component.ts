@@ -13,9 +13,11 @@ import {combineLatest, Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Select, Store} from "@ngxs/store";
 import {CartsState} from "../../../core/stores/carts/carts.state";
-import {Cart, Product, UserFull} from "../../../interfaces/interfaces";
+import {UserFull} from "../../../interfaces/interfaces.user";
 import {ProductsState} from "../../../core/stores/products/products.state";
 import {UsersState} from "../../../core/stores/users/users.state";
+import {Cart} from "../../../interfaces/interface.cart";
+import {Product} from "../../../interfaces/interface.product";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;

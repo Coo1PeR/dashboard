@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {combineLatest} from "rxjs";
-import {Cart, Product, UserFull} from "../../../interfaces/interfaces";
+import {UserFull} from "../../../interfaces/interfaces.user";
 import {AsyncPipe, CommonModule, CurrencyPipe, NgForOf} from "@angular/common";
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
@@ -12,6 +12,8 @@ import {Store} from "@ngxs/store";
 import {CartsState} from "../../../core/stores/carts/carts.state";
 import {ProductsState} from "../../../core/stores/products/products.state";
 import {UsersAction} from "../../../core/stores/users/users.actions";
+import {Cart} from "../../../interfaces/interface.cart";
+import {Product} from "../../../interfaces/interface.product";
 
 @Component({
   selector: 'app-users-table',

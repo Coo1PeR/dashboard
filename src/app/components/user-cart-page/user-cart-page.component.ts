@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { UserFull } from '../../interfaces/interfaces';
+import { UserFull } from '../../interfaces/interfaces.user';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { UsersState } from '../../core/stores/users/users.state';

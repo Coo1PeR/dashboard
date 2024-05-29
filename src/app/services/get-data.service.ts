@@ -2,7 +2,9 @@ import {Injectable, inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Cart, Product, UserFull} from '../interfaces/interfaces';
+import {UserFull} from '../interfaces/interfaces.user';
+import {Cart} from "../interfaces/interface.cart";
+import {Product} from "../interfaces/interface.product";
 
 @Injectable({
   providedIn: 'root'
