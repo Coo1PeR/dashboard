@@ -34,17 +34,17 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
 
     combineLatest([
-      this.store.select(UsersState.getUserFull),
-      this.store.select(CartsState.getCartsFull),
-      this.store.select(ProductsState.getProductsFull)
+      this.store.select(UsersState.Users),
+      this.store.select(CartsState.Carts),
+      this.store.select(ProductsState.Products)
     ]).subscribe(([users, carts, products]) => {
       this.dataSource.data = this.processUserData(users, carts, products);
       this.isLoading = false;
     });
 
-    this.store.select(CartsState.getCartsFull).subscribe(carts => {
+    this.store.select(CartsState.Carts).subscribe(carts => {
       const users = this.dataSource.data;
-      const products = this.store.selectSnapshot(ProductsState.getProductsFull);
+      const products = this.store.selectSnapshot(ProductsState.Products);
       const updatedUsers = this.processUserData(users, carts, products);
       this.dataSource.data = updatedUsers;
 

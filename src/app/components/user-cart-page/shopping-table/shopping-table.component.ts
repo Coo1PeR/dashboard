@@ -61,8 +61,8 @@ export class ShoppingTableComponent implements OnInit {
 
   getUserCarts(userId: number): Observable<any> {
     return combineLatest([
-      this.store.select(CartsState.getCartsFull),
-      this.store.select(ProductsState.getProductsFull)
+      this.store.select(CartsState.Carts),
+      this.store.select(ProductsState.Products)
     ]).pipe(
       map(([carts, products]) => {
         const userCarts = carts.filter(cart => cart.userId === userId);

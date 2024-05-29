@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import {State, Action, StateContext, Selector} from '@ngxs/store';
-import { LoginAction } from './login.actions';
+import {Injectable} from '@angular/core';
+import {Action, Selector, State, StateContext} from '@ngxs/store';
 
 export class SetLoginData {
   static readonly type = '[Login] Set';
-  constructor(public payload: { login: string, password: string }) {}
+
+  constructor(public payload: { login: string, password: string }) {
+  }
 }
 
 export interface LoginStateModel {
@@ -17,18 +18,19 @@ export interface LoginStateModel {
   defaults: {
     login: '',
     password: ''
-  }})
+  }
+})
 
 @Injectable()
 
 export class LoginState {
   @Selector()
-  static getLogin(state: LoginStateModel) {
+  static Login(state: LoginStateModel) {
     return state.login;
   }
 
   @Selector()
-  static getPassword(state: LoginStateModel) {
+  static Password(state: LoginStateModel) {
     return state.password;
   }
 

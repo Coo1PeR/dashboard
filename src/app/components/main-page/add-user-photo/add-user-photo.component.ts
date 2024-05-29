@@ -84,7 +84,7 @@ export class AddUserPhotoComponent implements OnInit{
   }
 
   getLastUser(): UserFull | undefined {
-    const users = this.store.selectSnapshot(UsersState.getUserFull);
+    const users = this.store.selectSnapshot(UsersState.Users);
     return users.length > 0 ? users[users.length - 1] : undefined;
   }
 }

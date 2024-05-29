@@ -33,8 +33,7 @@ export class CartsState {
   }
 
   @Selector()
-  // TODO это не get
-  static getCartsFull({ carts }: CartsStateModel) {
+  static Carts({ carts }: CartsStateModel) {
     return carts;
   }
 

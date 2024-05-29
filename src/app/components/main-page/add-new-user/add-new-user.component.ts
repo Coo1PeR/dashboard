@@ -48,7 +48,7 @@ export class AddNewUserComponent {
     const email = this.newUserForm.value.email?.toLowerCase() ?? '';
     const phone = this.newUserForm.value.phone?.toLowerCase() ?? '';
     let id: number = +'';
-    this.store.select(UsersState.getUserFull).subscribe((users: UserFull[]) => {
+    this.store.select(UsersState.Users).subscribe((users: UserFull[]) => {
       id = Math.max(...users.map((user) => user.id)) + 1;
     });
 

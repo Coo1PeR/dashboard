@@ -61,7 +61,7 @@ export class UsersState {
 
   // TODO move to tok
   @Selector()
-  static getUserFull(state: UsersStateModel) {
+  static Users(state: UsersStateModel) {
     return state.users;
   }
 

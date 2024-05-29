@@ -38,7 +38,7 @@ export class UserCartPageComponent implements OnInit {
 
   ngOnInit(): void {
     let userId = Number(this.route.snapshot.paramMap.get('id'));
-    this.user$ = this.store.select(UsersState.getUserFull).pipe(
+    this.user$ = this.store.select(UsersState.Users).pipe(
       map(users => users.find(user => user.id === userId))
     );
   }

@@ -12,8 +12,8 @@ import {ProductsState} from "../core/stores/products/products.state";
   providedIn: 'root'
 })
 export class StatisticsService {
-  @Select(CartsState.getCartsFull) carts$!: Observable<Cart[]>;
-  @Select(ProductsState.getProductsFull) products$!: Observable<Product[]>;
+  @Select(CartsState.Carts) carts$!: Observable<Cart[]>;
+  @Select(ProductsState.Products) products$!: Observable<Product[]>;
 
   private store = inject(Store);
 
@@ -51,7 +51,7 @@ export class StatisticsService {
   calculateTotalPurchase(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
     // TODO check takeUntilDestroyed
     // TODO check stores.selectSnapshot
-    return this.store.select(UsersState.getUserFull).pipe(
+    return this.store.select(UsersState.Users).pipe(
       map((users: UserFull[]) => {
         return users.map(user => ({
           userFullName: user.userFullName,
