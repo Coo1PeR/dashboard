@@ -1,12 +1,10 @@
 import {Component, ElementRef, inject, ViewChild} from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
 import {Store} from "@ngxs/store";
 import {UserFull} from "../../../interfaces/interfaces";
 import {OpenUserCartService} from "../../../services/open-user-cart.service";
 import {UsersState} from "../../../store/users/users.state";
 import {UsersAction} from "../../../store/users/users.actions";
 import {MatButton} from "@angular/material/button";
-import {NgIf} from "@angular/common";
 import {Dialog} from "@angular/cdk/dialog";
 
 @Component({
@@ -14,8 +12,7 @@ import {Dialog} from "@angular/cdk/dialog";
   standalone: true,
   templateUrl: './add-user-photo.component.html',
   imports: [
-    MatButton,
-    NgIf
+    MatButton
   ],
   styleUrls: ['./add-user-photo.component.scss']
 })

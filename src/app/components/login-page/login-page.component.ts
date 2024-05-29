@@ -35,7 +35,6 @@ export class LoginPageComponent {
     if (this.loginForm.valid) {
       const { login, password } = this.loginForm.value;
 
-      // TODO refactor to form.value; also remove as
       this.store.dispatch(new SetLoginData({login: login || '', password: password || '' }))
       this.router.navigate(['/main']);
     }

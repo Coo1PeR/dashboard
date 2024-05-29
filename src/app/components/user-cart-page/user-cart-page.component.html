@@ -2,13 +2,15 @@
   <div class="button">
     <button mat-raised-button (click)="goBack()">Назад</button>
   </div>
-<!--  TODO refactor to new control flow (@if)-->
-  <div class="main" *ngIf="user$ | async as user">
-    <mat-card *ngIf="user">
+  @if (user$ | async; as user) {
+    <div class="main">
+    <mat-card>
       <mat-card-content>
-        <section *ngIf="user.profileImage" class="profile-image">
-          <img [src]="user.profileImage" alt="Profile Image"/>
-        </section>
+        @if (user.profileImage) {
+          <section class="profile-image">
+            <img [src]="user.profileImage" alt="Profile Image"/>
+          </section>
+        }
         <section>
           <h2>{{ user.userFullName }}</h2>
           <p>{{ user.email }}</p>
@@ -16,13 +18,17 @@
         </section>
       </mat-card-content>
     </mat-card>
-    <section class="table" *ngIf="user.id">
-      <app-shopping-table [userId]="user.id"></app-shopping-table>
-    </section>
+      @if (user.id) {
+        <section class="table">
+          <app-shopping-table [userId]="user.id"></app-shopping-table>
+        </section>
+      }
   </div>
+  }
+
   <div class="button"></div>
 </div>
 
-<ng-template #loading>
+<ng-template>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>
