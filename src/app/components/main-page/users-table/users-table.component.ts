@@ -15,6 +15,8 @@ import {UsersAction} from "../../../core/stores/users/users.actions";
 import {CartsAction} from "../../../core/stores/carts/carts.actions";
 import {ProductsAction} from "../../../core/stores/products/products.actions";
 import {switchMap} from "rxjs/operators";
+import {CartsState} from "../../../core/stores/carts/carts.state";
+import {ProductsState} from "../../../core/stores/products/products.state";
 
 @Component({
   selector: 'app-users-table',
@@ -35,16 +37,14 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   isLoading = true;
 
   ngOnInit() {
-    // First check if we have any data in the stores
     // TODO try refactor
     this.store.selectOnce(UsersState.getUserFull).pipe(
       switchMap(users => {
         if (users.length === 0) {
-          // If no data, dispatch actions to fetch it
           return combineLatest([
-            this.store.dispatch(new UsersAction.Fetch()),
-            this.store.dispatch(new CartsAction.Fetch()),
-            this.store.dispatch(new ProductsAction.Fetch())
+            this.store.selectOnce(UsersState.getUserFull),
+            this.store.selectOnce(CartsState.getCartsFull),
+            this.store.selectOnce(ProductsState.getProductsFull)
           ]).pipe(
             switchMap(() => this.getDataService.totalPurchase()),
             switchMap((usersWithTotal: UserFull[]) =>

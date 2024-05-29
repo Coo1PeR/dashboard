@@ -13,9 +13,11 @@
       </mat-tab>
     </mat-tab-group>
   </div>
-  <div class="button-add">
-    <button color="primary" mat-raised-button (click)="openAddUser()">Добавить нового пользователя</button>
-  </div>
+  @if (selectedIndex === 0) {
+    <div class="button-add">
+      <button color="primary" mat-raised-button (click)="openAddUser()">Добавить нового пользователя</button>
+    </div>
+  }
 </section>
 
 
