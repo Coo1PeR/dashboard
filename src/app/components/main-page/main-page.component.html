@@ -1,6 +1,6 @@
 <section>
   <div>
-    <mat-tab-group (selectedTabChange)="onTabChange($event)" >
+    <mat-tab-group (selectedTabChange)="onTabChange($event)" animationDuration="0ms">
       <mat-tab label="Пользователи">
         @if (selectedIndex === 0) {
           <app-users-table></app-users-table>
@@ -9,7 +9,8 @@
       <mat-tab label="Статистика">
         @if (selectedIndex === 1) {
           <app-statistics></app-statistics>
-        }      </mat-tab>
+        }
+      </mat-tab>
     </mat-tab-group>
   </div>
   <div class="button-add">

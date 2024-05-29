@@ -14,13 +14,12 @@ import {ProductsState} from "../core/stores/products/products.state";
   providedIn: 'root'
 })
 export class StatisticsService {
-  private router = inject(Router);
-  private store = inject(Store);
-  private getDataService = inject(GetDataService);
-
   @Select(CartsState.getCartsFull) carts$!: Observable<Cart[]>;
   @Select(ProductsState.getProductsFull) products$!: Observable<Product[]>;
 
+  private router = inject(Router);
+  private store = inject(Store);
+  private getDataService = inject(GetDataService);
 
   // Метод для вычисления соотношения купленных всех видов товаров и их количества
   // TODO extract interface
