@@ -9,6 +9,7 @@ import {CommonModule} from "@angular/common";
   selector: 'app-root',
   standalone: true,
   imports: [
+    // TODO remove unused modules
     RouterOutlet,
     LoginPageComponent,
     HttpClientModule,

@@ -12,8 +12,10 @@ import {CartsState} from '../store/carts/carts.state';
 })
 export class GetDataService {
   private http = inject(HttpClient);
+  // TODO remove
   private store = inject(Store);
 
+  // TODO extract to environments (check angular cli environments)
   url: string = 'https://fakestoreapi.com';
 
   getUsers(): Observable<UserFull[]> {
@@ -33,6 +35,8 @@ export class GetDataService {
     return this.http.get<Cart[]>(`${this.url}/carts`);
   }
 
+  // TODO extract, because not API
+  // TODO any :)
   getUserCarts(userId: number): Observable<any[]> {
     return combineLatest([
       this.store.select(CartsState.getCartsFull),
@@ -59,7 +63,7 @@ export class GetDataService {
     );
   }
 
-
+  // TODO extract, because not API
   totalPurchase(): Observable<UserFull[]> {
     return combineLatest([this.getUsers(), this.getCarts(), this.getProducts()]).pipe(
       map(([users, carts, products]) => this.processUserData(users, carts, products))
@@ -67,10 +71,12 @@ export class GetDataService {
   }
 
   private processUserData(users: UserFull[], carts: Cart[], products: Product[]): UserFull[] {
+    // TODO can create "map" for products (new Map or object)
     return users.map(user => {
       const userCarts = carts.filter(cart => cart.userId === user.id);
       const totalPurchase = userCarts.reduce((total, cart) => {
         return total + cart.products.reduce((cartTotal, cartProduct) => {
+          // TODO p :)
           const product = products.find(p => p.id === cartProduct.productId);
           return cartTotal + (product ? product.price * cartProduct.quantity : 0);
         }, 0);

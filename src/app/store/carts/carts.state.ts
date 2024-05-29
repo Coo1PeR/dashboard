@@ -33,13 +33,15 @@ export class CartsState {
   }
 
   @Selector()
-  static getCartsFull(state: CartsStateModel) {
-    return state.carts;
+  // TODO это не get
+  static getCartsFull({ carts }: CartsStateModel) {
+    return carts;
   }
 
   @Action(CartsAction.SetQuantity)
   setProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.SetQuantity) {
     const state = ctx.getState();
+    // TODO check State Operators (ngxs docs)
     const updatedCarts = state.carts.map(cart => {
       if (cart.id === +action.cartId && cart.userId === +action.userId) {
         return {

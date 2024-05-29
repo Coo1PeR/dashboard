@@ -26,6 +26,7 @@ import {MatCardContent} from "@angular/material/card";
 
 export class ShoppingTableComponent implements OnInit {
   @Input() userId!: number;
+  // TODO any
   carts: any[] = [];
   displayedColumns: string[] = ['title', 'price', 'quantity', 'sum'];
   private store = inject(Store);
@@ -42,6 +43,7 @@ export class ShoppingTableComponent implements OnInit {
     });
   }
 
+  // TODO any
   increaseQuantity(cartId: number, product: any) {
     const newQuantity = product.quantity + 1;
     this.store.dispatch(new CartsAction.SetQuantity(this.userId, cartId, product.productId, newQuantity));

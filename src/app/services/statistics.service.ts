@@ -9,6 +9,7 @@ import { Store } from "@ngxs/store";
 import { GetDataService } from "./get-data.service";
 import {ProductsState} from "../store/products/products.state";
 
+// TODO move to core/services
 @Injectable({
   providedIn: 'root'
 })
@@ -18,12 +19,15 @@ export class StatisticsService {
   private getDataService = inject(GetDataService);
 
   // Метод для вычисления соотношения купленных всех видов товаров и их количества
+  // TODO extract interface
   calculateProductRatio(): Observable<{ productTitle: string, productTotalPurchase: number }[]> {
     return combineLatest([
+      // TODO refactor to @Select
       this.store.select(CartsState.getCartsFull),
       this.store.select(ProductsState.getProductsFull)
     ]).pipe(
       map(([carts, products]) => {
+        // TODO refactor whole map callback
         const productMap = new Map<number, number>();
 
         carts.forEach(cart => {
@@ -47,6 +51,8 @@ export class StatisticsService {
 
   // Метод для подсчета общей суммы покупок пользователей
   calculateTotalPurchase(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
+    // TODO check takeUntilDestroyed
+    // TODO check store.selectSnapshot
     return this.store.select(UsersState.getUserFull).pipe(
       map((users: UserFull[]) => {
         return users.map(user => ({

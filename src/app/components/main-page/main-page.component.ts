@@ -35,6 +35,7 @@ export class MainPageComponent {
     this.selectedIndex = event.index;
   }
 
+  // TODO move to top
   @Select(LoginState.getLogin) login$!: Observable<string>;
   @Select(LoginState.getPassword) password$!: Observable<string>;
 

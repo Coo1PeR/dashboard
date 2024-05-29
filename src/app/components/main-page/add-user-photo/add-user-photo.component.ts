@@ -19,6 +19,7 @@ import {Dialog} from "@angular/cdk/dialog";
   ],
   styleUrls: ['./add-user-photo.component.scss']
 })
+// TODO implements OnInit
 export class AddUserPhotoComponent {
   @ViewChild('dropZone', {static: true}) dropZone!: ElementRef;
   imageUrl: string | ArrayBuffer | null = '';
@@ -35,6 +36,7 @@ export class AddUserPhotoComponent {
   initializeDragAndDrop() {
     const dropZoneElement = this.dropZone.nativeElement;
 
+    // TODO check @Directive
     ['dragover', 'dragleave'].forEach(eventName => {
       dropZoneElement.addEventListener(eventName, (event: DragEvent) => {
         event.preventDefault();

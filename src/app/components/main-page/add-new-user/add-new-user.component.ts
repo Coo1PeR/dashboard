@@ -52,6 +52,7 @@ export class AddNewUserComponent {
       id = Math.max(...users.map((user) => user.id)) + 1;
     });
 
+    //TODO Refactor
     let newUser: UserFull = {
       address: {
         geolocation: {

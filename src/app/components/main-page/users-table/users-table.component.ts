@@ -37,6 +37,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // First check if we have any data in the store
+    // TODO try refactor
     this.store.selectOnce(UsersState.getUserFull).pipe(
       switchMap(users => {
         if (users.length === 0) {
@@ -97,6 +98,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // TODO check how many times invoke
     this.dataSource.sort = this.sort;
   }
 

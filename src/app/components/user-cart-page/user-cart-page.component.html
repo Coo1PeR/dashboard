@@ -2,6 +2,7 @@
   <div class="button">
     <button mat-raised-button (click)="goBack()">Назад</button>
   </div>
+<!--  TODO refactor to new control flow (@if)-->
   <div class="main" *ngIf="user$ | async as user">
     <mat-card *ngIf="user">
       <mat-card-content>

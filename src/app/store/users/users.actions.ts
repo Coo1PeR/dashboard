@@ -1,5 +1,6 @@
 import {UserFull} from "../../interfaces/interfaces";
 
+// TODO rename Action and Actions Namespace
 export class UsersAction {
   static readonly type = '[Users] Add item';
   constructor(public payload: string) { }

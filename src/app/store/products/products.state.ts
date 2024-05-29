@@ -32,6 +32,7 @@ export class ProductsState {
     );
   }
 
+  // TODO move to top
   @Selector()
   static getProductsFull(state: ProductsStateModel) {
     return state.products;

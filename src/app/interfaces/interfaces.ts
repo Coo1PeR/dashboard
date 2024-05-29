@@ -24,7 +24,7 @@ export interface Product {
     "count": number
   }
 }
-
+// TODO split to different files
 export interface UserFull extends User {
   totalPurchase: number;
   userFullName: string;

@@ -39,6 +39,7 @@ export class UsersState {
   @Action(UsersAction.AddUser)
   addUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.AddUser) {
     const state = ctx.getState();
+    // TODO check State Operators (ngxs docs)
     ctx.patchState({
       users: [...state.users, user]
     });
@@ -54,11 +55,13 @@ export class UsersState {
         return u;
       }
     });
+    // TODO check State Operators (ngxs docs)
     ctx.patchState({
       users: updatedUsers
     });
   }
 
+  // TODO move to tok
   @Selector()
   static getUserFull(state: UsersStateModel) {
     return state.users;
