@@ -2,10 +2,7 @@ import {Component, inject} from '@angular/core';
 import {MatTabChangeEvent, MatTabsModule} from "@angular/material/tabs";
 import {MatButton} from "@angular/material/button";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {LoginState} from "../../store/login/login.state";
-import {Select, Store} from "@ngxs/store";
-import {Observable} from "rxjs";
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {UsersTableComponent} from "./users-table/users-table.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
 import {Dialog} from "@angular/cdk/dialog";
@@ -34,10 +31,6 @@ export class MainPageComponent {
   onTabChange(event: MatTabChangeEvent) {
     this.selectedIndex = event.index;
   }
-
-  // TODO move to top
-  @Select(LoginState.getLogin) login$!: Observable<string>;
-  @Select(LoginState.getPassword) password$!: Observable<string>;
 
   openAddUser() {
     this.dialog.open(AddNewUserComponent, {});
