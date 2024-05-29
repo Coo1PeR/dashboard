@@ -1,19 +1,14 @@
 import {Injectable, inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, combineLatest} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Cart, Product, UserFull} from '../interfaces/interfaces';
-import {Store} from '@ngxs/store';
-import {ProductsState} from '../core/stores/products/products.state';
-import {CartsState} from '../core/stores/carts/carts.state';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetDataService {
   private http = inject(HttpClient);
-  // TODO remove
-  private store = inject(Store);
 
   // TODO extract to environments (check angular cli environments)
   url: string = 'https://fakestoreapi.com';
