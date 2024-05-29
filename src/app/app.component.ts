@@ -5,7 +5,6 @@ import {RouterOutlet} from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [
-    // TODO remove unused modules
     RouterOutlet
   ],
   templateUrl: './app.component.html',
