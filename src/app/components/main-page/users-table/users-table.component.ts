@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {combineLatest, of} from "rxjs";
 import {UserFull} from "../../../interfaces/interfaces";
@@ -15,7 +15,6 @@ import {UsersAction} from "../../../store/users/users.actions";
 import {CartsAction} from "../../../store/carts/carts.actions";
 import {ProductsAction} from "../../../store/products/products.actions";
 import {switchMap} from "rxjs/operators";
-import {CartsState} from "../../../store/carts/carts.state";
 
 @Component({
   selector: 'app-users-table',
@@ -24,7 +23,7 @@ import {CartsState} from "../../../store/carts/carts.state";
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss']
 })
-export class UsersTableComponent implements OnInit, AfterViewInit {
+export class UsersTableComponent implements OnInit {
   private getDataService = inject(GetDataService);
   private openUserCartService = inject(OpenUserCartService);
   private store = inject(Store);
@@ -60,6 +59,8 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     ).subscribe((users: UserFull[]) => {
       this.dataSource.data = users;
       this.isLoading = false;
+      this.dataSource.sort = this.sort;
+
     });
 
     this.dataSource.data = this.store.selectSnapshot(UsersState.getUserFull);
@@ -95,11 +96,6 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     //     this.store.dispatch(new UsersAction.UpdateTotalPurchase(usersWithTotal))
     //   )
     // ).subscribe();
-  }
-
-  ngAfterViewInit() {
-    // TODO check how many times invoke
-    this.dataSource.sort = this.sort;
   }
 
   onRowClicked(user: UserFull) {
