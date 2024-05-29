@@ -75,10 +75,6 @@ export class AddUserPhotoComponent implements OnInit{
     this.store.dispatch(new UsersAction.Update(updatedUser))
   };
 
-  closeDialogAndOpenUserPage(user: UserFull) {
-    this.openUserCartService.openUserCartPage(user);
-  }
-
   complete() {
     this.dialog.closeAll();
     const lastUser = this.getLastUser();
