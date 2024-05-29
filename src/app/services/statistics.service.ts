@@ -5,7 +5,7 @@ import { UsersState } from "../core/stores/users/users.state";
 import { map, switchMap } from "rxjs/operators";
 import { Cart, Product, UserFull } from '../interfaces/interfaces';
 import { CartsState } from "../core/stores/carts/carts.state";
-import { Store } from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import { GetDataService } from "./get-data.service";
 import {ProductsState} from "../core/stores/products/products.state";
 
@@ -18,13 +18,16 @@ export class StatisticsService {
   private store = inject(Store);
   private getDataService = inject(GetDataService);
 
+  @Select(CartsState.getCartsFull) carts$!: Observable<Cart[]>;
+  @Select(ProductsState.getProductsFull) products$!: Observable<Product[]>;
+
+
   // Метод для вычисления соотношения купленных всех видов товаров и их количества
   // TODO extract interface
   calculateProductRatio(): Observable<{ productTitle: string, productTotalPurchase: number }[]> {
     return combineLatest([
-      // TODO refactor to @Select
-      this.store.select(CartsState.getCartsFull),
-      this.store.select(ProductsState.getProductsFull)
+      this.carts$,
+      this.products$
     ]).pipe(
       map(([carts, products]) => {
         // TODO refactor whole map callback
