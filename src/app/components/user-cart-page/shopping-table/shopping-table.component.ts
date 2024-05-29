@@ -2,12 +2,12 @@ import {Component, inject, Input, OnInit} from '@angular/core';
 import {GetDataService} from "../../../services/get-data.service";
 import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe} from "@angular/common";
 import {CartsAction} from "../../../core/stores/carts/carts.actions";
 import {Store} from "@ngxs/store";
 import {MatIcon} from "@angular/material/icon";
 import {MatCardContent} from "@angular/material/card";
-import {Cart, Product, ProductCart} from "../../../interfaces/interfaces";
+import {Cart, ProductCart} from "../../../interfaces/interfaces";
 
 @Component({
   selector: 'app-shopping-table',
@@ -17,9 +17,7 @@ import {Cart, Product, ProductCart} from "../../../interfaces/interfaces";
     MatButton,
     CurrencyPipe,
     MatIcon,
-    NgForOf,
     MatCardContent,
-    NgIf
   ],
   templateUrl: './shopping-table.component.html',
   styleUrl: './shopping-table.component.scss'
