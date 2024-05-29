@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {UserFull} from "../../../interfaces/interfaces";
 import {OpenUserCartService} from "../../../services/open-user-cart.service";
@@ -16,8 +16,8 @@ import {Dialog} from "@angular/cdk/dialog";
   ],
   styleUrls: ['./add-user-photo.component.scss']
 })
-// TODO implements OnInit
-export class AddUserPhotoComponent {
+
+export class AddUserPhotoComponent implements OnInit{
   @ViewChild('dropZone', {static: true}) dropZone!: ElementRef;
   imageUrl: string | ArrayBuffer | null = '';
 
