@@ -62,7 +62,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   private loadUserData() {
-    this.calculateTotalPurchase()
+    this.getUserData()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(data => {
         this.userData = data;
@@ -138,8 +138,7 @@ export class StatisticsComponent implements OnInit {
     });
   }
 
-  // TODO rename function
-  calculateTotalPurchase(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
+  getUserData(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
     return this.users$.pipe(
       map((users: UserFull[]) => {
         return users.map(user => ({
