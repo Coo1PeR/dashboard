@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { UsersAction } from './users.actions';
-import { UserFull } from "../../../interfaces/interface.user";
-import { GetDataService } from "../../../services/get-data.service";
+import { UserFull } from "../../interfaces/interface.user";
+import { GetDataService } from "../../services/get-data.service";
 import { tap } from "rxjs/operators";
 import { patch, updateItem, append } from '@ngxs/store/operators';
 

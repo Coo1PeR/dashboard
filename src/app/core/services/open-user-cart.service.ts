@@ -9,6 +9,6 @@ export class OpenUserCartService {
   private router = inject(Router);
 
   openUserCartPage(user: UserFull) {
-    this.router.navigate(['/user_cart', user.id]);
+    this.router.navigate(['/user-id', user.id]);
   }
 }

@@ -1,19 +1,19 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {combineLatest} from "rxjs";
-import {UserFull} from "../../../interfaces/interface.user";
+import {UserFull} from "../../../core/interfaces/interface.user";
 import {CommonModule, CurrencyPipe} from "@angular/common";
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {OpenUserCartService} from "../../../services/open-user-cart.service";
+import {OpenUserCartService} from "../../../core/services/open-user-cart.service";
 import {UsersState} from "../../../core/stores/users/users.state";
 import {Store} from "@ngxs/store";
 import {CartsState} from "../../../core/stores/carts/carts.state";
 import {ProductsState} from "../../../core/stores/products/products.state";
 import {UsersAction} from "../../../core/stores/users/users.actions";
-import {Cart} from "../../../interfaces/interface.cart";
-import {Product} from "../../../interfaces/interface.product";
+import {Cart} from "../../../core/interfaces/interface.cart";
+import {Product} from "../../../core/interfaces/interface.product";
 
 @Component({
   selector: 'app-users-table',
@@ -33,7 +33,6 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   isLoading: boolean = true;
 
   ngOnInit() {
-    this.isLoading = true;
 
     combineLatest([
       this.store.selectOnce(UsersState.Users),

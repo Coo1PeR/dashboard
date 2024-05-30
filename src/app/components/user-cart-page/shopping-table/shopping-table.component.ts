@@ -10,8 +10,8 @@ import {combineLatest, Observable} from "rxjs";
 import {CartsState} from "../../../core/stores/carts/carts.state";
 import {ProductsState} from "../../../core/stores/products/products.state";
 import {map} from "rxjs/operators";
-import {Cart} from "../../../interfaces/interface.cart";
-import {ProductCart} from "../../../interfaces/interface.product";
+import {Cart} from "../../../core/interfaces/interface.cart";
+import {ProductCart} from "../../../core/interfaces/interface.product";
 
 @Component({
   selector: 'app-shopping-table',

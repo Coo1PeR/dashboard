@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { CartsAction } from './carts.actions';
-import { GetDataService } from "../../../services/get-data.service";
+import { GetDataService } from "../../services/get-data.service";
 import { tap } from "rxjs/operators";
-import { Cart, ProductList } from "../../../interfaces/interface.cart";
+import { Cart, ProductList } from "../../interfaces/interface.cart";
 import { patch } from '@ngxs/store/operators';
 
 export interface CartsStateModel {

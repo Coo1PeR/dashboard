@@ -21,7 +21,7 @@ export const routes: Routes = [
   },
   // TODO try split tab to routing
   {
-    path: 'user_cart/:id',
+    path: 'user-id/:id',
     component: UserCartPageComponent,
     title: 'User Cart',
   }

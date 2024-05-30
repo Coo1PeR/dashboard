@@ -1,4 +1,4 @@
-import {UserFull} from "../../../interfaces/interface.user";
+import {UserFull} from "../../interfaces/interface.user";
 
 export namespace UsersAction {
   export class Fetch {

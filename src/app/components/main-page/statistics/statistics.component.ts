@@ -6,11 +6,11 @@ import { combineLatest, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Select } from "@ngxs/store";
 import { CartsState } from "../../../core/stores/carts/carts.state";
-import { UserFull } from "../../../interfaces/interface.user";
+import { UserFull } from "../../../core/interfaces/interface.user";
 import { ProductsState } from "../../../core/stores/products/products.state";
 import { UsersState } from "../../../core/stores/users/users.state";
-import { Cart } from "../../../interfaces/interface.cart";
-import { Product } from "../../../interfaces/interface.product";
+import { Cart } from "../../../core/interfaces/interface.cart";
+import { Product } from "../../../core/interfaces/interface.product";
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ChartOptions = {

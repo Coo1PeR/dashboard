@@ -8,7 +8,7 @@ import { MatDivider } from "@angular/material/divider";
 import { MatButton } from "@angular/material/button";
 import { UsersAction } from "../../../core/stores/users/users.actions";
 import { Store } from "@ngxs/store";
-import { UserFull } from "../../../interfaces/interface.user";
+import { UserFull } from "../../../core/interfaces/interface.user";
 import { UsersState } from "../../../core/stores/users/users.state";
 
 @Component({
