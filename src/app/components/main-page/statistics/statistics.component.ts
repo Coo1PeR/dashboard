@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, inject, DestroyRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ChartComponent, NgApexchartsModule, ApexChart, ApexXAxis, ApexTitleSubtitle, ApexNonAxisChartSeries } from "ng-apexcharts";
+import { ChartComponent, NgApexchartsModule, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexNonAxisChartSeries } from "ng-apexcharts";
 import { combineLatest, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Select } from "@ngxs/store";
@@ -18,6 +18,7 @@ export type ChartOptions = {
   chart: ApexChart;
   xaxis: ApexXAxis;
   title: ApexTitleSubtitle;
+  yaxis: ApexYAxis;
 };
 
 @Component({
@@ -72,16 +73,23 @@ export class StatisticsComponent implements OnInit {
   public renderProductChartApex(data: { productTitle: string, productTotalPurchase: number }[]) {
     this.productsChartOptionsApex = {
       series: [{
+        name: 'кол-во',
         data: data.map(item => item.productTotalPurchase)
       }],
       chart: {
-        height: 350,
+        height: 'auto',
         type: 'bar'
       },
       title: {
-        text: 'Соотношение купленных всех видов товаров и их количества'
+        text: 'Количество проданных товаров'
       },
       xaxis: {
+        labels: {
+          trim: true,
+          rotate: -45,
+          maxHeight: 120,
+
+        },
         categories: data.map(item => item.productTitle)
       }
     };
@@ -90,11 +98,11 @@ export class StatisticsComponent implements OnInit {
   public renderUserChartApex(data: { userFullName: string, userTotalPurchaseSum: number }[]) {
     this.usersChartOptionsApex = {
       series: [{
-        title: 'Сумма покупок',
+        name: 'сумма',
         data: data.map(item => item.userTotalPurchaseSum)
       }],
       chart: {
-        height: 350,
+        height: 'auto',
         type: 'bar'
       },
       title: {

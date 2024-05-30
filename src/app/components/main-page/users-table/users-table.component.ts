@@ -43,8 +43,6 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       const updatedUsers = this.processUserData(users, carts, products);
       this.dataSource.data = updatedUsers;
       this.isLoading = false;
-
-      // Диспатч экшена для обновления totalPurchase
       updatedUsers.forEach(user => {
           this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
       });
@@ -56,7 +54,6 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       const updatedUsers = this.processUserData(users, carts, products);
       this.dataSource.data = updatedUsers;
 
-      // Диспатч экшена для обновления только изменившихся totalPurchase
       updatedUsers.forEach((user, index) => {
         if (user.totalPurchase !== users[index].totalPurchase) {
           this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
