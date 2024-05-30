@@ -1,8 +1,3 @@
-export class CartsAction {
-  static readonly type = '[Carts] Add item';
-  constructor(public payload: string) { }
-}
-
 export namespace CartsAction {
   export class Fetch {
     static readonly type = '[Carts] Fetch Carts';
