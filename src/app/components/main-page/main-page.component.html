@@ -1,6 +1,6 @@
 <section>
   <div>
-    <mat-tab-group (selectedTabChange)="onTabChange($event)" animationDuration="0ms">
+    <mat-tab-group (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Пользователи">
         @if (selectedIndex === 0) {
           <app-users-table></app-users-table>

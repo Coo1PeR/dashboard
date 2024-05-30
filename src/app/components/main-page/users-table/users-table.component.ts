@@ -2,7 +2,7 @@ import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core
 import {HttpClientModule} from "@angular/common/http";
 import {combineLatest} from "rxjs";
 import {UserFull} from "../../../interfaces/interface.user";
-import {AsyncPipe, CommonModule, CurrencyPipe, NgForOf} from "@angular/common";
+import {CommonModule, CurrencyPipe} from "@angular/common";
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -18,7 +18,7 @@ import {Product} from "../../../interfaces/interface.product";
 @Component({
   selector: 'app-users-table',
   standalone: true,
-  imports: [HttpClientModule, AsyncPipe, NgForOf, MatTableModule, MatSortModule, MatProgressBarModule, CurrencyPipe, CommonModule],
+  imports: [HttpClientModule, MatTableModule, MatSortModule, MatProgressBarModule, CurrencyPipe, CommonModule],
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss']
 })
@@ -30,7 +30,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<UserFull>();
   displayedColumns: string[] = ['userFullName', 'phone', 'totalPurchase'];
-  isLoading = true;
+  isLoading: boolean = true;
 
   ngOnInit() {
     this.isLoading = true;
@@ -42,10 +42,10 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
     ]).subscribe(([users, carts, products]) => {
       const updatedUsers = this.processUserData(users, carts, products);
       this.dataSource.data = updatedUsers;
-      this.isLoading = false;
       updatedUsers.forEach(user => {
           this.store.dispatch(new UsersAction.UpdateTotalPurchase(user.id, user.totalPurchase));
       });
+      this.isLoading = false;
     });
 
     this.store.select(CartsState.Carts).subscribe(carts => {
