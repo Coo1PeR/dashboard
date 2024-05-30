@@ -72,7 +72,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   processUserData(users: UserFull[], carts: Cart[], products: Product[]): UserFull[] {
     return users.map(user => {
       const userCarts = this.getUserCarts(user.id, carts);
-      const totalPurchase = Math.round(this.calculateTotalPurchase(userCarts, products));
+      const totalPurchase = parseFloat(this.calculateTotalPurchase(userCarts, products).toFixed(2));
       return { ...user, totalPurchase };
     });
   }
