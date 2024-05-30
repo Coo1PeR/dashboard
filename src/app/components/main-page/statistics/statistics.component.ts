@@ -1,24 +1,17 @@
-import {Component, OnInit, inject, ViewChild} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {CommonModule} from '@angular/common';
-import {
-  ChartComponent,
-  NgApexchartsModule,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexTitleSubtitle,
-  ApexNonAxisChartSeries
-} from "ng-apexcharts";
-import {combineLatest, Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {Select, Store} from "@ngxs/store";
-import {CartsState} from "../../../core/stores/carts/carts.state";
-import {UserFull} from "../../../interfaces/interface.user";
-import {ProductsState} from "../../../core/stores/products/products.state";
-import {UsersState} from "../../../core/stores/users/users.state";
-import {Cart} from "../../../interfaces/interface.cart";
-import {Product} from "../../../interfaces/interface.product";
+import { Component, OnInit, ViewChild, inject, DestroyRef } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ChartComponent, NgApexchartsModule, ApexChart, ApexXAxis, ApexTitleSubtitle, ApexNonAxisChartSeries } from "ng-apexcharts";
+import { combineLatest, Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { Select } from "@ngxs/store";
+import { CartsState } from "../../../core/stores/carts/carts.state";
+import { UserFull } from "../../../interfaces/interface.user";
+import { ProductsState } from "../../../core/stores/products/products.state";
+import { UsersState } from "../../../core/stores/users/users.state";
+import { Cart } from "../../../interfaces/interface.cart";
+import { Product } from "../../../interfaces/interface.product";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -41,7 +34,7 @@ export type ChartOptions = {
 export class StatisticsComponent implements OnInit {
   @Select(CartsState.Carts) carts$!: Observable<Cart[]>;
   @Select(ProductsState.Products) products$!: Observable<Product[]>;
-  private store = inject(Store);
+  @Select(UsersState.Users) users$!: Observable<UserFull[]>;
 
   @ViewChild("chart") chart: ChartComponent | undefined;
   public productsChartOptionsApex: Partial<ChartOptions> | any;
@@ -50,23 +43,30 @@ export class StatisticsComponent implements OnInit {
   productData: { productTitle: string, productTotalPurchase: number }[] = [];
   userData: { userFullName: string, userTotalPurchaseSum: number }[] = [];
 
+  // Injecting DestroyRef
+  private destroyRef = inject(DestroyRef);
+
   ngOnInit() {
     this.loadProductData();
     this.loadUserData();
   }
 
   private loadProductData() {
-    this.calculateProductRatio().subscribe(data => {
-      this.productData = data;
-      this.renderProductChartApex(data);
-    });
+    this.calculateProductRatio()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.productData = data;
+        this.renderProductChartApex(data);
+      });
   }
 
   private loadUserData() {
-    this.calculateTotalPurchase().subscribe(data => {
-      this.userData = data;
-      this.renderUserChartApex(data);
-    });
+    this.calculateTotalPurchase()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.userData = data;
+        this.renderUserChartApex(data);
+      });
   }
 
   public renderProductChartApex(data: { productTitle: string, productTotalPurchase: number }[]) {
@@ -129,11 +129,8 @@ export class StatisticsComponent implements OnInit {
     });
   }
 
-  // Метод для подсчета общей суммы покупок пользователей
   calculateTotalPurchase(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
-    // TODO check takeUntilDestroyed
-    // TODO check stores.selectSnapshot
-    return this.store.select(UsersState.Users).pipe(
+    return this.users$.pipe(
       map((users: UserFull[]) => {
         return users.map(user => ({
           userFullName: user.userFullName,
