@@ -41,6 +41,7 @@ export class CartsState {
     const { cartId, userId, productId, quantity } = action;
     const { carts } = ctx.getState();
 
+    // TODO update to more state operators
     ctx.setState(
       patch({
         carts: carts.map(cart =>

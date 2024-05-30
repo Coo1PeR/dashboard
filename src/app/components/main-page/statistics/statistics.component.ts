@@ -129,6 +129,7 @@ export class StatisticsComponent implements OnInit {
     }, new Map<number, number>());
 
     return Array.from(productMap.entries()).map(([productId, productTotalPurchase]) => {
+      // TODO refactor
       const product = products.find(p => p.id === productId);
       return {
         productTitle: product ? product.title : 'Unknown Product',
@@ -137,6 +138,7 @@ export class StatisticsComponent implements OnInit {
     });
   }
 
+  // TODO rename function
   calculateTotalPurchase(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
     return this.users$.pipe(
       map((users: UserFull[]) => {

@@ -39,6 +39,7 @@ export class ShoppingTableComponent implements OnInit {
   }
 
   loadCarts() {
+    // TODO add unsubscribe (takeUntilDestroyed)
     this.getUserCarts(this.userId).subscribe(carts => {
       this.carts = carts;
     });
@@ -62,6 +63,8 @@ export class ShoppingTableComponent implements OnInit {
   }
 
   getUserCarts(userId: number): Observable<any> {
+    // TODO selectSnapshot products
+    // TODO create object
     return combineLatest([
       this.store.select(CartsState.Carts),
       this.store.select(ProductsState.Products)
@@ -72,6 +75,7 @@ export class ShoppingTableComponent implements OnInit {
           return {
             id: cart.id,
             products: cart.products.map(cartProduct => {
+              // TODO refactor find to get product from object ("map")
               const product = products.find(p => p.id === cartProduct.productId);
               return {
                 productId: cartProduct.productId,

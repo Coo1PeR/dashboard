@@ -67,6 +67,7 @@ export class AddNewUserComponent {
 
     // Получаем максимальный ID из существующих пользователей
     let id: number;
+    // TODO change to selectSnapshot
     this.store.selectOnce(UsersState.Users).subscribe((users: UserFull[]) => {
       id = Math.max(...users.map(user => user.id)) + 1;
 
