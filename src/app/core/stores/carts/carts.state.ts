@@ -1,9 +1,10 @@
-import {inject, Injectable} from '@angular/core';
-import {State, Action, StateContext, Selector} from '@ngxs/store';
-import {CartsAction} from './carts.actions';
-import {GetDataService} from "../../../services/get-data.service";
-import {tap} from "rxjs";
-import {Cart, ProductList} from "../../../interfaces/interface.cart";
+import { Injectable } from '@angular/core';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { CartsAction } from './carts.actions';
+import { GetDataService } from "../../../services/get-data.service";
+import { tap } from "rxjs/operators";
+import { Cart, ProductList } from "../../../interfaces/interface.cart";
+import { patch } from '@ngxs/store/operators';
 
 export interface CartsStateModel {
   carts: Cart[];
@@ -17,17 +18,15 @@ export interface CartsStateModel {
     productList: [],
   }
 })
-
 @Injectable()
-
 export class CartsState {
-  private getDataService = inject(GetDataService)
+  constructor(private getDataService: GetDataService) {}
 
   @Action(CartsAction.Fetch)
   fetchCarts(ctx: StateContext<CartsStateModel>) {
     return this.getDataService.getCarts().pipe(
       tap((carts: Cart[]) => {
-        ctx.patchState({ carts: carts });
+        ctx.patchState({ carts });
       })
     );
   }
@@ -39,30 +38,22 @@ export class CartsState {
 
   @Action(CartsAction.SetQuantity)
   setProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.SetQuantity) {
-    const state = ctx.getState();
-    // TODO check State Operators (ngxs docs)
-    const updatedCarts = state.carts.map(cart => {
-      if (cart.id === +action.cartId && cart.userId === +action.userId) {
-        return {
-          ...cart,
-          products: cart.products.map(product => {
-            if (product.productId === +action.productId) {
-              return {
-                ...product,
-                quantity: action.quantity
-              };
+    const { cartId, userId, productId, quantity } = action;
+    const { carts } = ctx.getState();
+
+    ctx.setState(
+      patch({
+        carts: carts.map(cart =>
+          cart.id === +cartId && cart.userId === +userId
+            ? {
+              ...cart,
+              products: cart.products.map(product =>
+                product.productId === +productId ? { ...product, quantity } : product
+              )
             }
-            return product;
-          })
-        };
-      }
-      return cart;
-    });
-
-    ctx.setState({
-      ...state,
-      carts: updatedCarts
-    });
+            : cart
+        )
+      })
+    );
   }
-
 }

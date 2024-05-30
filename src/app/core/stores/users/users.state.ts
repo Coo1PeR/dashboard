@@ -1,9 +1,10 @@
 import {inject, Injectable} from '@angular/core';
-import {Action, Selector, State, StateContext} from '@ngxs/store';
-import {UsersAction} from './users.actions';
-import {UserFull} from "../../../interfaces/interface.user";
-import {GetDataService} from "../../../services/get-data.service";
-import {tap} from "rxjs";
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { UsersAction } from './users.actions';
+import { UserFull } from "../../../interfaces/interface.user";
+import { GetDataService } from "../../../services/get-data.service";
+import { tap } from "rxjs/operators";
+import { patch, updateItem, append } from '@ngxs/store/operators';
 
 export interface UsersStateModel {
   users: UserFull[];
@@ -17,7 +18,6 @@ export interface UsersStateModel {
 })
 
 @Injectable()
-
 export class UsersState {
   private getDataService = inject(GetDataService)
 
@@ -35,44 +35,35 @@ export class UsersState {
   fetchUsers(ctx: StateContext<UsersStateModel>) {
     return this.getDataService.getUsers().pipe(
       tap((users: UserFull[]) => {
-        ctx.patchState({users: users});
+        ctx.patchState({ users });
       })
     );
   }
 
   @Action(UsersAction.UpdateTotalPurchase)
-  updateTotalPurchase(ctx: StateContext<UsersStateModel>, action: UsersAction.UpdateTotalPurchase) {
-    const state = ctx.getState();
-    const users = state.users.map(user => {
-      if (user.id === action.userId) {
-        return {...user, totalPurchase: action.totalPurchase};
-      }
-      return user;
-    });
-    ctx.setState({...state, users});
+  updateTotalPurchase(ctx: StateContext<UsersStateModel>, { userId, totalPurchase }: UsersAction.UpdateTotalPurchase) {
+    ctx.setState(
+      patch({
+        users: updateItem<UserFull>(user => user.id === userId, patch({ totalPurchase }))
+      })
+    );
   }
 
   @Action(UsersAction.Update)
-  updateUser(ctx: StateContext<UsersStateModel>, {user}: UsersAction.Update) {
-    const state = ctx.getState();
-    const updatedUsers = state.users.map(u => {
-      if (u.id === user.id) {
-        return user;
-      } else {
-        return u;
-      }
-    });
-    // TODO check State Operators (ngxs docs)
-    ctx.patchState({
-      users: updatedUsers
-    });
+  updateUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.Update) {
+    ctx.setState(
+      patch({
+        users: updateItem<UserFull>(u => u.id === user.id, user)
+      })
+    );
   }
 
   @Action(UsersAction.AddUser)
   addUser(ctx: StateContext<UsersStateModel>, { user }: UsersAction.AddUser) {
-    const state = ctx.getState();
-    ctx.patchState({
-      users: [...state.users, user]
-    });
+    ctx.setState(
+      patch({
+        users: append([user])
+      })
+    );
   }
 }
