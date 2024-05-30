@@ -32,6 +32,7 @@ export class ShoppingTableComponent implements OnInit {
   carts: Cart[] = [];
   displayedColumns: string[] = ['title', 'price', 'quantity', 'sum'];
   private store = inject(Store);
+  carts$: Observable<Cart[]> = this.getUserCarts(this.userId);
 
   ngOnInit() {
     this.loadCarts();

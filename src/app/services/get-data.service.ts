@@ -2,7 +2,7 @@ import {Injectable, inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {UserFull} from '../interfaces/interfaces.user';
+import {UserFull} from '../interfaces/interface.user';
 import {Cart} from "../interfaces/interface.cart";
 import {Product} from "../interfaces/interface.product";
 

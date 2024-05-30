@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {combineLatest} from "rxjs";
-import {UserFull} from "../../../interfaces/interfaces.user";
+import {UserFull} from "../../../interfaces/interface.user";
 import {AsyncPipe, CommonModule, CurrencyPipe, NgForOf} from "@angular/common";
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
