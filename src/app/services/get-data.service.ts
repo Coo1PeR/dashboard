@@ -16,12 +16,14 @@ export class GetDataService {
   url: string = 'https://fakestoreapi.com';
 
   getUsers(): Observable<UserFull[]> {
-    return this.http.get<UserFull[]>(`${this.url}/users`).pipe(map((users) => {
-      return users.map((user) => {
-        const userFullName = `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}`;
-        return {...user, userFullName}
-      })
-    }));
+    return this.http.get<UserFull[]>(`${this.url}/users`).pipe(
+      map(users => users.map(user => this.mapUserFullName(user)))
+    );
+  }
+
+  private mapUserFullName(user: UserFull): UserFull {
+    const userFullName = `${user.name.lastname.charAt(0).toUpperCase()}${user.name.lastname.slice(1)} ${user.name.firstname.charAt(0).toUpperCase()}${user.name.firstname.slice(1)}`;
+    return { ...user, userFullName };
   }
 
   getProducts(): Observable<Product[]> {

@@ -31,6 +31,3 @@ export namespace UsersAction {
     constructor(public user: UserFull) {}
   }
 }
-
-
-
