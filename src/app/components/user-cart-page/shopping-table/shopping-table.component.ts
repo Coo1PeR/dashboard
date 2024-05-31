@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
 import {MatTableModule} from "@angular/material/table";
 import {MatButton} from "@angular/material/button";
 import {CurrencyPipe} from "@angular/common";
@@ -11,7 +11,8 @@ import {CartsState} from "../../../core/stores/carts/carts.state";
 import {ProductsState} from "../../../core/stores/products/products.state";
 import {map} from "rxjs/operators";
 import {Cart} from "../../../core/interfaces/interface.cart";
-import {ProductCart} from "../../../core/interfaces/interface.product";
+import {Product, ProductCart} from "../../../core/interfaces/interface.product";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-shopping-table',
@@ -33,6 +34,8 @@ export class ShoppingTableComponent implements OnInit {
   displayedColumns: string[] = ['title', 'price', 'quantity', 'sum'];
   private store = inject(Store);
   carts$: Observable<Cart[]> = this.getUserCarts(this.userId);
+  destroyRef = inject(DestroyRef);
+
 
   ngOnInit() {
     this.loadCarts();
@@ -70,13 +73,18 @@ export class ShoppingTableComponent implements OnInit {
       this.store.select(ProductsState.Products)
     ]).pipe(
       map(([carts, products]) => {
+        const productsMap = products.reduce((map, product) => {
+          map[product.id] = product;
+          return map;
+        }, {} as { [key: number]: Product });
+
         const userCarts = carts.filter(cart => cart.userId === userId);
         return userCarts.map(cart => {
           return {
             id: cart.id,
             products: cart.products.map(cartProduct => {
               // TODO refactor find to get product from object ("map")
-              const product = products.find(p => p.id === cartProduct.productId);
+              const product = productsMap[cartProduct.productId];
               return {
                 productId: cartProduct.productId,
                 title: product?.title || 'Unknown Product',
@@ -87,8 +95,8 @@ export class ShoppingTableComponent implements OnInit {
             })
           };
         });
-      })
+      }),
+      //takeUntilDestroyed()
     );
   }
 }
-
