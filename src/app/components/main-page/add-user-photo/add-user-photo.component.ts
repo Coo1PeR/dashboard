@@ -1,58 +1,34 @@
-import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
-import {Store} from "@ngxs/store";
-import {UserFull} from "../../../core/interfaces/interface.user";
-import {OpenUserCartService} from "../../../core/services/open-user-cart.service";
-import {UsersState} from "../../../core/stores/users/users.state";
-import {UsersAction} from "../../../core/stores/users/users.actions";
-import {MatButton} from "@angular/material/button";
-import {Dialog} from "@angular/cdk/dialog";
+import { Component, inject, OnInit } from '@angular/core';
+import { Store } from "@ngxs/store";
+import { UserFull } from "../../../core/interfaces/interface.user";
+import { OpenUserCartService } from "../../../core/services/open-user-cart.service";
+import { UsersState } from "../../../core/stores/users/users.state";
+import { UsersAction } from "../../../core/stores/users/users.actions";
+import { MatButton } from "@angular/material/button";
+import { Dialog } from "@angular/cdk/dialog";
+import { CommonModule } from '@angular/common';
+import { DragDropDirective } from '../../../shared/drag-and-drop.directive'
 
 @Component({
   selector: 'app-add-user-photo',
   standalone: true,
   templateUrl: './add-user-photo.component.html',
   imports: [
-    MatButton
+    MatButton,
+    CommonModule,
+    DragDropDirective
   ],
   styleUrls: ['./add-user-photo.component.scss']
 })
 
-export class AddUserPhotoComponent implements OnInit{
-  @ViewChild('dropZone', {static: true}) dropZone!: ElementRef;
+export class AddUserPhotoComponent implements OnInit {
   imageUrl: string | ArrayBuffer | null = '';
 
-  private dialog = inject(Dialog)
-  private store = inject(Store)
-  private openUserCartService = inject(OpenUserCartService)
+  private dialog = inject(Dialog);
+  private store = inject(Store);
+  private openUserCartService = inject(OpenUserCartService);
 
-
-  ngOnInit() {
-    this.initializeDragAndDrop();
-  }
-
-  initializeDragAndDrop() {
-    const dropZoneElement = this.dropZone.nativeElement;
-
-    // TODO check @Directive
-    ['dragover', 'dragleave'].forEach(eventName => {
-      dropZoneElement.addEventListener(eventName, (event: DragEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
-        dropZoneElement.classList.toggle('drag-over', eventName === 'dragover');
-      });
-    });
-
-    dropZoneElement.addEventListener('drop', (event: DragEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-      dropZoneElement.classList.remove('drag-over');
-
-      const file = event.dataTransfer?.files[0];
-      if (file) {
-        this.handleFile(file);
-      }
-    });
-  }
+  ngOnInit() {}
 
   handleFile(file: File) {
     const reader = new FileReader();
@@ -72,8 +48,8 @@ export class AddUserPhotoComponent implements OnInit{
   }
 
   updateUserProfile(updatedUser: UserFull) {
-    this.store.dispatch(new UsersAction.Update(updatedUser))
-  };
+    this.store.dispatch(new UsersAction.Update(updatedUser));
+  }
 
   complete() {
     this.dialog.closeAll();

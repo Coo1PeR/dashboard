@@ -1,38 +1,33 @@
-//////////////////////
-    // UNUSED //
-//////////////////////
-
-import {Directive, ElementRef, EventEmitter, HostListener, Output} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Output, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appDragAndDrop]',
-  standalone: true
+  standalone: true,
+  selector: '[appDragDrop]'
 })
-export class DragAndDropDirective {
+export class DragDropDirective {
   @Output() fileDropped = new EventEmitter<File>();
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    this.el.nativeElement.classList.add('drag-over');
+    this.renderer.addClass(this.el.nativeElement, 'drag-over');
   }
 
   @HostListener('dragleave', ['$event'])
   onDragLeave(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    this.el.nativeElement.classList.remove('drag-over');
+    this.renderer.removeClass(this.el.nativeElement, 'drag-over');
   }
 
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    this.el.nativeElement.classList.remove('drag-over');
-
+    this.renderer.removeClass(this.el.nativeElement, 'drag-over');
     const file = event.dataTransfer?.files[0];
     if (file) {
       this.fileDropped.emit(file);

@@ -1,15 +1,10 @@
 <section>
   <h2>Добавьте аватар для нового пользователя</h2>
-  <div class="drop-zone" #dropZone>
-    @if (!imageUrl) {
-      <div class="drop-zone-placeholder">
-        Перетащите сюда фото в формате jpg или png
-      </div>
-    }
-    @if (imageUrl) {
-      <img [src]="imageUrl" alt="User photo" class="uploaded-image">
-    }
+  <div class="drop-zone" appDragDrop (fileDropped)="handleFile($event)">
+    <div *ngIf="!imageUrl" class="drop-zone-placeholder">
+      Перетащите сюда фото в формате jpg или png
+    </div>
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="User photo" class="uploaded-image">
   </div>
   <button mat-flat-button (click)="complete()" color="primary">Завершить</button>
 </section>
-
