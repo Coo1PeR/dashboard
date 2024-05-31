@@ -6,10 +6,9 @@ import {CartsAction} from "../../../core/stores/carts/carts.actions";
 import {Store} from "@ngxs/store";
 import {MatIcon} from "@angular/material/icon";
 import {MatCardContent} from "@angular/material/card";
-import {combineLatest, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {CartsState} from "../../../core/stores/carts/carts.state";
 import {ProductsState} from "../../../core/stores/products/products.state";
-import {map} from "rxjs/operators";
 import {Cart} from "../../../core/interfaces/interface.cart";
 import {Product, ProductCart} from "../../../core/interfaces/interface.product";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -65,36 +64,33 @@ export class ShoppingTableComponent implements OnInit {
   }
 
   getUserCarts(userId: number): Observable<any> {
-    // TODO selectSnapshot products
-    // TODO create object
-    return combineLatest([
-      this.store.select(CartsState.Carts),
-      this.store.select(ProductsState.Products)
-    ]).pipe(
-      map(([carts, products]) => {
-        const productsMap = products.reduce((map, product) => {
-          map[product.id] = product;
-          return map;
-        }, {} as { [key: number]: Product });
+    const carts = this.store.selectSnapshot(CartsState.Carts);
+    const products = this.store.selectSnapshot(ProductsState.Products);
 
-        const userCarts = carts.filter(cart => cart.userId === userId);
-        return userCarts.map(cart => {
+    const productsMap = products.reduce((map, product) => {
+      map[product.id] = product;
+      return map;
+    }, {} as { [key: number]: Product });
+
+    const userCarts = carts.filter(cart => cart.userId === userId);
+    const result = userCarts.map(cart => {
+      return {
+        id: cart.id,
+        products: cart.products.map(cartProduct => {
+          const product = productsMap[cartProduct.productId];
           return {
-            id: cart.id,
-            products: cart.products.map(cartProduct => {
-              const product = productsMap[cartProduct.productId];
-              return {
-                productId: cartProduct.productId,
-                title: product?.title || 'Unknown Product',
-                price: product?.price || 0,
-                quantity: cartProduct.quantity,
-                sum: (product?.price || 0) * cartProduct.quantity
-              };
-            })
+            productId: cartProduct.productId,
+            title: product?.title || 'Unknown Product',
+            price: product?.price || 0,
+            quantity: cartProduct.quantity,
+            sum: (product?.price || 0) * cartProduct.quantity
           };
-        });
-      }),
-      //takeUntilDestroyed()
-    );
-  }
-}
+        })
+      };
+    });
+
+    return new Observable(subscriber => {
+      subscriber.next(result);
+      subscriber.complete();
+    });
+  }}
