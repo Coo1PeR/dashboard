@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {UserFull} from '../interfaces/interface.user';
 import {Cart} from "../interfaces/interface.cart";
 import {Product} from "../interfaces/interface.product";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,7 @@ import {Product} from "../interfaces/interface.product";
 export class GetDataService {
   private http = inject(HttpClient);
 
-  // TODO extract to environments (check angular cli environments)
-  url: string = 'https://fakestoreapi.com';
+  url: string = environment.apiUrl;
 
   getUsers(): Observable<UserFull[]> {
     return this.http.get<UserFull[]>(`${this.url}/users`).pipe(
