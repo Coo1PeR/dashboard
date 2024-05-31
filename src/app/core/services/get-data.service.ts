@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {UserFull} from '../interfaces/interface.user';
 import {Cart} from "../interfaces/interface.cart";
 import {Product} from "../interfaces/interface.product";
-import {environment} from "../../../environments/environment.development";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

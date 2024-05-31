@@ -17,7 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     importProvidersFrom([
-      // TODO add configs
       NgxsModule.forRoot([UsersState, CartsState, ProductsState, LoginState], {developmentMode: environment.production}),
       NgxsLoggerPluginModule.forRoot({disabled: environment.production}),
       NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production })
