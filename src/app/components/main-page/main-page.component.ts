@@ -7,6 +7,7 @@ import {UsersTableComponent} from "./users-table/users-table.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
 import {Dialog} from "@angular/cdk/dialog";
 import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-main-page',
@@ -18,6 +19,7 @@ import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
     CommonModule,
     UsersTableComponent,
     StatisticsComponent,
+    MatIcon,
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'

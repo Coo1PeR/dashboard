@@ -1,12 +1,20 @@
 <section>
   <div>
     <mat-tab-group (selectedTabChange)="onTabChange($event)">
-      <mat-tab label="Пользователи">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">group</mat-icon>
+          Пользователи
+        </ng-template>
         @if (selectedIndex === 0) {
           <app-users-table></app-users-table>
         }
       </mat-tab>
-      <mat-tab label="Статистика">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">equalizer</mat-icon>
+          Статистика
+        </ng-template>
         @if (selectedIndex === 1) {
           <app-statistics></app-statistics>
         }
