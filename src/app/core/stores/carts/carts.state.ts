@@ -4,7 +4,7 @@ import { CartsAction } from './carts.actions';
 import { GetDataService } from "../../services/get-data.service";
 import { tap } from "rxjs/operators";
 import { Cart, ProductList } from "../../interfaces/interface.cart";
-import { patch } from '@ngxs/store/operators';
+import {patch, updateItem} from '@ngxs/store/operators';
 
 export interface CartsStateModel {
   carts: Cart[];
@@ -39,20 +39,17 @@ export class CartsState {
   @Action(CartsAction.SetQuantity)
   setProductQuantity(ctx: StateContext<CartsStateModel>, action: CartsAction.SetQuantity) {
     const { cartId, userId, productId, quantity } = action;
-    const { carts } = ctx.getState();
 
-    // TODO update to more state operators
     ctx.setState(
       patch({
-        carts: carts.map(cart =>
-          cart.id === +cartId && cart.userId === +userId
-            ? {
-              ...cart,
-              products: cart.products.map(product =>
-                product.productId === +productId ? { ...product, quantity } : product
-              )
-            }
-            : cart
+        carts: updateItem<Cart>(
+          cart => cart.id === cartId && cart.userId === userId,
+          patch({
+            products: updateItem<ProductList>(
+              product => product.productId === productId,
+              patch({ quantity })
+            )
+          })
         )
       })
     );

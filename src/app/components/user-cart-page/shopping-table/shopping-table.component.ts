@@ -83,7 +83,6 @@ export class ShoppingTableComponent implements OnInit {
           return {
             id: cart.id,
             products: cart.products.map(cartProduct => {
-              // TODO refactor find to get product from object ("map")
               const product = productsMap[cartProduct.productId];
               return {
                 productId: cartProduct.productId,
