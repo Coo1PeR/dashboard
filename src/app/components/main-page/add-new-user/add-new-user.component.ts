@@ -59,43 +59,36 @@ export class AddNewUserComponent {
   private static defaultPassword = '';
 
   addUser() {
-    // Получаем значения из формы
     const lastName = this.newUserForm.value.lastName?.toLowerCase() ?? '';
     const firstName = this.newUserForm.value.firstName?.toLowerCase() ?? '';
     const email = this.newUserForm.value.email?.toLowerCase() ?? '';
     const phone = this.newUserForm.value.phone?.toLowerCase() ?? '';
 
-    // Получаем максимальный ID из существующих пользователей
-    let id: number;
-    // TODO change to selectSnapshot
-    this.store.selectOnce(UsersState.Users).subscribe((users: UserFull[]) => {
-      id = Math.max(...users.map(user => user.id)) + 1;
+    const users: UserFull[] = this.store.selectSnapshot(UsersState.Users);
+    const id = Math.max(...users.map(user => user.id)) + 1;
 
-      // Создаем объект нового пользователя
-      const newUser: UserFull = {
-        address: AddNewUserComponent.defaultAddress,
-        id: id,
-        email: email,
-        username: AddNewUserComponent.defaultUsername,
-        password: AddNewUserComponent.defaultPassword,
-        name: {
-          firstname: firstName,
-          lastname: lastName,
-        },
-        phone: phone,
-        __v: 0,
-        totalPurchase: AddNewUserComponent.defaultTotalPurchase,
-        userFullName: `${lastName.charAt(0).toUpperCase()}${lastName.slice(1)} ${firstName.charAt(0).toUpperCase()}${firstName.slice(1)}`,
-        profileImage: AddNewUserComponent.defaultProfileImage,
-      };
+    const newUser: UserFull = {
+      address: AddNewUserComponent.defaultAddress,
+      id: id,
+      email: email,
+      username: AddNewUserComponent.defaultUsername,
+      password: AddNewUserComponent.defaultPassword,
+      name: {
+        firstname: firstName,
+        lastname: lastName,
+      },
+      phone: phone,
+      __v: 0,
+      totalPurchase: AddNewUserComponent.defaultTotalPurchase,
+      userFullName: `${lastName.charAt(0).toUpperCase()}${lastName.slice(1)} ${firstName.charAt(0).toUpperCase()}${firstName.slice(1)}`,
+      profileImage: AddNewUserComponent.defaultProfileImage,
+    };
 
-      console.log(newUser);
-      // Диспатч экшена для добавления нового пользователя
-      this.store.dispatch(new UsersAction.AddUser(newUser));
-    });
+    console.log(newUser);
+
+    this.store.dispatch(new UsersAction.AddUser(newUser));
   }
 
-  // Открываем диалоговое окно для добавления фото
   async openAddPhoto() {
     this.dialog.open(AddUserPhotoComponent, {});
   }
