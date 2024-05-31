@@ -10,6 +10,7 @@ import {LoginState} from "./core/stores/login/login.state";
 import {provideHttpClient} from "@angular/common/http";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
+import {environment} from "../environments/environment";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,9 +18,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     importProvidersFrom([
       // TODO add configs
-      NgxsModule.forRoot([UsersState, CartsState, ProductsState, LoginState]),
-      NgxsLoggerPluginModule.forRoot(),
-      NgxsReduxDevtoolsPluginModule.forRoot()
+      NgxsModule.forRoot([UsersState, CartsState, ProductsState, LoginState], {developmentMode: environment.production}),
+      NgxsLoggerPluginModule.forRoot({disabled: environment.production}),
+      NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production })
     ]),
     provideHttpClient()
   ],
