@@ -121,18 +121,22 @@ export class StatisticsComponent implements OnInit {
   }
 
   private calculateProductTotals(carts: Cart[], products: Product[]): { productTitle: string, productTotalPurchase: number }[] {
-    const productMap = carts.reduce((acc, cart) => {
-      cart.products.forEach(product => {
-        acc.set(product.productId, (acc.get(product.productId) || 0) + product.quantity);
+    const productMap: { [key: number]: Product } = products.reduce((map, product) => {
+      map[product.id] = product;
+      return map;
+    }, {} as { [key: number]: Product });
+
+    const productTotals: { [key: number]: number } = carts.reduce((acc, cart) => {
+      cart.products.forEach(cartProduct => {
+        acc[cartProduct.productId] = (acc[cartProduct.productId] || 0) + cartProduct.quantity;
       });
       return acc;
-    }, new Map<number, number>());
+    }, {} as { [key: number]: number });
 
-    return Array.from(productMap.entries()).map(([productId, productTotalPurchase]) => {
-      // TODO refactor
-      const product = products.find(p => p.id === productId);
+    return Object.entries(productTotals).map(([productId, productTotalPurchase]) => {
+      const product = productMap[+productId];
       return {
-        productTitle: product ? product.title : 'Unknown Product',
+        productTitle: product?.title ?? 'Unknown Product',
         productTotalPurchase: productTotalPurchase
       };
     });
