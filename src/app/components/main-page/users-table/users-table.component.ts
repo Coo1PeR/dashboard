@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, DestroyRef, inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {combineLatest} from "rxjs";
 import {UserFull} from "../../../core/interfaces/interface.user";
@@ -14,6 +14,7 @@ import {ProductsState} from "../../../core/stores/products/products.state";
 import {UsersAction} from "../../../core/stores/users/users.actions";
 import {Cart} from "../../../core/interfaces/interface.cart";
 import {Product} from "../../../core/interfaces/interface.product";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-users-table',
@@ -31,6 +32,8 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<UserFull>();
   displayedColumns: string[] = ['userFullName', 'phone', 'totalPurchase'];
   isLoading: boolean = true;
+  private destroyRef = inject(DestroyRef);
+
 
   ngOnInit() {
 
@@ -38,7 +41,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       this.store.selectOnce(UsersState.Users),
       this.store.selectOnce(CartsState.Carts),
       this.store.selectOnce(ProductsState.Products)
-    ]).subscribe(([users, carts, products]) => {
+    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([users, carts, products]) => {
       const updatedUsers = this.processUserData(users, carts, products);
       this.dataSource.data = updatedUsers;
       updatedUsers.forEach(user => {
@@ -47,7 +50,7 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
       this.isLoading = false;
     });
 
-    this.store.select(CartsState.Carts).subscribe(carts => {
+    this.store.select(CartsState.Carts).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(carts => {
       const users = this.dataSource.data;
       const products = this.store.selectSnapshot(ProductsState.Products);
       const updatedUsers = this.processUserData(users, carts, products);

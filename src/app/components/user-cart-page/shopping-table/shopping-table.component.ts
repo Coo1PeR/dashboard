@@ -34,7 +34,7 @@ export class ShoppingTableComponent implements OnInit {
   displayedColumns: string[] = ['title', 'price', 'quantity', 'sum'];
   private store = inject(Store);
   carts$: Observable<Cart[]> = this.getUserCarts(this.userId);
-  destroyRef = inject(DestroyRef);
+  private destroyRef = inject(DestroyRef);
 
 
   ngOnInit() {
@@ -42,8 +42,7 @@ export class ShoppingTableComponent implements OnInit {
   }
 
   loadCarts() {
-    // TODO add unsubscribe (takeUntilDestroyed)
-    this.getUserCarts(this.userId).subscribe(carts => {
+    this.getUserCarts(this.userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(carts => {
       this.carts = carts;
     });
   }
