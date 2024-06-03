@@ -15,17 +15,19 @@ import {UsersAction} from "../../../core/stores/users/users.actions";
 import {Cart} from "../../../core/interfaces/interface.cart";
 import {Product} from "../../../core/interfaces/interface.product";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-users-table',
   standalone: true,
-  imports: [HttpClientModule, MatTableModule, MatSortModule, MatProgressBarModule, CurrencyPipe, CommonModule],
+  imports: [HttpClientModule, MatTableModule, MatSortModule, MatProgressBarModule, CurrencyPipe, CommonModule, RouterLink],
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss']
 })
 export class UsersTableComponent implements OnInit, AfterViewInit {
   private openUserCartService = inject(OpenUserCartService);
   private store = inject(Store);
+  private router = inject(Router)
 
   @ViewChild(MatSort) sort!: MatSort;
 

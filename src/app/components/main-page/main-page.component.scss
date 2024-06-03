@@ -9,12 +9,9 @@
 
 
 div {
-  width: 50%;
   position: absolute;
   top: 10%;
   left: 50%;
-  transform: translate(-50%);
-  margin-bottom: 8px;
 }
 
 .button-add {
@@ -30,4 +27,22 @@ mat-spinner {
 
 .tab-icon {
   margin-right: 8px;
+}
+
+.content {
+  position: sticky;
+  width: 50%;
+  margin: 20px;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  transform: translate(-50%);
+}
+
+
+.sidenav-content{
+  background-color: #F4F0EC;
+}
+
+.sidebar {
+  background-color: #F4B88E;
 }

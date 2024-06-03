@@ -10,6 +10,7 @@ import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
 import {MatIcon} from "@angular/material/icon";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {SidebarComponent} from "./sidebar/sidebar.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-main-page',
@@ -26,6 +27,7 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
     MatSidenavContainer,
     MatSidenavContent,
     SidebarComponent,
+    RouterOutlet,
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'

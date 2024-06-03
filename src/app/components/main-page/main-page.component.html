@@ -1,37 +1,42 @@
 <mat-sidenav-container class="container">
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav class="sidebar" mode="side" opened>
     <app-sidebar></app-sidebar>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <section>
-      <div>
-        <mat-tab-group (selectedTabChange)="onTabChange($event)">
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon class="tab-icon">group</mat-icon>
-              Пользователи
-            </ng-template>
-            @if (selectedIndex === 0) {
-              <app-users-table></app-users-table>
-            }
-          </mat-tab>
-          <mat-tab>
-            <ng-template mat-tab-label>
-              <mat-icon class="tab-icon">equalizer</mat-icon>
-              Статистика
-            </ng-template>
-            @if (selectedIndex === 1) {
-              <app-statistics></app-statistics>
-            }
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-      @if (selectedIndex === 0) {
-        <div class="button-add">
-          <button color="primary" mat-raised-button (click)="openAddUser()">Добавить нового пользователя</button>
-        </div>
-      }
-    </section>
+  <mat-sidenav-content class="sidenav-content">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+
+    <!--    <section>-->
+<!--      <div>-->
+<!--        <mat-tab-group (selectedTabChange)="onTabChange($event)">-->
+<!--          <mat-tab>-->
+<!--            <ng-template mat-tab-label>-->
+<!--              <mat-icon class="tab-icon">group</mat-icon>-->
+<!--              Пользователи-->
+<!--            </ng-template>-->
+<!--            @if (selectedIndex === 0) {-->
+<!--              <app-users-table></app-users-table>-->
+<!--            }-->
+<!--          </mat-tab>-->
+<!--          <mat-tab>-->
+<!--            <ng-template mat-tab-label>-->
+<!--              <mat-icon class="tab-icon">equalizer</mat-icon>-->
+<!--              Статистика-->
+<!--            </ng-template>-->
+<!--            @if (selectedIndex === 1) {-->
+<!--              <app-statistics></app-statistics>-->
+<!--            }-->
+<!--          </mat-tab>-->
+<!--        </mat-tab-group>-->
+<!--      </div>-->
+<!--      @if (selectedIndex === 0) {-->
+<!--        <div class="button-add">-->
+<!--          <button color="primary" mat-raised-button (click)="openAddUser()">Добавить нового пользователя</button>-->
+<!--        </div>-->
+<!--      }-->
+<!--    </section>-->
   </mat-sidenav-content>
 </mat-sidenav-container>
 
