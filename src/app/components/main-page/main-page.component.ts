@@ -8,6 +8,8 @@ import {StatisticsComponent} from "./statistics/statistics.component";
 import {Dialog} from "@angular/cdk/dialog";
 import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
 import {MatIcon} from "@angular/material/icon";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {SidebarComponent} from "./sidebar/sidebar.component";
 
 @Component({
   selector: 'app-main-page',
@@ -20,6 +22,10 @@ import {MatIcon} from "@angular/material/icon";
     UsersTableComponent,
     StatisticsComponent,
     MatIcon,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent,
+    SidebarComponent,
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
