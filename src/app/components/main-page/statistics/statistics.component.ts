@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {
   ApexChart,
   ApexFill,
-  ApexNonAxisChartSeries, ApexOptions, ApexPlotOptions,
+  ApexNonAxisChartSeries, ApexPlotOptions,
   ApexTitleSubtitle,
   ApexXAxis,
   ApexYAxis,
@@ -127,7 +127,7 @@ export class StatisticsComponent implements OnInit {
           } else {
             return '#CA726F'
           }
-        }]
+        }],
       },
       plotOptions: {
         bar: {
