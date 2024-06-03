@@ -1,24 +1,35 @@
-import { Component, OnInit, ViewChild, inject, DestroyRef } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ChartComponent, NgApexchartsModule, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexNonAxisChartSeries } from "ng-apexcharts";
-import { combineLatest, Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { Select } from "@ngxs/store";
-import { CartsState } from "../../../core/stores/carts/carts.state";
-import { UserFull } from "../../../core/interfaces/interface.user";
-import { ProductsState } from "../../../core/stores/products/products.state";
-import { UsersState } from "../../../core/stores/users/users.state";
-import { Cart } from "../../../core/interfaces/interface.cart";
-import { Product } from "../../../core/interfaces/interface.product";
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, inject, OnInit, ViewChild} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {
+  ApexChart,
+  ApexFill,
+  ApexNonAxisChartSeries, ApexOptions, ApexPlotOptions,
+  ApexTitleSubtitle,
+  ApexXAxis,
+  ApexYAxis,
+  ChartComponent,
+  NgApexchartsModule
+} from "ng-apexcharts";
+import {combineLatest, Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {Select} from "@ngxs/store";
+import {CartsState} from "../../../core/stores/carts/carts.state";
+import {UserFull} from "../../../core/interfaces/interface.user";
+import {ProductsState} from "../../../core/stores/products/products.state";
+import {UsersState} from "../../../core/stores/users/users.state";
+import {Cart} from "../../../core/interfaces/interface.cart";
+import {Product} from "../../../core/interfaces/interface.product";
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  plotOptions: ApexPlotOptions
   title: ApexTitleSubtitle;
   yaxis: ApexYAxis;
+  fill: ApexFill;
 };
 
 @Component({
@@ -52,24 +63,6 @@ export class StatisticsComponent implements OnInit {
     this.loadUserData();
   }
 
-  private loadProductData() {
-    this.calculateProductRatio()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(data => {
-        this.productData = data;
-        this.renderProductChartApex(data);
-      });
-  }
-
-  private loadUserData() {
-    this.getUserData()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(data => {
-        this.userData = data;
-        this.renderUserChartApex(data);
-      });
-  }
-
   public renderProductChartApex(data: { productTitle: string, productTotalPurchase: number }[]) {
     this.productsChartOptionsApex = {
       series: [{
@@ -91,7 +84,22 @@ export class StatisticsComponent implements OnInit {
 
         },
         categories: data.map(item => item.productTitle)
-      }
+      },
+      fill: {
+        colors: [function (series: any) {
+          if (series.dataPointIndex%2 === 0) {
+            return '#F4B88E'
+          } else {
+            return '#CA726F'
+          }
+        }]
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          columnWidth: "80%",
+        }
+      },
     };
   }
 
@@ -110,7 +118,23 @@ export class StatisticsComponent implements OnInit {
       },
       xaxis: {
         categories: data.map(item => item.userFullName)
-      }
+      },
+      fill: {
+        colors: [function (series: any) {
+          console.log(series)
+          if (series.dataPointIndex%2 === 0) {
+            return '#F4B88E'
+          } else {
+            return '#CA726F'
+          }
+        }]
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          columnWidth: "80%",
+        }
+      },
     };
   }
 
@@ -120,7 +144,39 @@ export class StatisticsComponent implements OnInit {
     );
   }
 
-  private calculateProductTotals(carts: Cart[], products: Product[]): { productTitle: string, productTotalPurchase: number }[] {
+  getUserData(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
+    return this.users$.pipe(
+      map((users: UserFull[]) => {
+        return users.map(user => ({
+          userFullName: user.userFullName,
+          userTotalPurchaseSum: user.totalPurchase
+        }));
+      })
+    );
+  }
+
+  private loadProductData() {
+    this.calculateProductRatio()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.productData = data;
+        this.renderProductChartApex(data);
+      });
+  }
+
+  private loadUserData() {
+    this.getUserData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        this.userData = data;
+        this.renderUserChartApex(data);
+      });
+  }
+
+  private calculateProductTotals(carts: Cart[], products: Product[]): {
+    productTitle: string,
+    productTotalPurchase: number
+  }[] {
     const productMap: { [key: number]: Product } = products.reduce((map, product) => {
       map[product.id] = product;
       return map;
@@ -140,16 +196,5 @@ export class StatisticsComponent implements OnInit {
         productTotalPurchase: productTotalPurchase
       };
     });
-  }
-
-  getUserData(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
-    return this.users$.pipe(
-      map((users: UserFull[]) => {
-        return users.map(user => ({
-          userFullName: user.userFullName,
-          userTotalPurchaseSum: user.totalPurchase
-        }));
-      })
-    );
   }
 }
