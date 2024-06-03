@@ -92,7 +92,8 @@ export class StatisticsComponent implements OnInit {
           } else {
             return '#CA726F'
           }
-        }]
+        }],
+        opacity: 1,
       },
       plotOptions: {
         bar: {
@@ -128,6 +129,7 @@ export class StatisticsComponent implements OnInit {
             return '#CA726F'
           }
         }],
+        opacity: 1,
       },
       plotOptions: {
         bar: {
