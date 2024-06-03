@@ -71,7 +71,8 @@ export class StatisticsComponent implements OnInit {
       }],
       chart: {
         height: 'auto',
-        type: 'bar'
+        type: 'bar',
+        fontFamily: 'Comfortaa, sans-serif'
       },
       title: {
         text: 'Количество проданных товаров'
@@ -112,7 +113,8 @@ export class StatisticsComponent implements OnInit {
       }],
       chart: {
         height: 'auto',
-        type: 'bar'
+        type: 'bar',
+        fontFamily: 'Comfortaa, sans-serif'
       },
       title: {
         text: 'Пользователи и их общая сумма покупок'
@@ -122,7 +124,6 @@ export class StatisticsComponent implements OnInit {
       },
       fill: {
         colors: [function (series: any) {
-          console.log(series)
           if (series.dataPointIndex%2 === 0) {
             return '#F4B88E'
           } else {
