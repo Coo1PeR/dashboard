@@ -1,4 +1,4 @@
-import {Component, HostBinding, HostListener, inject, OnInit} from '@angular/core';
+import {Component, HostBinding, inject, OnInit} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {RouterLink, RouterLinkActive} from "@angular/router";

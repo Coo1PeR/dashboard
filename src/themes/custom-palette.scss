@@ -1,7 +1,7 @@
 /**
 * Generated theme by Material Theme Generator
 * https://materialtheme.arcsine.dev
-* Fork at: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48I2ZiZTZjNSIsIj9lcjwjZjRmMGVjIiwiO2VyPCNmNGI4OGV$LCIlPmBePCNmNGI4OGUiLCI~ZXI8I2VmZDVkNCIsIjtlcjwjYjc1NTUyfiwid2Fybj5gXjwjZjc4YThhIiwiP2VyPCNmZGRjZGMiLCI7ZXI8I2YzNmQ2ZH4sIj9UZXh0PCMwMDAwMDAiLCI~PTwjZmFmYWZhIiwiO1RleHQ8I2ZmZmZmZiIsIjs9PCMyNjI1NDJ$LCJmb250cz5bYEA8KC00IiwiZmFtaWx5PENvbWZvcnRhYSIsInZhcmlhbnQ8cmVndWxhcn4sYEA8KC0zIiwiZmFtaWx5PENvbWZvcnRhYX4sYEA8KC0yIiwiZmFtaWx5PENvbWZvcnRhYX4sYEA8KC0xIiwiZmFtaWx5PENvbWZvcnRhYX4sYEA8aGVhZGxpbmUiLCJmYW1pbHk8Q29tZm9ydGFhfixgQDx0aXRsZSIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPHN1YiktMiIsImZhbWlseTxDb21mb3J0YWF$LGBAPHN1YiktMSIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPGJvZHktMiIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPGJvZHktMSIsImZhbWlseTxDb21mb3J0YWF$LGBAPGJ1dHRvbiIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPGNhcHRpb24iLCJmYW1pbHk8Q29tZm9ydGFhfixgQDxpbnB1dCIsImZhbWlseTxDb21mb3J0YWEiLCJzaXplPm51bGx9XSwiaWNvbnM8Um91bmRlZCIsIj9uZXNzPnRydWUsInZlcnNpb24$MTN9
+* Fork at: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48I2ZiZTZjNSIsIj9lcjwjZmVmOGVlIiwiO2VyPCNmOWRiYjB$LCIlPmBePCNmNGI4OGUiLCI~ZXI8I2ZiZTZjNSIsIjtlcjwjY2E3MjZmfiwid2Fybj5gXjwjZmY4MTgxIiwiP2VyPCNmZmQ5ZDkiLCI7ZXI8I2ZmNjQ2NH4sIj9UZXh0PCMwMDAwMDAiLCI~PTwjZjRmMGVjIiwiO1RleHQ8I2ZmZmZmZiIsIjs9PCMyNjI1NDJ$LCJmb250cz5bYEA8KC00IiwiZmFtaWx5PENvbWZvcnRhYSIsInZhcmlhbnQ8cmVndWxhcn4sYEA8KC0zIiwiZmFtaWx5PENvbWZvcnRhYX4sYEA8KC0yIiwiZmFtaWx5PENvbWZvcnRhYX4sYEA8KC0xIiwiZmFtaWx5PENvbWZvcnRhYX4sYEA8aGVhZGxpbmUiLCJmYW1pbHk8Q29tZm9ydGFhfixgQDx0aXRsZSIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPHN1YiktMiIsImZhbWlseTxDb21mb3J0YWF$LGBAPHN1YiktMSIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPGJvZHktMiIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPGJvZHktMSIsImZhbWlseTxDb21mb3J0YWF$LGBAPGJ1dHRvbiIsImZhbWlseTxDb21mb3J0YWEiLCJ2YXJpYW50PHJlZ3VsYXJ$LGBAPGNhcHRpb24iLCJmYW1pbHk8Q29tZm9ydGFhfixgQDxpbnB1dCIsImZhbWlseTxDb21mb3J0YWEiLCJzaXplPm51bGx9XSwiaWNvbnM8Um91bmRlZCIsIj9uZXNzPnRydWUsInZlcnNpb24$MTN9
 */
 
 @use '@angular/material' as mat;
@@ -87,7 +87,7 @@ $mat-dark-theme-foreground: (
 
 // Background config
 // Light bg
-$light-background:    #fafafa;
+$light-background:    #f4f0ec;
 $light-bg-darker-5:   darken($light-background, 5%);
 $light-bg-darker-10:  darken($light-background, 10%);
 $light-bg-darker-20:  darken($light-background, 20%);
@@ -121,8 +121,8 @@ $dark-bg-lighter-5:   lighten($dark-background, 5%);
 $dark-bg-lighter-10:  lighten($dark-background, 10%);
 $dark-bg-lighter-20:  lighten($dark-background, 20%);
 $dark-bg-lighter-30:  lighten($dark-background, 30%);
-$light-bg-alpha-4:    rgba(#fafafa, 0.04);
-$light-bg-alpha-12:   rgba(#fafafa, 0.12);
+$light-bg-alpha-4:    rgba(#f4f0ec, 0.04);
+$light-bg-alpha-12:   rgba(#f4f0ec, 0.12);
 
 // Background palette for dark themes.
 $mat-dark-theme-background: (
@@ -150,16 +150,16 @@ $mat-dark-theme-background: (
 
 body {
   --primary-color: #fbe6c5;
-  --primary-lighter-color: #f4f0ec;
-  --primary-darker-color: #f4b88e;
+  --primary-lighter-color: #fef8ee;
+  --primary-darker-color: #f9dbb0;
   --text-primary-color: #{$dark-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$dark-primary-text};
 }
 $mat-primary: (
   main: #fbe6c5,
-  lighter: #f4f0ec,
-  darker: #f4b88e,
+  lighter: #fef8ee,
+  darker: #f9dbb0,
   200: #fbe6c5, // For slide toggle,
   contrast : (
     main: $dark-primary-text,
@@ -172,39 +172,39 @@ $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 body {
   --accent-color: #f4b88e;
-  --accent-lighter-color: #efd5d4;
-  --accent-darker-color: #b75552;
+  --accent-lighter-color: #fbe6c5;
+  --accent-darker-color: #ca726f;
   --text-accent-color: #{$dark-primary-text};
   --text-accent-lighter-color: #{$dark-primary-text};
-  --text-accent-darker-color: #{$light-primary-text};
+  --text-accent-darker-color: #{$dark-primary-text};
 }
 $mat-accent: (
   main: #f4b88e,
-  lighter: #efd5d4,
-  darker: #b75552,
+  lighter: #fbe6c5,
+  darker: #ca726f,
   200: #f4b88e, // For slide toggle,
   contrast : (
     main: $dark-primary-text,
     lighter: $dark-primary-text,
-    darker: $light-primary-text,
+    darker: $dark-primary-text,
   )
 );
 $theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
 
 
 body {
-  --warn-color: #f78a8a;
-  --warn-lighter-color: #fddcdc;
-  --warn-darker-color: #f36d6d;
+  --warn-color: #ff8181;
+  --warn-lighter-color: #ffd9d9;
+  --warn-darker-color: #ff6464;
   --text-warn-color: #{$dark-primary-text};
   --text-warn-lighter-color: #{$dark-primary-text};
   --text-warn-darker-color: #{$dark-primary-text};
 }
 $mat-warn: (
-  main: #f78a8a,
-  lighter: #fddcdc,
-  darker: #f36d6d,
-  200: #f78a8a, // For slide toggle,
+  main: #ff8181,
+  lighter: #ffd9d9,
+  darker: #ff6464,
+  200: #ff8181, // For slide toggle,
   contrast : (
     main: $dark-primary-text,
     lighter: $dark-primary-text,
@@ -255,143 +255,8 @@ $altTheme: (
 
 .material-icons {
   font-size: 24px;
-  font-family: 'Material Icons Round', 'Material Icons', sans-serif;
+  font-family: 'Material Icons Round', 'Material Icons';
   .mat-badge-content {
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'Comfortaa';
   }
 }
-
-
-
-$light-primary: (
-  50 : #fffcf8,
-  100 : #fef8ee,
-  200 : #fdf3e2,
-  300 : #fceed6,
-  400 : #fceace,
-  500 : #fbe6c5,
-  600 : #fae3bf,
-  700 : #fadfb8,
-  800 : #f9dbb0,
-  900 : #f8d5a3,
-  A100 : #ffffff,
-  A200 : #ffffff,
-  A400 : #ffffff,
-  A700 : #ffffff,
-  contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #000000,
-    400 : #000000,
-    500 : #000000,
-    600 : #000000,
-    700 : #000000,
-    800 : #000000,
-    900 : #000000,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
-  )
-);
-
-$light-accent: (
-  50 : #f9eeee,
-  100 : #efd5d4,
-  200 : #e5b9b7,
-  300 : #da9c9a,
-  400 : #d28785,
-  500 : #ca726f,
-  600 : #c56a67,
-  700 : #bd5f5c,
-  800 : #b75552,
-  900 : #ab4240,
-  A100 : #fffdfd,
-  A200 : #ffcbca,
-  A400 : #ff9997,
-  A700 : #ff807e,
-  contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #000000,
-    400 : #000000,
-    500 : #000000,
-    600 : #000000,
-    700 : #ffffff,
-    800 : #ffffff,
-    900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
-  )
-);
-
-$dark-primary: (
-  50 : #e5e5e8,
-  100 : #bebec6,
-  200 : #9392a1,
-  300 : #67667b,
-  400 : #47465e,
-  500 : #262542,
-  600 : #22213c,
-  700 : #1c1b33,
-  800 : #17162b,
-  900 : #0d0d1d,
-  A100 : #5f5fff,
-  A200 : #2c2cff,
-  A400 : #0000f8,
-  A700 : #0000df,
-  contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #ffffff,
-    400 : #ffffff,
-    500 : #ffffff,
-    600 : #ffffff,
-    700 : #ffffff,
-    800 : #ffffff,
-    900 : #ffffff,
-    A100 : #ffffff,
-    A200 : #ffffff,
-    A400 : #ffffff,
-    A700 : #ffffff,
-  )
-);
-
-$dark-accent: (
-  50 : #eae7ea,
-  100 : #cac3ca,
-  200 : #a69ba6,
-  300 : #827382,
-  400 : #685568,
-  500 : #4d374d,
-  600 : #463146,
-  700 : #3d2a3d,
-  800 : #342334,
-  900 : #251625,
-  A100 : #ff69ff,
-  A200 : #ff36ff,
-  A400 : #ff03ff,
-  A700 : #e900e9,
-  contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #ffffff,
-    400 : #ffffff,
-    500 : #ffffff,
-    600 : #ffffff,
-    700 : #ffffff,
-    800 : #ffffff,
-    900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #ffffff,
-    A700 : #ffffff,
-  )
-);
-
