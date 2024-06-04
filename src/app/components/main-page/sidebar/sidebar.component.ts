@@ -3,6 +3,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {MatDivider} from "@angular/material/divider";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,8 @@ import {MatDivider} from "@angular/material/divider";
     MatNavList,
     RouterLink,
     RouterLinkActive,
-    MatDivider
+    MatDivider,
+    MatSlideToggle
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
