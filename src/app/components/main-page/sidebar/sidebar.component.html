@@ -12,7 +12,7 @@
   </a>
   <a mat-list-item>
     <mat-icon class="tab-icon">settings</mat-icon>
-    <mat-slide-toggle>Theme</mat-slide-toggle>
+    <mat-slide-toggle [formControl]="switchTheme">Theme</mat-slide-toggle>
   </a>
   <a mat-list-item href="/login">
     <mat-icon class="tab-icon">logout</mat-icon>
