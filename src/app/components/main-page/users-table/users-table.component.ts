@@ -17,20 +17,20 @@ import {Product} from "../../../core/interfaces/interface.product";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {RouterLink} from "@angular/router";
 import {AddNewUserComponent} from "../add-new-user/add-new-user.component";
-import {Dialog} from "@angular/cdk/dialog";
 import {MatButton} from "@angular/material/button";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-users-table',
   standalone: true,
-  imports: [HttpClientModule, MatTableModule, MatSortModule, MatProgressBarModule, CurrencyPipe, CommonModule, RouterLink, MatButton],
+  imports: [HttpClientModule, MatDialogModule, MatTableModule, MatSortModule, MatProgressBarModule, CurrencyPipe, CommonModule, RouterLink, MatButton],
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.scss']
 })
 export class UsersTableComponent implements OnInit, AfterViewInit {
   private openUserCartService = inject(OpenUserCartService);
   private store = inject(Store);
-  dialog = inject(Dialog);
+  dialog = inject(MatDialog);
 
   @ViewChild(MatSort) sort!: MatSort;
 

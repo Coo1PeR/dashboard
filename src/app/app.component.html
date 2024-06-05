@@ -1,3 +1,5 @@
-<router-outlet></router-outlet>
+<div [ngClass]="themeService.themeSignal()">
+  <router-outlet></router-outlet>
+</div>
 
 <!--<button mat-raised-button color="primary" (click)="logout()">LogOut</button>-->

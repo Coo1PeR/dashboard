@@ -1,56 +1,34 @@
-import { Component, HostBinding, inject, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import {Component, inject} from '@angular/core';
+import {MatIcon} from "@angular/material/icon";
+import {MatListItem, MatNavList} from "@angular/material/list";
+import {RouterLink, RouterLinkActive} from "@angular/router";
+import {MatDivider} from "@angular/material/divider";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ThemeService} from "../../../core/services/theme.service";
+import {MatIconButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
-    MatIconModule,
-    MatListModule,
+    MatIcon,
+    MatListItem,
+    MatNavList,
     RouterLink,
     RouterLinkActive,
-    MatDividerModule,
-    MatSlideToggleModule,
-    ReactiveFormsModule
+    MatDivider,
+    MatSlideToggle,
+    ReactiveFormsModule,
+    MatIconButton
   ],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent implements OnInit {
-  private overlay = inject(OverlayContainer);
+export class SidebarComponent {
+  themeService: ThemeService = inject(ThemeService);
 
-  switchTheme = new FormControl(false);
-  @HostBinding('class') className = '';
-  darkClass = 'dark-theme';
-  lightClass = 'light-theme';
-
-  constructor() {}
-
-  ngOnInit() {
-    this.switchTheme.valueChanges.subscribe(currentMode => {
-      this.className = currentMode ? this.darkClass : this.lightClass;
-      const overlayContainerClasses = this.overlay.getContainerElement().classList;
-      if (currentMode) {
-        overlayContainerClasses.add(this.darkClass);
-        overlayContainerClasses.remove(this.lightClass);
-      } else {
-        overlayContainerClasses.add(this.lightClass);
-        overlayContainerClasses.remove(this.darkClass);
-      }
-    });
-    // Set initial theme
-    this.className = this.switchTheme.value ? this.darkClass : this.lightClass;
-    const overlayContainerClasses = this.overlay.getContainerElement().classList;
-    if (this.switchTheme.value) {
-      overlayContainerClasses.add(this.darkClass);
-    } else {
-      overlayContainerClasses.add(this.lightClass);
-    }
+  toggleTheme() {
+    this.themeService.updateTheme()
   }
 }

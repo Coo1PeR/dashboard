@@ -1,0 +1,263 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Import Google Fonts
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons+Round';
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500&display=swap');
+
+// Define colors
+$dark-primary: #3e3d62;
+$dark-accent: #ca726f;
+$dark-warn: #ff6464;
+
+$light-bg-color: #f4f0ec;
+$dark-bg-color: #262542;
+$light-text-color: #ffffff;
+$dark-text-color: #000000;
+
+$dark-primary-text: rgba($dark-text-color, 0.87);
+$dark-accent-text: rgba($dark-primary-text, 0.54);
+$dark-disabled-text: rgba($dark-primary-text, 0.38);
+$dark-dividers: rgba($dark-primary-text, 0.12);
+$dark-focused: rgba($dark-primary-text, 0.12);
+
+$light-primary-text: $light-text-color;
+$light-accent-text: rgba($light-primary-text, 0.7);
+$light-disabled-text: rgba($light-primary-text, 0.5);
+$light-dividers: rgba($light-primary-text, 0.12);
+$light-focused: rgba($light-primary-text, 0.12);
+
+// Define foreground elements
+$mat-light-theme-foreground: (
+  base: $dark-text-color,
+  divider: $dark-dividers,
+  dividers: $dark-dividers,
+  disabled: $dark-disabled-text,
+  disabled-button: rgba($dark-text-color, 0.26),
+  disabled-text: $dark-disabled-text,
+  elevation: $dark-text-color,
+  secondary-text: $dark-accent-text,
+  hint-text: $dark-disabled-text,
+  accent-text: $dark-accent-text,
+  icon: $dark-accent-text,
+  icons: $dark-accent-text,
+  text: $dark-primary-text,
+  slider-min: $dark-primary-text,
+  slider-off: rgba($dark-text-color, 0.26),
+  slider-off-active: $dark-disabled-text,
+);
+
+$mat-dark-theme-foreground: (
+  base: $light-text-color,
+  divider: $light-dividers,
+  dividers: $light-dividers,
+  disabled: $light-disabled-text,
+  disabled-button: rgba($light-text-color, 0.3),
+  disabled-text: $light-disabled-text,
+  elevation: $light-text-color,
+  hint-text: $light-disabled-text,
+  secondary-text: $light-accent-text,
+  accent-text: $light-accent-text,
+  icon: $light-text-color,
+  icons: $light-text-color,
+  text: $light-text-color,
+  slider-min: $light-text-color,
+  slider-off: rgba($light-text-color, 0.3),
+  slider-off-active: rgba($light-text-color, 0.3),
+);
+
+// Define background elements
+$light-background: (
+  background: $light-bg-color,
+  status-bar: darken($light-bg-color, 20%),
+  app-bar: darken($light-bg-color, 5%),
+  hover: rgba($dark-bg-color, 0.04),
+  card: lighten($light-bg-color, 5%),
+  dialog: lighten($light-bg-color, 5%),
+  tooltip: lighten($dark-bg-color, 20%),
+  disabled-button: rgba($dark-bg-color, 0.12),
+  raised-button: lighten($light-bg-color, 5%),
+  focused-button: $dark-focused,
+  selected-button: darken($light-bg-color, 20%),
+  selected-disabled-button: darken($light-bg-color, 30%),
+  disabled-button-toggle: darken($light-bg-color, 10%),
+  unselected-chip: darken($light-bg-color, 10%),
+  disabled-list-option: darken($light-bg-color, 10%),
+);
+
+$dark-background: (
+  app-background-color: $dark-bg-color,
+  background: $dark-bg-color,
+  status-bar: lighten($dark-bg-color, 20%),
+  app-bar: lighten($dark-bg-color, 5%),
+  hover: rgba($light-bg-color, 0.04),
+  card: lighten($dark-bg-color, 5%),
+  dialog: lighten($dark-bg-color, 5%),
+  tooltip: lighten($dark-bg-color, 20%),
+  disabled-button: rgba($light-bg-color, 0.12),
+  raised-button: lighten($dark-bg-color, 5%),
+  focused-button: $light-focused,
+  selected-button: lighten($dark-bg-color, 20%),
+  selected-disabled-button: lighten($dark-bg-color, 30%),
+  disabled-button-toggle: lighten($dark-bg-color, 10%),
+  unselected-chip: lighten($dark-bg-color, 20%),
+  disabled-list-option: lighten($dark-bg-color, 10%),
+);
+
+// Define palettes
+$theme-primary: mat.define-palette((
+  50: #fef8ee,
+  100: #fef8ee,
+  200: #fbe6c5,
+  300: #fbe6c5,
+  400: #fbe6c5,
+  500: #fbe6c5,
+  600: #fbe6c5,
+  700: #f9dbb0,
+  800: #f9dbb0,
+  900: #f9dbb0,
+  A100: #fef8ee,
+  A200: #fbe6c5,
+  A400: #fbe6c5,
+  A700: #f9dbb0,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $dark-primary-text,
+    700: $dark-primary-text,
+    800: $dark-primary-text,
+    900: $dark-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  )
+));
+
+$theme-accent: mat.define-palette((
+  50: #fbe6c5,
+  100: #fbe6c5,
+  200: #f4b88e,
+  300: #f4b88e,
+  400: #f4b88e,
+  500: #f4b88e,
+  600: #f4b88e,
+  700: #ca726f,
+  800: #ca726f,
+  900: #ca726f,
+  A100: #fbe6c5,
+  A200: #f4b88e,
+  A400: #f4b88e,
+  A700: #ca726f,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $dark-primary-text,
+    700: $dark-primary-text,
+    800: $dark-primary-text,
+    900: $dark-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  )
+));
+
+$theme-warn: mat.define-palette((
+  50: #ffd9d9,
+  100: #ffd9d9,
+  200: #ff8181,
+  300: #ff8181,
+  400: #ff8181,
+  500: #ff8181,
+  600: #ff8181,
+  700: #ff6464,
+  800: #ff6464,
+  900: #ff6464,
+  A100: #ffd9d9,
+  A200: #ff8181,
+  A400: #ff8181,
+  A700: #ff6464,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $dark-primary-text,
+    700: $dark-primary-text,
+    800: $dark-primary-text,
+    900: $dark-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  )
+));
+
+// Define themes
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $theme-primary,
+    accent: $theme-accent,
+    warn: $theme-warn,
+  ),
+  typography: mat.define-typography-config(),
+  foreground: $mat-light-theme-foreground,
+  background: $light-background,
+));
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $theme-primary,
+    accent: $theme-accent,
+    warn: $theme-warn,
+  ),
+  typography: mat.define-typography-config(),
+  foreground: $mat-dark-theme-foreground,
+  background: $dark-background,
+));
+
+// Apply themes
+.dark {
+  @include mat.all-component-themes($dark-theme);
+}
+
+.light {
+  @include mat.all-component-colors($light-theme);
+}
+
+// Specific component overrides
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button {
+  padding: 0 1.15em;
+  margin: 0 0.65em;
+  min-width: 3em;
+  line-height: 36.4px;
+  background-color: $dark-accent;
+}
+
+.mat-standard-chip {
+  padding: 0.5em 0.85em;
+  min-height: 2.5em;
+}
+
+.material-icons {
+  font-size: 24px;
+  font-family: 'Material Icons Round', 'Material Icons', sans-serif;
+}
+
+.mat-badge-content {
+  font-family: 'Comfortaa', sans-serif;
+}

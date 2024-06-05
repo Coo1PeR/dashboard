@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Dialog } from "@angular/cdk/dialog";
 import { AddUserPhotoComponent } from "../add-user-photo/add-user-photo.component";
 import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
@@ -10,6 +9,7 @@ import { UsersAction } from "../../../core/stores/users/users.actions";
 import { Store } from "@ngxs/store";
 import { UserFull } from "../../../core/interfaces/interface.user";
 import { UsersState } from "../../../core/stores/users/users.state";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-new-user',
@@ -27,7 +27,7 @@ import { UsersState } from "../../../core/stores/users/users.state";
   styleUrls: ['./add-new-user.component.scss']
 })
 export class AddNewUserComponent {
-  dialog = inject(Dialog);
+  dialog = inject(MatDialog);
   private store = inject(Store);
 
   // Создаем форму для нового пользователя
