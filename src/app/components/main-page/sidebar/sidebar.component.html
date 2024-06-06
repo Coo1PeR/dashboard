@@ -17,13 +17,13 @@
   </a>
   <div class="theme-control">
     <mat-slide-toggle checked (click)="toggleTheme()"></mat-slide-toggle>
-    <button mat-icon-button>
+    <mat-icon>
       @if (themeService.themeSignal() === 'dark') {
         <mat-icon>bedtime</mat-icon>
       } @else {
         <mat-icon>brightness_5</mat-icon>
       }
-    </button>
+    </mat-icon>
   </div>
   <a mat-list-item href="/login">
     <mat-icon class="tab-icon">logout</mat-icon>
