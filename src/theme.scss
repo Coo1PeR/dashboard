@@ -17,8 +17,8 @@ $dark-warn: #ff6464;
 
 $light-bg-color: #f4f0ec;
 $dark-bg-color: #262542;
-$light-text-color: #ffffff;
-$dark-text-color: #000000;
+$light-text-color: #B4ABB0;
+$dark-text-color: #262542;
 
 $dark-primary-text: rgba($dark-text-color, 0.87);
 $dark-accent-text: rgba($dark-primary-text, 0.54);
@@ -306,5 +306,9 @@ $has-color: mat.theme-has($dark-theme, base);
 
 .mat-badge-content {
   font-family: 'Comfortaa', sans-serif;
+}
+
+body {
+  background-color: $dark-bg-color;
 }
 

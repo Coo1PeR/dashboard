@@ -1,8 +1,17 @@
+@import '../../../../theme';
+
+.dark .chart  {
+  background: map-get($dark-background, app-bar);
+}
+
+.light .chart {
+  background:  map-get($light-background, app-bar)
+}
+
 .chart {
   padding: 10px;
   border-radius: 20px;
   background: none;
-  background-color: rgba(198, 198, 198, 0.5);
   text-decoration-color: #B4ABB0;
 }
 

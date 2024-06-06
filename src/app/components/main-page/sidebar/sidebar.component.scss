@@ -21,7 +21,6 @@ a {
 
 .menu {
   height: 99%;
-  //background-color: #3E3D62;
   font-size: 20px;
   float: left;
   position: fixed;
@@ -39,15 +38,33 @@ a {
   margin-top: 20px;
   line-height: 50px;
   transition: color .5s;
-  color: #F4B88E;
+  //color: #F4B88E;
 }
+
+.light .mat-icon {
+  color: $dark-accent;
+};
+
+.dark .mat-icon {
+  color: $light-text-color;
+};
 
 .dark .menu > a[mat-list-item].active {
   background-color: $dark-bg-color;
+  .mat-icon {
+    color: $dark-accent;
+  };
+  span {
+    color: $dark-accent;
+  };
 }
 
 .light .menu > a[mat-list-item].active {
-  background-color: #f4f0ec;
+  background-color: $light-bg-color;
+  span {
+    color: $dark-accent;
+  };
+
 }
 
 .menu > a[mat-list-item].active::after,
@@ -83,7 +100,6 @@ a {
 
 .mat-drawer-container {
   margin: 20px;
-  //border-top-color: #CA726F;
   display: block;
   position: relative;
 }
