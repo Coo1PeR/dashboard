@@ -10,6 +10,8 @@ import { Store } from "@ngxs/store";
 import { UserFull } from "../../../core/interfaces/interface.user";
 import { UsersState } from "../../../core/stores/users/users.state";
 import {MatDialog} from "@angular/material/dialog";
+import {NgClass} from "@angular/common";
+import {ThemeService} from "../../../core/services/theme.service";
 
 @Component({
   selector: 'app-add-new-user',
@@ -21,7 +23,8 @@ import {MatDialog} from "@angular/material/dialog";
     MatDivider,
     MatButton,
     MatLabel,
-    MatError
+    MatError,
+    NgClass
   ],
   templateUrl: './add-new-user.component.html',
   styleUrls: ['./add-new-user.component.scss']
@@ -29,6 +32,7 @@ import {MatDialog} from "@angular/material/dialog";
 export class AddNewUserComponent {
   dialog = inject(MatDialog);
   private store = inject(Store);
+  themeService: ThemeService = inject(ThemeService);
 
   // Создаем форму для нового пользователя
   newUserForm = new FormGroup({
@@ -59,6 +63,8 @@ export class AddNewUserComponent {
   private static defaultPassword = '';
 
   addUser() {
+
+
     const lastName = this.newUserForm.value.lastName?.toLowerCase() ?? '';
     const firstName = this.newUserForm.value.firstName?.toLowerCase() ?? '';
     const email = this.newUserForm.value.email?.toLowerCase() ?? '';

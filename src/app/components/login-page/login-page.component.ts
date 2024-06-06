@@ -6,6 +6,8 @@ import {Router, RouterLink} from "@angular/router";
 import {MatInput} from "@angular/material/input";
 import {Store} from "@ngxs/store";
 import {SetLoginData} from "../../core/stores/login/login.state";
+import {ThemeService} from "../../core/services/theme.service";
+import {NgClass} from "@angular/common";
 //
 @Component({
   selector: 'app-login-page',
@@ -17,7 +19,8 @@ import {SetLoginData} from "../../core/stores/login/login.state";
     RouterLink,
     MatInput,
     MatLabel,
-    MatError
+    MatError,
+    NgClass
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
@@ -25,6 +28,7 @@ import {SetLoginData} from "../../core/stores/login/login.state";
 export class LoginPageComponent {
   private store = inject(Store);
   private router = inject(Router);
+  themeService: ThemeService = inject(ThemeService);
 
   loginForm = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.minLength(4)]),

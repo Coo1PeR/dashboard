@@ -1,4 +1,4 @@
-<div>
+<div [ngClass]="themeService.themeSignal()">
   <form [formGroup]="newUserForm" (submit)="addUser()">
     <section>
       <mat-form-field>
@@ -48,7 +48,7 @@
     </section>
     <mat-divider></mat-divider>
     <br>
-    <section>
+    <section class="button">
       <button mat-flat-button color="primary" [disabled]="newUserForm.invalid" (click)="openAddPhoto()">Продолжить</button>
     </section>
 

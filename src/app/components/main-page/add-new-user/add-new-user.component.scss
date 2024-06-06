@@ -5,13 +5,14 @@
 //  background-color:
 //}
 
-//button {
-//  text-align: center;
-//}
+.button {
+  text-align: center;
+  padding: 10px;
+}
 //
-//:host {
-//  display: block;
-//  background: #fff;
-//  border-radius: 20px;
-//  padding: 8px 16px;
-//}
+:host {
+  display: block;
+  //background: #fff;
+  border-radius: 20px;
+  padding: 8px 16px;
+}
