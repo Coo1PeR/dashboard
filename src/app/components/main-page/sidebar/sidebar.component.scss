@@ -42,8 +42,11 @@ a {
   color: #F4B88E;
 }
 
-.menu > a[mat-list-item].active {
-  color: #2a2a2a;
+.dark .menu > a[mat-list-item].active {
+  background-color: $dark-bg-color;
+}
+
+.light .menu > a[mat-list-item].active {
   background-color: #f4f0ec;
 }
 
@@ -85,16 +88,12 @@ a {
   position: relative;
 }
 
-//mat-nav-list {
-//  background: $dark-accent;
-//  border: #c5c5d0;
-//}
-
 
 .dark mat-nav-list {
-  background: lighten($dark-bg-color, 5%);
+  background: map-get($dark-background, app-bar);
 }
 
 .light mat-nav-list {
-  background: #f4b88e;
+  background: map-get($theme-accent, 200);
 }
+
