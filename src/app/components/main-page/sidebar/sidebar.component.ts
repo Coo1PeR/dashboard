@@ -7,6 +7,7 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ThemeService} from "../../../core/services/theme.service";
 import {MatIconButton} from "@angular/material/button";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +21,8 @@ import {MatIconButton} from "@angular/material/button";
     MatDivider,
     MatSlideToggle,
     ReactiveFormsModule,
-    MatIconButton
+    MatIconButton,
+    NgClass
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'

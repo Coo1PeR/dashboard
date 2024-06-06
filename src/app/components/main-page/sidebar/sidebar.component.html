@@ -1,4 +1,5 @@
-<mat-nav-list class="menu dark-background">
+<div [ngClass]="themeService.themeSignal()">
+  <mat-nav-list class="menu">
   <div class="logo">
     <mat-icon class="tab-icon">toll</mat-icon>
     <span>StatZen</span>
@@ -30,3 +31,4 @@
     <span>Log out</span>
   </a>
 </mat-nav-list>
+</div>

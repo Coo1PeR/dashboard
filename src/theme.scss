@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
 @use "sass:map";
+@use '@angular/cdk' as cdk;
+
 
 @include mat.core();
 @import 'styles';
@@ -305,3 +307,4 @@ $has-color: mat.theme-has($dark-theme, base);
 .mat-badge-content {
   font-family: 'Comfortaa', sans-serif;
 }
+

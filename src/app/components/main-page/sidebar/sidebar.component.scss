@@ -1,3 +1,6 @@
+@import '../../../../theme';
+
+
 .tab-icon {
   margin-right: 8px;
 }
@@ -36,25 +39,25 @@ a {
   margin-top: 20px;
   line-height: 50px;
   transition: color .5s;
-  //color: #F4B88E;
+  color: #F4B88E;
 }
 
 .menu > a[mat-list-item].active {
-  //color: #2a2a2a;
- // background-color: #f4f0ec;
+  color: #2a2a2a;
+  background-color: #f4f0ec;
 }
 
-//.menu > a[mat-list-item].active::after,
-//.menu > a[mat-list-item].active::before {
-//  content: '';
-//  position: absolute;
-//  top: -50px;
-//  right: 0;
-//  width: 20px;
-//  height: 50px;
-//  border-radius: 0 0 25px 0;
-//  z-index: -1;
-//}
+.menu > a[mat-list-item].active::after,
+.menu > a[mat-list-item].active::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: 0;
+  width: 20px;
+  height: 50px;
+  border-radius: 0 0 25px 0;
+  z-index: -1;
+}
 
 .menu > a[mat-list-item]::before {
   top: auto;
@@ -80,6 +83,18 @@ a {
   //border-top-color: #CA726F;
   display: block;
   position: relative;
-  background-color: #3E3D62;
 }
 
+//mat-nav-list {
+//  background: $dark-accent;
+//  border: #c5c5d0;
+//}
+
+
+.dark mat-nav-list {
+  background: lighten($dark-bg-color, 5%);
+}
+
+.light mat-nav-list {
+  background: #f4b88e;
+}

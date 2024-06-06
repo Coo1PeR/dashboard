@@ -4,7 +4,8 @@ import {CommonModule} from '@angular/common';
 import {
   ApexChart,
   ApexFill,
-  ApexNonAxisChartSeries, ApexPlotOptions,
+  ApexNonAxisChartSeries,
+  ApexPlotOptions,
   ApexTitleSubtitle,
   ApexXAxis,
   ApexYAxis,
@@ -21,6 +22,7 @@ import {UsersState} from "../../../core/stores/users/users.state";
 import {Cart} from "../../../core/interfaces/interface.cart";
 import {Product} from "../../../core/interfaces/interface.product";
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ThemeService} from "../../../core/services/theme.service";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -29,7 +31,7 @@ export type ChartOptions = {
   plotOptions: ApexPlotOptions
   title: ApexTitleSubtitle;
   yaxis: ApexYAxis;
-  fill: ApexFill;
+  fill: ApexFill
 };
 
 @Component({
@@ -48,6 +50,8 @@ export class StatisticsComponent implements OnInit {
   @Select(ProductsState.Products) products$!: Observable<Product[]>;
   @Select(UsersState.Users) users$!: Observable<UserFull[]>;
 
+  color: string = '#B4ABB0'
+
   @ViewChild("chart") chart: ChartComponent | undefined;
   public productsChartOptionsApex: Partial<ChartOptions> | any;
   public usersChartOptionsApex: Partial<ChartOptions> | any;
@@ -55,6 +59,7 @@ export class StatisticsComponent implements OnInit {
   productData: { productTitle: string, productTotalPurchase: number }[] = [];
   userData: { userFullName: string, userTotalPurchaseSum: number }[] = [];
 
+  themeService: ThemeService = inject(ThemeService);
   // Injecting DestroyRef
   private destroyRef = inject(DestroyRef);
 
@@ -72,23 +77,29 @@ export class StatisticsComponent implements OnInit {
       chart: {
         height: 'auto',
         type: 'bar',
-        fontFamily: 'Comfortaa, sans-serif'
+        fontFamily: 'Comfortaa, sans-serif',
+        foreColor: this.color,
       },
       title: {
-        text: 'Количество проданных товаров'
+        text: 'Количество проданных товаров',
+        style: {
+          color: this.color
+        }
       },
       xaxis: {
         labels: {
           trim: true,
           rotate: -45,
           maxHeight: 120,
-
+          style: {
+            colors: this.color
+          }
         },
         categories: data.map(item => item.productTitle)
       },
       fill: {
         colors: [function (series: any) {
-          if (series.dataPointIndex%2 === 0) {
+          if (series.dataPointIndex % 2 === 0) {
             return '#F4B88E'
           } else {
             return '#CA726F'
@@ -114,29 +125,32 @@ export class StatisticsComponent implements OnInit {
       chart: {
         height: 'auto',
         type: 'bar',
-        fontFamily: 'Comfortaa, sans-serif'
+        fontFamily: 'Comfortaa, sans-serif',
+        foreColor: this.color,
       },
       title: {
-        text: 'Пользователи и их общая сумма покупок'
+        text: 'Пользователи и их общая сумма покупок',
+        style: {
+          color: this.color
+        }
       },
       xaxis: {
-        categories: data.map(item => item.userFullName)
+        categories: data.map(item => item.userFullName),
+        labels: {
+          style: {
+            colors: this.color
+          }
+        }
       },
       fill: {
         colors: [function (series: any) {
-          if (series.dataPointIndex%2 === 0) {
+          if (series.dataPointIndex % 2 === 0) {
             return '#F4B88E'
           } else {
             return '#CA726F'
           }
         }],
         opacity: 1,
-      },
-      plotOptions: {
-        bar: {
-          borderRadius: 5,
-          columnWidth: "80%",
-        }
       },
     };
   }

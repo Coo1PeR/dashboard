@@ -1,5 +1,5 @@
-
-  <div>
+<div [ngClass]="themeService.themeSignal()">
+  <div class="chart">
     <apx-chart
       [series]="usersChartOptionsApex.series"
       [chart]="usersChartOptionsApex.chart"
@@ -10,7 +10,7 @@
     ></apx-chart>
   </div>
   <br>
-  <div>
+  <div class="chart">
     <apx-chart
       [series]="productsChartOptionsApex.series"
       [chart]="productsChartOptionsApex.chart"
@@ -20,6 +20,8 @@
       [plotOptions]="productsChartOptionsApex.plotOptions"
     ></apx-chart>
   </div>
+</div>
+
 
 
 
