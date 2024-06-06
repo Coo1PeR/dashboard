@@ -294,10 +294,6 @@ $has-color: mat.theme-has($dark-theme, base);
   background-color: $dark-accent;
 }
 
-.dialog {
-  border-radius: 20px;
-}
-
 .mat-standard-chip {
   padding: 0.5em 0.85em;
   min-height: 2.5em;
@@ -312,7 +308,7 @@ $has-color: mat.theme-has($dark-theme, base);
   font-family: 'Comfortaa', sans-serif;
 }
 
-body {
-  background-color: $dark-bg-color;
-}
+//body {
+//  background-color: $dark-bg-color;
+//}
 
