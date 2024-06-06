@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use "sass:map";
 
 @include mat.core();
 @import 'styles';
@@ -206,7 +207,6 @@ $theme-warn: mat.define-palette((
   )
 ));
 
-// Define new primary color palette for dark theme
 $dark-theme-primary: mat.define-palette((
   50: #c5c5d0,
   100: #c5c5d0,
@@ -247,9 +247,6 @@ $light-theme: mat.define-light-theme((
     accent: $theme-accent,
     warn: $theme-warn,
   ),
-  typography: mat.define-typography-config(),
-  foreground: $mat-light-theme-foreground,
-  background: $light-background,
 ));
 
 $dark-theme: mat.define-dark-theme((
@@ -258,21 +255,30 @@ $dark-theme: mat.define-dark-theme((
     accent: $theme-accent,
     warn: $theme-warn,
   ),
-  typography: mat.define-typography-config(),
-  foreground: $mat-dark-theme-foreground,
-  background: $dark-background,
 ));
+
+// Setting background and foreground
+$dark-theme: map.set($dark-theme, 'color', 'background', $dark-background);
+$dark-theme: map.set($dark-theme, 'background', $dark-background);
+$dark-theme: map.set($dark-theme, 'color', 'foreground', $mat-dark-theme-foreground);
+$dark-theme: map.set($dark-theme, 'foreground', $mat-dark-theme-foreground);
+
+$light-theme: map.set($light-theme, 'color', 'background', $light-background);
+$light-theme: map.set($light-theme, 'background', $light-background);
+$light-theme: map.set($light-theme, 'color', 'foreground', $mat-light-theme-foreground);
+$light-theme: map.set($light-theme, 'foreground', $mat-light-theme-foreground);
+
 
 $has-base: mat.theme-has($dark-theme, base);
 $has-color: mat.theme-has($dark-theme, base);
 
 // Apply themes
 .dark {
-  @include mat.all-component-themes($dark-theme);
+  @include mat.all-component-colors($dark-theme);
 }
 
 .light {
-  @include mat.all-component-colors($light-theme);
+  @include mat.all-component-themes($light-theme);
 }
 
 // Specific component overrides
