@@ -1,34 +1,38 @@
 <div [ngClass]="themeService.themeSignal()">
   <mat-nav-list class="menu">
-  <div class="logo">
-    <mat-icon class="tab-icon">toll</mat-icon>
-    <span>StatZen</span>
-  </div>
+    <div class="logo">
+      <mat-icon class="tab-icon">toll</mat-icon>
+      <span>StatZen</span>
+    </div>
 
-  <a mat-list-item routerLink="/main/users" routerLinkActive="active">
-    <mat-icon class="tab-icon">group</mat-icon>
-    <span>Users</span>
-  </a>
-  <a mat-list-item routerLink="/main/statistics" routerLinkActive="active">
-    <mat-icon class="tab-icon">bar_chart</mat-icon>
-    <span>Statistics</span>
-  </a>
-  <a mat-list-item>
-    <mat-divider></mat-divider>
-  </a>
-  <div class="theme-control">
-    <mat-slide-toggle checked (click)="toggleTheme()"></mat-slide-toggle>
-    <mat-icon>
-      @if (themeService.themeSignal() === 'dark') {
-        <mat-icon>bedtime</mat-icon>
-      } @else {
-        <mat-icon>brightness_5</mat-icon>
-      }
-    </mat-icon>
-  </div>
-  <a mat-list-item href="/login">
-    <mat-icon class="tab-icon">logout</mat-icon>
-    <span>Log out</span>
-  </a>
-</mat-nav-list>
+    <a mat-list-item routerLink="/main/users" routerLinkActive="active">
+      <mat-icon class="tab-icon">group</mat-icon>
+      <span>Users</span>
+    </a>
+    <a mat-list-item routerLink="/main/statistics" routerLinkActive="active">
+      <mat-icon class="tab-icon">bar_chart</mat-icon>
+      <span>Statistics</span>
+    </a>
+    <a mat-list-item>
+      <mat-divider></mat-divider>
+    </a>
+    <a mat-list-item>
+      <div class="theme-control">
+<!--        <span>Theme</span>-->
+            <mat-icon class="tab-icon">
+              @if (themeService.themeSignal() === 'dark') {
+                <mat-icon>bedtime</mat-icon>
+              } @else {
+                <mat-icon>brightness_5</mat-icon>
+              }
+            </mat-icon>
+        <mat-slide-toggle checked (click)="toggleTheme()"></mat-slide-toggle>
+      </div>
+    </a>
+
+    <a mat-list-item href="/login">
+      <mat-icon class="tab-icon">logout</mat-icon>
+      <span>Log out</span>
+    </a>
+  </mat-nav-list>
 </div>

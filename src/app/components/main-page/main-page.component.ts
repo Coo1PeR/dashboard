@@ -36,15 +36,4 @@ import {ThemeService} from "../../core/services/theme.service";
 export class MainPageComponent {
   dialog = inject(MatDialog);
   themeService: ThemeService = inject(ThemeService);
-
-
-  selectedIndex: number = 0;
-
-  onTabChange(event: MatTabChangeEvent) {
-    this.selectedIndex = event.index;
-  }
-
-  openAddUser() {
-    this.dialog.open(AddNewUserComponent, {});
-  }
 }

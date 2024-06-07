@@ -1,6 +1,7 @@
-<div class="container">
+<div [ngClass]="themeService.themeSignal()">
+  <div class="container">
   <div class="button">
-    <button mat-raised-button (click)="goBack()">Назад</button>
+    <button mat-raised-button color="primary" (click)="goBack()">Назад</button>
   </div>
   @if (user$ | async; as user) {
     <div class="main">
@@ -32,3 +33,4 @@
 <ng-template>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>
+</div>

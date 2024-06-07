@@ -5,12 +5,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { UsersState } from '../../core/stores/users/users.state';
 import { MatProgressBar } from '@angular/material/progress-bar';
-import { AsyncPipe, NgIf } from '@angular/common';
+import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatButton } from '@angular/material/button';
 import {ShoppingTableComponent} from "./shopping-table/shopping-table.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ThemeService} from "../../core/services/theme.service";
 
 @Component({
   selector: 'app-user-cart-page',
@@ -25,7 +26,8 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
     MatGridTile,
     MatButton,
     RouterLink,
-    ShoppingTableComponent
+    ShoppingTableComponent,
+    NgClass
   ],
   templateUrl: './user-cart-page.component.html',
   styleUrls: ['./user-cart-page.component.scss']
@@ -35,6 +37,7 @@ export class UserCartPageComponent implements OnInit {
   private store = inject(Store);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
+  themeService: ThemeService = inject(ThemeService);
 
   @ViewChild(ShoppingTableComponent) child: ShoppingTableComponent | undefined;
 
