@@ -30,6 +30,8 @@ import {NgClass} from "@angular/common";
 export class SidebarComponent {
   themeService: ThemeService = inject(ThemeService);
 
+  isDarkTheme: boolean = false;
+
   toggleTheme() {
     this.themeService.updateTheme()
   }

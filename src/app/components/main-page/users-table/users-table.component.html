@@ -1,4 +1,4 @@
-<div [ngClass]="themeService.themeSignal()">
+<!--<div [ngClass]="themeService.themeSignal()">-->
   <section class="container">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="userFullName">
@@ -28,5 +28,5 @@
   @if (isLoading) {
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
-</div>
+<!--</div>-->
 

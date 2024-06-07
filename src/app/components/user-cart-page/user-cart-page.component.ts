@@ -10,7 +10,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatButton } from '@angular/material/button';
 import {ShoppingTableComponent} from "./shopping-table/shopping-table.component";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ThemeService} from "../../core/services/theme.service";
 
 @Component({
@@ -36,7 +35,6 @@ export class UserCartPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private store = inject(Store);
   private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
   themeService: ThemeService = inject(ThemeService);
 
   @ViewChild(ShoppingTableComponent) child: ShoppingTableComponent | undefined;

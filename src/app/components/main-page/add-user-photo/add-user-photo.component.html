@@ -1,5 +1,5 @@
-<div [ngClass]="themeService.themeSignal()">
-  <section class="main">
+<!--<div [ngClass]="themeService.themeSignal()">-->
+  <section class="main-add-photo">
     <h2>Добавьте аватар для нового пользователя</h2>
     <div class="drop-zone" appDragDrop (fileDropped)="handleFile($event)">
       @if (!imageUrl) {
@@ -13,4 +13,4 @@
     </div>
     <button mat-flat-button (click)="complete()" color="primary">Завершить</button>
   </section>
-</div>
+<!--</div>-->

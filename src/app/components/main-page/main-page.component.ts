@@ -1,11 +1,10 @@
 import {Component, inject} from '@angular/core';
-import {MatTabChangeEvent, MatTabsModule} from "@angular/material/tabs";
+import {MatTabsModule} from "@angular/material/tabs";
 import {MatButton} from "@angular/material/button";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {CommonModule} from '@angular/common';
 import {UsersTableComponent} from "./users-table/users-table.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
-import {AddNewUserComponent} from "./add-new-user/add-new-user.component";
 import {MatIcon} from "@angular/material/icon";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {SidebarComponent} from "./sidebar/sidebar.component";

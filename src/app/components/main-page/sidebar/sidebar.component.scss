@@ -51,35 +51,34 @@ mat-divider {
   //color: #F4B88E;
 }
 
-.light .mat-icon {
-  color: $dark-accent;
-};
+//.light .mat-icon {
+//  color: $dark-accent;
+//};
 
-.dark .mat-icon {
-  color: $light-text-color;
-};
-
-.dark .menu > a[mat-list-item].active {
-  background-color: $dark-bg-color;
-  .mat-icon {
-    color: $dark-accent;
-  };
-  span {
-    color: $dark-accent;
-  };
-}
+//.dark .mat-icon {
+//  color: $light-text-color;
+//};
+//
+//.dark .menu > a[mat-list-item].active {
+//  background-color: $dark-bg-color;
+//  .mat-icon {
+//    color: $dark-accent;
+//  };
+//  span {
+//    color: $dark-accent;
+//  };
+//}
 
 .mat-mdc-list-item {
   width: inherit;
 }
 
-.light .menu > a[mat-list-item].active {
-  background-color: $light-bg-color;
-  span {
-    color: $dark-accent;
-  };
-
-}
+//.light .menu > a[mat-list-item].active {
+//  background-color: $light-bg-color;
+//  span {
+//    color: $dark-accent;
+//  };
+//}
 
 .menu > a[mat-list-item].active::after,
 .menu > a[mat-list-item].active::before {
@@ -120,11 +119,11 @@ mat-divider {
 }
 
 
-.dark mat-nav-list {
-  background: map-get($dark-background, app-bar);
-}
+//.dark mat-nav-list {
+//  background: map-get($dark-background, app-bar);
+//}
 
-.light mat-nav-list {
-  background: map-get($theme-accent, 200);
-}
+//.light mat-nav-list {
+//  background: map-get($theme-accent, 200);
+//}
 

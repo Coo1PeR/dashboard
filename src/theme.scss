@@ -274,13 +274,80 @@ $light-theme: map.set($light-theme, 'foreground', $mat-light-theme-foreground);
 $has-base: mat.theme-has($dark-theme, base);
 $has-color: mat.theme-has($dark-theme, base);
 
+// Mixin for additional styles
+@mixin custom-dark-theme {
+  mat-nav-list {
+    background: map-get($dark-background, app-bar);
+  };
+
+  .mat-icon {
+    color: $light-text-color;
+  };
+
+  .menu > a[mat-list-item].active {
+    background-color: $dark-bg-color;
+    .mat-icon {
+      color: $dark-accent;
+    };
+    span {
+      color: $dark-accent;
+    };
+  };
+
+  .chart  {
+    background: map-get($dark-background, app-bar);
+  };
+
+  .main-add-photo {
+    background-color: map-get($dark-background, app-bar);
+  };
+
+  .main-add-user {
+    background-color: $dark-primary;
+  };
+}
+
+@mixin custom-light-theme {
+  mat-nav-list {
+    background: map-get($theme-accent, 200);
+  };
+
+  .menu > a[mat-list-item].active {
+    background-color: $light-bg-color;
+
+    span {
+      color: $dark-accent;
+    };
+  };
+
+  .mat-icon {
+    color: $dark-accent;
+  };
+
+  .chart {
+    background:  rgb(253 253 252)
+  };
+
+  .main-add-photo {
+    background-color: map-get($theme-accent, 200);
+  };
+
+  .main-add-user {
+    background-color: $light-bg-color;
+  };
+};
+
+
 // Apply themes
 .dark {
   @include mat.all-component-colors($dark-theme);
+  @include custom-dark-theme;
 }
 
 .light {
   @include mat.all-component-themes($light-theme);
+  @include custom-light-theme;
+
 }
 
 // Specific component overrides

@@ -4,18 +4,3 @@
 button {
   margin: 20px;
 }
-
-.full {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: #c5c5d0;
-}
-
-.dark .full {
-    background: $dark-primary;
-}
-
-.light .full {
-    background: $light-bg-color;
-}
