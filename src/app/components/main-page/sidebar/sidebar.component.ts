@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {RouterLink, RouterLinkActive} from "@angular/router";
@@ -8,6 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ThemeService} from "../../../core/services/theme.service";
 import {MatIconButton} from "@angular/material/button";
 import {NgClass} from "@angular/common";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-sidebar',
@@ -22,16 +23,27 @@ import {NgClass} from "@angular/common";
     MatSlideToggle,
     ReactiveFormsModule,
     MatIconButton,
-    NgClass
+    NgClass,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit{
   themeService: ThemeService = inject(ThemeService);
+  private breakpointObserver = inject(BreakpointObserver);
 
+  isMobile: boolean | undefined
 
   toggleTheme() {
     this.themeService.updateTheme()
+  }
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe([
+      Breakpoints.Handset
+    ]).subscribe(result => {
+      this.isMobile = result.matches;
+      console.log(result.matches)
+    });
   }
 }

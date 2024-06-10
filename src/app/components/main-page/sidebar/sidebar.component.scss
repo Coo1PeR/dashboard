@@ -1,6 +1,5 @@
 @import '../../../../theme';
 
-
 .tab-icon {
   margin-right: 8px;
 }
@@ -26,11 +25,22 @@ a {
 }
 
 .menu {
-  height: 99%;
   font-size: 20px;
-  float: left;
   position: fixed;
-  border-radius: 0 15px 15px 0;
+  &.desktop {
+    height: 99%;
+    float: left;
+    border-radius: 0 15px 15px 0;
+  }
+  &.mobile {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 15px 15px 0 0;
+    max-height: 150px;
+    font-size: 16px;
+  }
 }
 
 mat-divider {
