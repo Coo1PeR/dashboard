@@ -335,6 +335,10 @@ $has-color: mat.theme-has($dark-theme, base);
   .main-add-user {
     background-color: $light-bg-color;
   };
+
+  .apexcharts-data-labels .apexcharts-datalabel {
+    fill: $dark-bg-color;
+  }
 };
 
 

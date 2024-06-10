@@ -2,7 +2,7 @@ import {Component, DestroyRef, inject, OnInit, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {
-  ApexChart,
+  ApexChart, ApexDataLabels,
   ApexFill,
   ApexNonAxisChartSeries,
   ApexPlotOptions,
@@ -31,7 +31,8 @@ export type ChartOptions = {
   plotOptions: ApexPlotOptions
   title: ApexTitleSubtitle;
   yaxis: ApexYAxis;
-  fill: ApexFill
+  fill: ApexFill;
+  dataLabels: ApexDataLabels;
 };
 
 @Component({
@@ -110,7 +111,7 @@ export class StatisticsComponent implements OnInit {
       plotOptions: {
         bar: {
           borderRadius: 5,
-          columnWidth: "60%",
+          columnWidth: "80%",
         }
       },
     };
@@ -155,9 +156,20 @@ export class StatisticsComponent implements OnInit {
       plotOptions: {
         bar: {
           borderRadius: 5,
-          columnWidth: "60%",
-        }
+          columnWidth: "80%",
+          // dataLabels: {
+          //   total: {
+          //     enable: true,
+          //     style: {
+          //       position: 'bottom',
+          //       color: this.color,
+          //     },
+          //   },
+          // },
+        },
       },
+      dataLabels: {
+      }
     };
   }
 
