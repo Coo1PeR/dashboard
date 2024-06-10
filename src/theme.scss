@@ -305,6 +305,10 @@ $has-color: mat.theme-has($dark-theme, base);
   .main-add-user {
     background-color: $dark-primary;
   };
+
+  --mdc-filled-text-field-focus-label-text-color : $light-text-color;
+
+
 }
 
 @mixin custom-light-theme {
@@ -339,6 +343,8 @@ $has-color: mat.theme-has($dark-theme, base);
   .apexcharts-data-labels .apexcharts-datalabel {
     fill: $dark-bg-color;
   }
+
+  --mdc-filled-text-field-focus-label-text-color : $dark-text-color;
 };
 
 
