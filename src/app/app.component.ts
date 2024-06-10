@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {MatButton} from "@angular/material/button";
 import {UsersAction} from "./core/stores/users/users.actions";
 import {CartsAction} from "./core/stores/carts/carts.actions";
@@ -21,7 +21,6 @@ import {NgClass} from "@angular/common";
 })
 export class AppComponent implements OnInit{
   title = 'dashboard';
-  private router = inject(Router)
   private store = inject(Store)
   themeService: ThemeService = inject(ThemeService);
 
@@ -30,10 +29,5 @@ export class AppComponent implements OnInit{
     this.store.dispatch(new UsersAction.Fetch());
     this.store.dispatch(new CartsAction.Fetch());
     this.store.dispatch(new ProductsAction.Fetch())
-  }
-
-
-  logout() {
-    this.router.navigate(['/login']);
   }
 }

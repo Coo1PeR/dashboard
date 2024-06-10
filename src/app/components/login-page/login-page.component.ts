@@ -8,7 +8,7 @@ import {Store} from "@ngxs/store";
 import {SetLoginData} from "../../core/stores/login/login.state";
 import {ThemeService} from "../../core/services/theme.service";
 import {NgClass} from "@angular/common";
-//
+
 @Component({
   selector: 'app-login-page',
   standalone: true,

@@ -1,28 +1,24 @@
-<!--<div [ngClass]="themeService.themeSignal()">-->
-  <section class="login-form">
-    <h1>Логин</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <!--    <form [formGroup]="loginForm" (submit)="loginApplication()">-->
+<section class="login-form">
+  <h1>Логин</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-      <mat-form-field>
-        <mat-label>Логин</mat-label>
-        <input type="text" id="input-login" formControlName="login" matInput required>
-        @if (loginForm.get('login')?.hasError('required')) {
-          <mat-error>Login is required</mat-error>
-        }
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <mat-label>Пароль</mat-label>
-        <input type="password" id="input-password"  formControlName="password" matInput required>
-        @if (loginForm.get('password')?.hasError('required')) {
-          <mat-error>Password is required</mat-error>
-        }
-      </mat-form-field>
-      <div class="button-row">
-        <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary">Войти</button>
-        <!-- <button mat-raised-button type="submit" color="primary" [routerLink]="['/home', startPage]">Войти</button> -->
-      </div>
-    </form>
-  </section>
-<!--</div>-->
+    <mat-form-field>
+      <mat-label>Логин</mat-label>
+      <input type="text" id="input-login" formControlName="login" matInput required>
+      @if (loginForm.get('login')?.hasError('required')) {
+        <mat-error>Login is required</mat-error>
+      }
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Пароль</mat-label>
+      <input type="password" id="input-password" formControlName="password" matInput required>
+      @if (loginForm.get('password')?.hasError('required')) {
+        <mat-error>Password is required</mat-error>
+      }
+    </mat-form-field>
+    <div class="button-row">
+      <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary">Войти</button>
+    </div>
+  </form>
+</section>

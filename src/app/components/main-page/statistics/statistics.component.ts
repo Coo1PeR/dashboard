@@ -110,7 +110,7 @@ export class StatisticsComponent implements OnInit {
       plotOptions: {
         bar: {
           borderRadius: 5,
-          columnWidth: "80%",
+          columnWidth: "60%",
         }
       },
     };
@@ -151,6 +151,12 @@ export class StatisticsComponent implements OnInit {
           }
         }],
         opacity: 1,
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          columnWidth: "60%",
+        }
       },
     };
   }
