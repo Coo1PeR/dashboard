@@ -1,57 +1,59 @@
-<div class="main-add-user">
-  <form [formGroup]="newUserForm" (submit)="addUser()" class="dialog">
-    <section>
-      <mat-form-field>
-        <mat-label>Фамилия</mat-label>
-        <input type="text" formControlName="lastName" matInput required>
-        @if (newUserForm.get('lastName')?.hasError('required')) {
-          <mat-error>Last name is required</mat-error>
-        }
-        @if (newUserForm.get('lastName')?.hasError('minlength')) {
-          <mat-error>Last name must be at least 2 characters long</mat-error>
-        }
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <mat-label>Имя</mat-label>
-        <input type="text" formControlName="firstName" matInput required>
-        @if (newUserForm.get('firstName')?.hasError('required')) {
-          <mat-error>First name is required</mat-error>
-        }
-        @if (newUserForm.get('firstName')?.hasError('minlength')) {
-          <mat-error>First name must be at least 2 characters long</mat-error>
-        }
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input type="email" formControlName="email" matInput required>
-        @if (newUserForm.get('email')?.hasError('required')) {
-          <mat-error>Email is required</mat-error>
-        }
-        @if (newUserForm.get('email')?.hasError('email')) {
-          <mat-error>Invalid email</mat-error>
-        }
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <mat-label>Номер телефона</mat-label>
-        <input type="tel" formControlName="phone" matInput required>
-        @if (newUserForm.get('phone')?.hasError('required')) {
-          <mat-error>Phone is required</mat-error>
-        }
-        @if (newUserForm.get('phone')?.hasError('pattern')) {
-          <mat-error>Invalid phone number format</mat-error>
-        }
-      </mat-form-field>
+<div [ngClass]="themeService.themeSignal()">
+  <div class="main-add-user">
+    <form [formGroup]="newUserForm" (submit)="addUser()" class="dialog">
+      <section>
+        <mat-form-field>
+          <mat-label>Фамилия</mat-label>
+          <input type="text" formControlName="lastName" matInput required>
+          @if (newUserForm.get('lastName')?.hasError('required')) {
+            <mat-error>Last name is required</mat-error>
+          }
+          @if (newUserForm.get('lastName')?.hasError('minlength')) {
+            <mat-error>Last name must be at least 2 characters long</mat-error>
+          }
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Имя</mat-label>
+          <input type="text" formControlName="firstName" matInput required>
+          @if (newUserForm.get('firstName')?.hasError('required')) {
+            <mat-error>First name is required</mat-error>
+          }
+          @if (newUserForm.get('firstName')?.hasError('minlength')) {
+            <mat-error>First name must be at least 2 characters long</mat-error>
+          }
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" formControlName="email" matInput required>
+          @if (newUserForm.get('email')?.hasError('required')) {
+            <mat-error>Email is required</mat-error>
+          }
+          @if (newUserForm.get('email')?.hasError('email')) {
+            <mat-error>Invalid email</mat-error>
+          }
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Номер телефона</mat-label>
+          <input type="tel" formControlName="phone" matInput required>
+          @if (newUserForm.get('phone')?.hasError('required')) {
+            <mat-error>Phone is required</mat-error>
+          }
+          @if (newUserForm.get('phone')?.hasError('pattern')) {
+            <mat-error>Invalid phone number format</mat-error>
+          }
+        </mat-form-field>
 
-    </section>
-    <mat-divider></mat-divider>
-    <br>
-    <section class="button">
-      <button mat-flat-button color="primary" [disabled]="newUserForm.invalid" (click)="openAddPhoto()">Продолжить
-      </button>
-    </section>
+      </section>
+      <mat-divider></mat-divider>
+      <br>
+      <section class="button">
+        <button mat-flat-button color="primary" [disabled]="newUserForm.invalid" (click)="openAddPhoto()">Продолжить
+        </button>
+      </section>
 
-  </form>
+    </form>
+  </div>
 </div>
