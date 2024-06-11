@@ -16,11 +16,6 @@
   flex-grow: 1
 }
 
-.content {
-  position: absolute;
-  left: 30%;
-}
-
 
 .button-add {
   position: absolute;
@@ -38,10 +33,18 @@ mat-spinner {
 }
 
 .content {
-  width: 35%;
   border-radius: 20px;
-  margin: 20px 0 50px;
-  transform: translate(-50%);
+  &.desktop {
+    position: absolute;
+    width: 35%;
+    left: 30%;
+    transform: translate(-50%);
+    margin: 40px;
+  }
+  &.mobile {
+    position: relative;
+    margin: 20px;
+  }
 }
 
 mat-sidenav-content {
