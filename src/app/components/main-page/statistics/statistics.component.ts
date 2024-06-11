@@ -114,6 +114,16 @@ export class StatisticsComponent implements OnInit {
           columnWidth: "80%",
         }
       },
+      dataLabels: {
+        dropShadow: {
+          enabled: true,
+          top: 0,
+          left: 0,
+          blur: 3,
+          color: 'white',
+          opacity: 0.4,
+        },
+      },
     };
   }
 
@@ -157,19 +167,18 @@ export class StatisticsComponent implements OnInit {
         bar: {
           borderRadius: 5,
           columnWidth: "80%",
-          // dataLabels: {
-          //   total: {
-          //     enable: true,
-          //     style: {
-          //       position: 'bottom',
-          //       color: this.color,
-          //     },
-          //   },
-          // },
         },
       },
       dataLabels: {
-      }
+        dropShadow: {
+          enabled: true,
+          top: 0,
+          left: 0,
+          blur: 3,
+          color: 'white',
+          opacity: 0.4,
+        },
+      },
     };
   }
 

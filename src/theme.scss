@@ -307,8 +307,6 @@ $has-color: mat.theme-has($dark-theme, base);
   };
 
   --mdc-filled-text-field-focus-label-text-color : $light-text-color;
-
-
 }
 
 @mixin custom-light-theme {
@@ -341,10 +339,10 @@ $has-color: mat.theme-has($dark-theme, base);
   };
 
   .apexcharts-data-labels .apexcharts-datalabel {
-    fill: $dark-bg-color;
+    fill: darken($light-text-color, 20);
   }
 
-  --mdc-filled-text-field-focus-label-text-color : $dark-text-color;
+  --mdc-filled-text-field-focus-label-text-color : darken($light-text-color, 10);
 };
 
 
