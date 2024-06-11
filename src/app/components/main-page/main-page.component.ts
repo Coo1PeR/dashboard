@@ -37,7 +37,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 export class MainPageComponent implements OnInit{
   dialog = inject(MatDialog);
   themeService: ThemeService = inject(ThemeService);
-  private breakpointObserver = inject(BreakpointObserver);
+  public breakpointObserver = inject(BreakpointObserver);
   private destroyRef = inject(DestroyRef);
 
   isMobile: boolean | undefined

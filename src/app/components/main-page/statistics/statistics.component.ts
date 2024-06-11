@@ -6,7 +6,7 @@ import {
   ApexFill,
   ApexNonAxisChartSeries,
   ApexPlotOptions,
-  ApexTitleSubtitle,
+  ApexTitleSubtitle, ApexTooltip,
   ApexXAxis,
   ApexYAxis,
   ChartComponent,
@@ -23,6 +23,7 @@ import {Cart} from "../../../core/interfaces/interface.cart";
 import {Product} from "../../../core/interfaces/interface.product";
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ThemeService} from "../../../core/services/theme.service";
+import {MainPageComponent} from "../main-page.component";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -33,6 +34,7 @@ export type ChartOptions = {
   yaxis: ApexYAxis;
   fill: ApexFill;
   dataLabels: ApexDataLabels;
+  tooltip: ApexTooltip
 };
 
 @Component({
@@ -50,6 +52,9 @@ export class StatisticsComponent implements OnInit {
   @Select(CartsState.Carts) carts$!: Observable<Cart[]>;
   @Select(ProductsState.Products) products$!: Observable<Product[]>;
   @Select(UsersState.Users) users$!: Observable<UserFull[]>;
+  private mainPageComponent = inject(MainPageComponent);
+
+  isMobile: boolean | undefined = this.mainPageComponent.isMobile
 
   color: string = '#B4ABB0'
 
@@ -76,7 +81,7 @@ export class StatisticsComponent implements OnInit {
         data: data.map(item => item.productTotalPurchase)
       }],
       chart: {
-        height: 'auto',
+        height: 400,
         type: 'bar',
         fontFamily: 'Comfortaa, sans-serif',
         foreColor: this.color,
@@ -89,6 +94,7 @@ export class StatisticsComponent implements OnInit {
       },
       xaxis: {
         labels: {
+          show: !this.isMobile,
           trim: true,
           rotate: -45,
           maxHeight: 120,
@@ -115,6 +121,7 @@ export class StatisticsComponent implements OnInit {
         }
       },
       dataLabels: {
+        enabled: !this.isMobile,
         dropShadow: {
           enabled: true,
           top: 0,
@@ -122,6 +129,14 @@ export class StatisticsComponent implements OnInit {
           blur: 3,
           color: 'white',
           opacity: 0.4,
+        },
+      },
+      tooltip: {
+        fixed: {
+          enabled: true,
+          position: 'topLeft',
+          offsetX: 0,
+          offsetY: 20,
         },
       },
     };
@@ -134,7 +149,7 @@ export class StatisticsComponent implements OnInit {
         data: data.map(item => item.userTotalPurchaseSum)
       }],
       chart: {
-        height: 'auto',
+        height: 400,
         type: 'bar',
         fontFamily: 'Comfortaa, sans-serif',
         foreColor: this.color,
@@ -148,6 +163,7 @@ export class StatisticsComponent implements OnInit {
       xaxis: {
         categories: data.map(item => item.userFullName),
         labels: {
+          show: !this.isMobile,
           style: {
             colors: this.color
           }
@@ -170,6 +186,7 @@ export class StatisticsComponent implements OnInit {
         },
       },
       dataLabels: {
+        enabled: !this.isMobile,
         dropShadow: {
           enabled: true,
           top: 0,
@@ -177,6 +194,14 @@ export class StatisticsComponent implements OnInit {
           blur: 3,
           color: 'white',
           opacity: 0.4,
+        },
+      },
+      tooltip: {
+        fixed: {
+          enabled: true,
+          position: 'topLeft',
+          offsetX: 0,
+          offsetY: 20,
         },
       },
     };

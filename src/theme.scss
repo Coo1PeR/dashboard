@@ -332,9 +332,13 @@ $has-color: mat.theme-has($dark-theme, base);
 
   .apexcharts-data-labels .apexcharts-datalabel {
     fill: darken($light-text-color, 20);
-  }
+  };
 
   --mdc-filled-text-field-focus-label-text-color : darken($light-text-color, 10);
+
+  .apexcharts-tooltip, .apexcharts-active {
+    left: 0;
+  };
 };
 
 

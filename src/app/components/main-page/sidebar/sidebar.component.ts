@@ -8,8 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ThemeService} from "../../../core/services/theme.service";
 import {MatIconButton} from "@angular/material/button";
 import {NgClass} from "@angular/common";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MainPageComponent} from "../main-page.component";
 
 @Component({
   selector: 'app-sidebar',
@@ -29,23 +28,13 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent {
   themeService: ThemeService = inject(ThemeService);
-  private breakpointObserver = inject(BreakpointObserver);
-  private destroyRef = inject(DestroyRef);
+  private mainPageComponent = inject(MainPageComponent);
 
-  isMobile: boolean | undefined
+  isMobile: boolean | undefined = this.mainPageComponent.isMobile
 
   toggleTheme() {
     this.themeService.updateTheme()
-  }
-
-  ngOnInit(): void {
-    this.breakpointObserver.observe([
-      Breakpoints.Handset
-    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(result => {
-      this.isMobile = result.matches;
-      console.log(result.matches)
-    });
   }
 }
