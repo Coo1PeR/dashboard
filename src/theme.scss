@@ -298,11 +298,7 @@ $has-color: mat.theme-has($dark-theme, base);
     background: map-get($dark-background, app-bar);
   };
 
-  .main-add-photo {
-    background-color: map-get($dark-background, app-bar);
-  };
-
-  .main-add-user {
+  .main-add-user, .main-add-photo {
     background-color: $dark-primary;
   };
 
@@ -330,11 +326,7 @@ $has-color: mat.theme-has($dark-theme, base);
     background:  rgb(253 253 252)
   };
 
-  .main-add-photo {
-    background-color: map-get($theme-accent, 200);
-  };
-
-  .main-add-user {
+  .main-add-user, .main-add-photo {
     background-color: $light-bg-color;
   };
 
