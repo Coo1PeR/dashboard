@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButton} from "@angular/material/button";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -11,6 +11,8 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
 import {RouterOutlet} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {ThemeService} from "../../core/services/theme.service";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-main-page',
@@ -32,7 +34,21 @@ import {ThemeService} from "../../core/services/theme.service";
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
-export class MainPageComponent {
+export class MainPageComponent implements OnInit{
   dialog = inject(MatDialog);
   themeService: ThemeService = inject(ThemeService);
+  private breakpointObserver = inject(BreakpointObserver);
+  private destroyRef = inject(DestroyRef);
+
+  isMobile: boolean | undefined
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe([
+      Breakpoints.Handset
+    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(result => {
+      this.isMobile = result.matches;
+      console.log(result.matches)
+    });
+  }
+
 }

@@ -4,13 +4,23 @@
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  height: 100vh;
 }
 
+.sidebar {
+  min-width: 180px;
+}
+
+.sidenav-content {
+  flex-grow: 1
+}
 
 .content {
   position: absolute;
   left: 30%;
 }
+
 
 .button-add {
   position: absolute;
@@ -30,6 +40,10 @@ mat-spinner {
 .content {
   width: 35%;
   border-radius: 20px;
-  margin: 20px 20px 50px;
+  margin: 20px 0 50px;
   transform: translate(-50%);
+}
+
+mat-sidenav-content {
+  margin-left: 50px;
 }

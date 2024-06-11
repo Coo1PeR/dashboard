@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {RouterLink, RouterLinkActive} from "@angular/router";
@@ -9,6 +9,7 @@ import {ThemeService} from "../../../core/services/theme.service";
 import {MatIconButton} from "@angular/material/button";
 import {NgClass} from "@angular/common";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-sidebar',
@@ -31,6 +32,7 @@ import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 export class SidebarComponent implements OnInit{
   themeService: ThemeService = inject(ThemeService);
   private breakpointObserver = inject(BreakpointObserver);
+  private destroyRef = inject(DestroyRef);
 
   isMobile: boolean | undefined
 
@@ -41,7 +43,7 @@ export class SidebarComponent implements OnInit{
   ngOnInit(): void {
     this.breakpointObserver.observe([
       Breakpoints.Handset
-    ]).subscribe(result => {
+    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(result => {
       this.isMobile = result.matches;
       console.log(result.matches)
     });
