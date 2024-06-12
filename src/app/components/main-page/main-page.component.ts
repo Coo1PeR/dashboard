@@ -47,7 +47,6 @@ export class MainPageComponent implements OnInit{
       Breakpoints.Handset
     ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(result => {
       this.isMobile = result.matches;
-      console.log(result.matches)
     });
   }
 
