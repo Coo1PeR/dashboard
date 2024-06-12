@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, ViewChild} from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { UserFull } from '../../core/interfaces/interface.user';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -11,6 +11,8 @@ import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatButton } from '@angular/material/button';
 import {ShoppingTableComponent} from "./shopping-table/shopping-table.component";
 import {ThemeService} from "../../core/services/theme.service";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-user-cart-page',
@@ -37,6 +39,11 @@ export class UserCartPageComponent implements OnInit {
   private router = inject(Router);
   themeService: ThemeService = inject(ThemeService);
 
+  public breakpointObserver = inject(BreakpointObserver);
+  private destroyRef = inject(DestroyRef);
+
+  isMobile: boolean | undefined
+
   @ViewChild(ShoppingTableComponent) child: ShoppingTableComponent | undefined;
 
 
@@ -47,6 +54,13 @@ export class UserCartPageComponent implements OnInit {
     this.user$ = this.store.select(UsersState.Users).pipe(
       map(users => users.find(user => user.id === userId)),
     );
+
+    this.breakpointObserver.observe([
+      Breakpoints.Handset
+    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(result => {
+      this.isMobile = result.matches;
+      console.log(result.matches)
+    });
   }
 
   goBack() {
