@@ -310,6 +310,22 @@ $has-color: mat.theme-has($dark-theme, base);
     background: map-get($theme-accent, 200);
   };
 
+  .mobile {
+    mat-nav-list {
+      background: lighten($light-bg-color, 5%);
+    }
+
+    .mat-icon {
+      color: $light-text-color;
+    };
+
+    .menu > a[mat-list-item].active {
+      .mat-icon {
+        color: $dark-accent;
+      };
+    }
+  }
+
   .menu > a[mat-list-item].active {
     background-color: $light-bg-color;
 

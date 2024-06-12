@@ -81,7 +81,7 @@ export class StatisticsComponent implements OnInit {
         data: data.map(item => item.productTotalPurchase)
       }],
       chart: {
-        height: 400,
+        height: 360,
         type: 'bar',
         fontFamily: 'Comfortaa, sans-serif',
         foreColor: this.color,
@@ -149,7 +149,7 @@ export class StatisticsComponent implements OnInit {
         data: data.map(item => item.userTotalPurchaseSum)
       }],
       chart: {
-        height: 400,
+        height: 360,
         type: 'bar',
         fontFamily: 'Comfortaa, sans-serif',
         foreColor: this.color,

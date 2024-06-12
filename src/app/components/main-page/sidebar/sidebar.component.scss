@@ -10,7 +10,7 @@ span {
 
 a {
   border-radius: 0 20px 20px 0;
-  margin-left: 45px;
+  margin-left: 50px;
 }
 
 .logo {
@@ -52,17 +52,9 @@ mat-divider {
   display: block;
   height: 50px;
   text-align: left;
-  border-radius: 10px 0 0 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   line-height: 50px;
   transition: color .5s;
-  &.desktop{
-    top: 20px;
-
-  };
-  &.mobile {
-
-  }
 }
 
 .mat-mdc-list-item {
@@ -87,10 +79,39 @@ mat-divider {
   border-radius: 0 25px 0 0;
 }
 
+
+
 .tab-icon {
   display: inline-block;
   vertical-align: middle;
   margin-right: 8px;
+}
+
+.desktop {
+  .menu > a[mat-list-item] {
+    top: 20px;
+    border-radius: 10px 0 0 10px;
+  }
+  a[mat-list-item].active {
+    border-radius: 10px 0 0 10px;
+  }
+}
+
+.mobile {
+  .tab-icon {
+    margin-right: 0;
+  }
+
+  a[mat-list-item].active {
+    border-radius: 10px;
+    background: none;
+  }
+
+  .menu > a[mat-list-item] {
+    border-radius: 10px;
+  }
+
+
 }
 
 .mat-drawer-container {
