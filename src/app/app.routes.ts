@@ -4,6 +4,7 @@ import {MainPageComponent} from "./components/main-page/main-page.component";
 import {UserCartPageComponent} from "./components/user-cart-page/user-cart-page.component";
 import {UsersTableComponent} from "./components/main-page/users-table/users-table.component";
 import {StatisticsComponent} from "./components/main-page/statistics/statistics.component";
+import {AuthGuard, AuthGuardChild} from "./shared/auth.guard";
 
 export const routes: Routes = [
   {
@@ -20,6 +21,8 @@ export const routes: Routes = [
     path: 'main',
     component: MainPageComponent,
     title: 'Main Page',
+    canActivateChild: [AuthGuardChild],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -34,14 +37,18 @@ export const routes: Routes = [
         path: 'statistics',
         component: StatisticsComponent,
         title: 'Statistics Table',
-      }
+      },
     ]
   },
 
-  // TODO try split tab to routing
   {
     path: 'user-id/:id',
     component: UserCartPageComponent,
     title: 'User Cart',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: 'main',
   }
 ];

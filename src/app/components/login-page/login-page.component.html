@@ -4,8 +4,8 @@
 
     <mat-form-field>
       <mat-label>Логин</mat-label>
-      <input type="text" id="input-login" formControlName="login" matInput required>
-      @if (loginForm.get('login')?.hasError('required')) {
+      <input type="text" id="input-login" formControlName="username" matInput required>
+      @if (loginForm.get('username')?.hasError('required')) {
         <mat-error>Login is required</mat-error>
       }
     </mat-form-field>

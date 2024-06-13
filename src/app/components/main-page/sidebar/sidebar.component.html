@@ -13,8 +13,8 @@
         <mat-slide-toggle (click)="toggleTheme()" [checked]="themeService.themeSignal() === 'dark'" hideIcon="true"></mat-slide-toggle>
       </div>
     </a>
-    <a mat-list-item href="/login">
-      <mat-icon class="tab-icon">logout</mat-icon>
+    <a mat-list-item>
+      <mat-icon (click)="logOut()" class="tab-icon">logout</mat-icon>
     </a>
   </mat-nav-list>
 } @else {
@@ -51,8 +51,7 @@
 
         </div>
       </a>
-
-      <a mat-list-item href="/login">
+      <a mat-list-item (click)="logOut()">
         <mat-icon class="tab-icon">logout</mat-icon>
         <span>Log out</span>
       </a>
