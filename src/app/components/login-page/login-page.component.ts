@@ -4,8 +4,6 @@ import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {MatInput} from "@angular/material/input";
-import {Store} from "@ngxs/store";
-import {ThemeService} from "../../core/services/theme.service";
 import {NgClass} from "@angular/common";
 import {AuthService} from "../../core/services/auth.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -32,7 +30,6 @@ export class LoginPageComponent {
   private auth = inject(AuthService)
   private destroyRef = inject(DestroyRef);
   private snackBar = inject(MatSnackBar);
-  themeService: ThemeService = inject(ThemeService);
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(4)]),
