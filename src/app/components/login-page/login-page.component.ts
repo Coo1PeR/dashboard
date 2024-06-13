@@ -5,7 +5,6 @@ import {MatButton} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {MatInput} from "@angular/material/input";
 import {Store} from "@ngxs/store";
-import {SetLoginData} from "../../core/stores/login/login.state";
 import {ThemeService} from "../../core/services/theme.service";
 import {NgClass} from "@angular/common";
 import {AuthService} from "../../core/services/auth.service";
@@ -29,7 +28,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
-  private store = inject(Store);
   private router = inject(Router);
   private auth = inject(AuthService)
   private destroyRef = inject(DestroyRef);
@@ -53,8 +51,6 @@ export class LoginPageComponent {
           });
         }
       );
-
-      //this.store.dispatch(new SetLoginData({login: username || '', password: password || '' }))
     }
   }
 

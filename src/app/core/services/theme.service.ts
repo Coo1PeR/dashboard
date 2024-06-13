@@ -1,12 +1,16 @@
 import {Injectable, signal} from '@angular/core';
 
-let themeStorage = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+let themeStorage = localStorage.getItem('theme') || 'dark';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ThemeService {
+  constructor() {
+    this.setTheme(themeStorage);
+    document.getElementsByTagName('body')[0].className = themeStorage;
+  }
 
   themeSignal = signal<string>(themeStorage)
 
@@ -17,5 +21,6 @@ export class ThemeService {
   updateTheme() {
     this.themeSignal.update((value) => (value === 'light' ? 'dark' : 'light'))
     localStorage.setItem('theme', this.themeSignal())
+    document.getElementsByTagName('body')[0].className = this.themeSignal()
   }
 }

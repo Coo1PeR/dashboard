@@ -5,7 +5,6 @@ import {UsersAction} from "./core/stores/users/users.actions";
 import {CartsAction} from "./core/stores/carts/carts.actions";
 import {ProductsAction} from "./core/stores/products/products.actions";
 import {Store} from "@ngxs/store";
-import {ThemeService} from "./core/services/theme.service";
 import {NgClass} from "@angular/common";
 
 @Component({
@@ -22,8 +21,6 @@ import {NgClass} from "@angular/common";
 export class AppComponent implements OnInit{
   title = 'dashboard';
   private store = inject(Store)
-  themeService: ThemeService = inject(ThemeService);
-
 
   ngOnInit() {
     this.store.dispatch(new UsersAction.Fetch());

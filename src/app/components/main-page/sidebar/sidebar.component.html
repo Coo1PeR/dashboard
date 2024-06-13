@@ -1,5 +1,4 @@
 @if (isMobile) {
-  <!-- Mobile Menu -->
   <mat-nav-list class="menu mobile">
     <a mat-list-item routerLink="/main/users" routerLinkActive="active">
       <mat-icon class="tab-icon">group</mat-icon>
@@ -36,19 +35,9 @@
         <div class="theme-control">
           <mat-divider></mat-divider>
           <br>
-
-          <!--        <span>Theme</span>-->
-          <!--      <mat-icon class="tab-icon">-->
-          <!--        @if (themeService.themeSignal() === 'dark') {-->
-          <!--          <mat-icon>bedtime</mat-icon>-->
-          <!--        } @else {-->
-          <!--          <mat-icon>brightness_5</mat-icon>-->
-          <!--        }-->
-          <!--      </mat-icon>-->
           <mat-icon class="tab-icon">brightness_5</mat-icon>
           <mat-slide-toggle (click)="toggleTheme()" [checked]="themeService.themeSignal() === 'dark'" hideIcon="true"></mat-slide-toggle>
           <mat-icon class="tab-icon">bedtime</mat-icon>
-
         </div>
       </a>
       <a mat-list-item (click)="logOut()">

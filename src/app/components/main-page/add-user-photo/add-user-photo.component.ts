@@ -8,7 +8,6 @@ import { MatButton } from "@angular/material/button";
 import { Dialog } from "@angular/cdk/dialog";
 import { CommonModule } from '@angular/common';
 import { DragDropDirective } from '../../../shared/drag-and-drop.directive'
-import {ThemeService} from "../../../core/services/theme.service";
 
 @Component({
   selector: 'app-add-user-photo',
@@ -28,8 +27,6 @@ export class AddUserPhotoComponent implements OnInit {
   private dialog = inject(Dialog);
   private store = inject(Store);
   private openUserCartService = inject(OpenUserCartService);
-  themeService: ThemeService = inject(ThemeService);
-
 
   ngOnInit() {}
 

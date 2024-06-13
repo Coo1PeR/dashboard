@@ -11,7 +11,6 @@ import { UserFull } from "../../../core/interfaces/interface.user";
 import { UsersState } from "../../../core/stores/users/users.state";
 import {MatDialog} from "@angular/material/dialog";
 import {NgClass} from "@angular/common";
-import {ThemeService} from "../../../core/services/theme.service";
 
 @Component({
   selector: 'app-add-new-user',
@@ -32,9 +31,7 @@ import {ThemeService} from "../../../core/services/theme.service";
 export class AddNewUserComponent {
   dialog = inject(MatDialog);
   private store = inject(Store);
-  themeService: ThemeService = inject(ThemeService);
 
-  // Создаем форму для нового пользователя
   newUserForm = new FormGroup({
     lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
     firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -45,7 +42,6 @@ export class AddNewUserComponent {
     ]),
   });
 
-  // Константные поля для нового пользователя
   private static defaultAddress = {
     geolocation: {
       lat: 0,
