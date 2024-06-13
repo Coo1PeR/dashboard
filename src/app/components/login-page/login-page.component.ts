@@ -42,7 +42,7 @@ export class LoginPageComponent {
   });
 
   onSubmit() {
-    if (this.loginForm.valid && typeof this.loginForm.value.username === 'string' && typeof this.loginForm.value.password === 'string') {
+    if (this.loginForm.valid && this.loginForm.value.username && this.loginForm.value.password) {
       const { username, password } = this.loginForm.value;
       this.auth.login(username, password).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
         () =>      this.router.navigate(['/main']),
