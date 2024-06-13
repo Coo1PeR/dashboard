@@ -10,7 +10,6 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/mater
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {RouterOutlet} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {ThemeService} from "../../core/services/theme.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
@@ -36,7 +35,6 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 })
 export class MainPageComponent implements OnInit{
   dialog = inject(MatDialog);
-  themeService: ThemeService = inject(ThemeService);
   public breakpointObserver = inject(BreakpointObserver);
   private destroyRef = inject(DestroyRef);
 
