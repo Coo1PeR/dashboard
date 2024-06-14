@@ -19,7 +19,6 @@ import {RouterLink} from "@angular/router";
 import {AddNewUserComponent} from "../add-new-user/add-new-user.component";
 import {MatButton} from "@angular/material/button";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
-import {ThemeService} from "../../../core/services/theme.service";
 
 @Component({
   selector: 'app-users-table',
@@ -39,9 +38,6 @@ export class UsersTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['userFullName', 'phone', 'totalPurchase'];
   isLoading: boolean = true;
   private destroyRef = inject(DestroyRef);
-  themeService: ThemeService = inject(ThemeService);
-
-
 
   ngOnInit() {
 
