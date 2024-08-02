@@ -1,11 +1,21 @@
-div {
-  width: 50%;
+.container {
   position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%);
-  margin-bottom: 8px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: 100vh;
 }
+
+.sidebar {
+  min-width: 180px;
+}
+
+.sidenav-content {
+  flex-grow: 1
+}
+
 
 .button-add {
   position: absolute;
@@ -16,4 +26,27 @@ div {
 mat-spinner {
   top: 50%;
   margin: auto;
+}
+
+.tab-icon {
+  margin-right: 8px;
+}
+
+.content {
+  border-radius: 20px;
+  &.desktop {
+    position: absolute;
+    width: 45%;
+    left: 30%;
+    transform: translate(-50%);
+    margin: 40px;
+  }
+  &.mobile {
+    position: relative;
+    margin: 20px;
+  }
+}
+
+mat-sidenav-content {
+  margin-left: 50px;
 }

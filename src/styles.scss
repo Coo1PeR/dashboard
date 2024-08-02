@@ -1,4 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+// Global styles
+* {
+  font-family: Comfortaa, sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  --mdc-dialog-container-color: rgba(255, 255, 255, 0);
+}
+
+body {
+  margin: 0;
+  font-family: Comfortaa, "Helvetica Neue", sans-serif;
+
+}

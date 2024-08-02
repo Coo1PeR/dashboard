@@ -1,5 +1,5 @@
-<div>
-  <form [formGroup]="newUserForm" (submit)="addUser()">
+<div class="main-add-user">
+  <form [formGroup]="newUserForm" (submit)="addUser()" class="dialog">
     <section>
       <mat-form-field>
         <mat-label>Фамилия</mat-label>
@@ -47,9 +47,12 @@
 
     </section>
     <mat-divider></mat-divider>
-    <section>
-      <button mat-flat-button color="primary" [disabled]="newUserForm.invalid" (click)="openAddPhoto()">Продолжить</button>
+    <br>
+    <section class="button">
+      <button mat-flat-button color="primary" [disabled]="newUserForm.invalid" (click)="openAddPhoto()">Продолжить
+      </button>
     </section>
 
   </form>
 </div>
+

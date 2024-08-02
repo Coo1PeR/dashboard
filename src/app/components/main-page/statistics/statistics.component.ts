@@ -1,24 +1,40 @@
-import { Component, OnInit, ViewChild, inject, DestroyRef } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ChartComponent, NgApexchartsModule, ApexChart, ApexYAxis, ApexXAxis, ApexTitleSubtitle, ApexNonAxisChartSeries } from "ng-apexcharts";
-import { combineLatest, Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { Select } from "@ngxs/store";
-import { CartsState } from "../../../core/stores/carts/carts.state";
-import { UserFull } from "../../../core/interfaces/interface.user";
-import { ProductsState } from "../../../core/stores/products/products.state";
-import { UsersState } from "../../../core/stores/users/users.state";
-import { Cart } from "../../../core/interfaces/interface.cart";
-import { Product } from "../../../core/interfaces/interface.product";
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, inject, OnInit, ViewChild} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {
+  ApexChart, ApexDataLabels,
+  ApexFill,
+  ApexNonAxisChartSeries,
+  ApexPlotOptions,
+  ApexTitleSubtitle, ApexTooltip,
+  ApexXAxis,
+  ApexYAxis,
+  ChartComponent,
+  NgApexchartsModule
+} from "ng-apexcharts";
+import {combineLatest, Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {Select} from "@ngxs/store";
+import {CartsState} from "../../../core/stores/carts/carts.state";
+import {UserFull} from "../../../core/interfaces/interface.user";
+import {ProductsState} from "../../../core/stores/products/products.state";
+import {UsersState} from "../../../core/stores/users/users.state";
+import {Cart} from "../../../core/interfaces/interface.cart";
+import {Product} from "../../../core/interfaces/interface.product";
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ThemeService} from "../../../core/services/theme.service";
+import {MainPageComponent} from "../main-page.component";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  plotOptions: ApexPlotOptions
   title: ApexTitleSubtitle;
   yaxis: ApexYAxis;
+  fill: ApexFill;
+  dataLabels: ApexDataLabels;
+  tooltip: ApexTooltip
 };
 
 @Component({
@@ -36,6 +52,11 @@ export class StatisticsComponent implements OnInit {
   @Select(CartsState.Carts) carts$!: Observable<Cart[]>;
   @Select(ProductsState.Products) products$!: Observable<Product[]>;
   @Select(UsersState.Users) users$!: Observable<UserFull[]>;
+  private mainPageComponent = inject(MainPageComponent);
+
+  isMobile: boolean | undefined = this.mainPageComponent.isMobile
+
+  color: string = '#B4ABB0'
 
   @ViewChild("chart") chart: ChartComponent | undefined;
   public productsChartOptionsApex: Partial<ChartOptions> | any;
@@ -44,12 +65,163 @@ export class StatisticsComponent implements OnInit {
   productData: { productTitle: string, productTotalPurchase: number }[] = [];
   userData: { userFullName: string, userTotalPurchaseSum: number }[] = [];
 
+  themeService: ThemeService = inject(ThemeService);
   // Injecting DestroyRef
   private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     this.loadProductData();
     this.loadUserData();
+  }
+
+  public renderProductChartApex(data: { productTitle: string, productTotalPurchase: number }[]) {
+    this.productsChartOptionsApex = {
+      series: [{
+        name: 'кол-во',
+        data: data.map(item => item.productTotalPurchase)
+      }],
+      chart: {
+        height: 360,
+        type: 'bar',
+        fontFamily: 'Comfortaa, sans-serif',
+        foreColor: this.color,
+      },
+      title: {
+        text: 'Количество проданных товаров',
+        style: {
+          color: this.color
+        }
+      },
+      xaxis: {
+        labels: {
+          show: !this.isMobile,
+          trim: true,
+          rotate: -45,
+          maxHeight: 120,
+          style: {
+            colors: this.color
+          }
+        },
+        categories: data.map(item => item.productTitle)
+      },
+      fill: {
+        colors: [function (series: any) {
+          if (series.dataPointIndex % 2 === 0) {
+            return '#F4B88E'
+          } else {
+            return '#CA726F'
+          }
+        }],
+        opacity: 1,
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          columnWidth: "80%",
+        }
+      },
+      dataLabels: {
+        enabled: !this.isMobile,
+        dropShadow: {
+          enabled: true,
+          top: 0,
+          left: 0,
+          blur: 3,
+          color: 'white',
+          opacity: 0.4,
+        },
+      },
+      tooltip: {
+        fixed: {
+          enabled: true,
+          position: 'topLeft',
+          offsetX: 0,
+          offsetY: 20,
+        },
+      },
+    };
+  }
+
+  public renderUserChartApex(data: { userFullName: string, userTotalPurchaseSum: number }[]) {
+    this.usersChartOptionsApex = {
+      series: [{
+        name: 'сумма',
+        data: data.map(item => item.userTotalPurchaseSum)
+      }],
+      chart: {
+        height: 360,
+        type: 'bar',
+        fontFamily: 'Comfortaa, sans-serif',
+        foreColor: this.color,
+      },
+      title: {
+        text: 'Пользователи и их общая сумма покупок',
+        style: {
+          color: this.color
+        }
+      },
+      xaxis: {
+        categories: data.map(item => item.userFullName),
+        labels: {
+          show: !this.isMobile,
+          style: {
+            colors: this.color
+          }
+        }
+      },
+      fill: {
+        colors: [function (series: any) {
+          if (series.dataPointIndex % 2 === 0) {
+            return '#F4B88E'
+          } else {
+            return '#CA726F'
+          }
+        }],
+        opacity: 1,
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          columnWidth: "80%",
+        },
+      },
+      dataLabels: {
+        enabled: !this.isMobile,
+        dropShadow: {
+          enabled: true,
+          top: 0,
+          left: 0,
+          blur: 3,
+          color: 'white',
+          opacity: 0.4,
+        },
+      },
+      tooltip: {
+        fixed: {
+          enabled: true,
+          position: 'topLeft',
+          offsetX: 0,
+          offsetY: 20,
+        },
+      },
+    };
+  }
+
+  calculateProductRatio(): Observable<{ productTitle: string, productTotalPurchase: number }[]> {
+    return combineLatest([this.carts$, this.products$]).pipe(
+      map(([carts, products]) => this.calculateProductTotals(carts, products))
+    );
+  }
+
+  getUserData(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
+    return this.users$.pipe(
+      map((users: UserFull[]) => {
+        return users.map(user => ({
+          userFullName: user.userFullName,
+          userTotalPurchaseSum: user.totalPurchase
+        }));
+      })
+    );
   }
 
   private loadProductData() {
@@ -70,57 +242,10 @@ export class StatisticsComponent implements OnInit {
       });
   }
 
-  public renderProductChartApex(data: { productTitle: string, productTotalPurchase: number }[]) {
-    this.productsChartOptionsApex = {
-      series: [{
-        name: 'кол-во',
-        data: data.map(item => item.productTotalPurchase)
-      }],
-      chart: {
-        height: 'auto',
-        type: 'bar'
-      },
-      title: {
-        text: 'Количество проданных товаров'
-      },
-      xaxis: {
-        labels: {
-          trim: true,
-          rotate: -45,
-          maxHeight: 120,
-
-        },
-        categories: data.map(item => item.productTitle)
-      }
-    };
-  }
-
-  public renderUserChartApex(data: { userFullName: string, userTotalPurchaseSum: number }[]) {
-    this.usersChartOptionsApex = {
-      series: [{
-        name: 'сумма',
-        data: data.map(item => item.userTotalPurchaseSum)
-      }],
-      chart: {
-        height: 'auto',
-        type: 'bar'
-      },
-      title: {
-        text: 'Пользователи и их общая сумма покупок'
-      },
-      xaxis: {
-        categories: data.map(item => item.userFullName)
-      }
-    };
-  }
-
-  calculateProductRatio(): Observable<{ productTitle: string, productTotalPurchase: number }[]> {
-    return combineLatest([this.carts$, this.products$]).pipe(
-      map(([carts, products]) => this.calculateProductTotals(carts, products))
-    );
-  }
-
-  private calculateProductTotals(carts: Cart[], products: Product[]): { productTitle: string, productTotalPurchase: number }[] {
+  private calculateProductTotals(carts: Cart[], products: Product[]): {
+    productTitle: string,
+    productTotalPurchase: number
+  }[] {
     const productMap: { [key: number]: Product } = products.reduce((map, product) => {
       map[product.id] = product;
       return map;
@@ -140,16 +265,5 @@ export class StatisticsComponent implements OnInit {
         productTotalPurchase: productTotalPurchase
       };
     });
-  }
-
-  getUserData(): Observable<{ userFullName: string, userTotalPurchaseSum: number }[]> {
-    return this.users$.pipe(
-      map((users: UserFull[]) => {
-        return users.map(user => ({
-          userFullName: user.userFullName,
-          userTotalPurchaseSum: user.totalPurchase
-        }));
-      })
-    );
   }
 }

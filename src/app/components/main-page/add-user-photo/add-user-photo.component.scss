@@ -30,7 +30,7 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 540px;
+  max-width: 540px;
   height: 400px;
   background-color: white;
 }
@@ -43,3 +43,11 @@ h3 {
   margin-top: 30px;
 }
 
+h2 {
+  text-align: center;
+}
+
+.main-add-photo {
+  border-radius: 20px;
+  padding: 8px 16px;
+}

@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Dialog } from "@angular/cdk/dialog";
 import { AddUserPhotoComponent } from "../add-user-photo/add-user-photo.component";
 import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
@@ -10,6 +9,8 @@ import { UsersAction } from "../../../core/stores/users/users.actions";
 import { Store } from "@ngxs/store";
 import { UserFull } from "../../../core/interfaces/interface.user";
 import { UsersState } from "../../../core/stores/users/users.state";
+import {MatDialog} from "@angular/material/dialog";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-add-new-user',
@@ -21,16 +22,16 @@ import { UsersState } from "../../../core/stores/users/users.state";
     MatDivider,
     MatButton,
     MatLabel,
-    MatError
+    MatError,
+    NgClass
   ],
   templateUrl: './add-new-user.component.html',
   styleUrls: ['./add-new-user.component.scss']
 })
 export class AddNewUserComponent {
-  dialog = inject(Dialog);
+  dialog = inject(MatDialog);
   private store = inject(Store);
 
-  // Создаем форму для нового пользователя
   newUserForm = new FormGroup({
     lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
     firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -41,7 +42,6 @@ export class AddNewUserComponent {
     ]),
   });
 
-  // Константные поля для нового пользователя
   private static defaultAddress = {
     geolocation: {
       lat: 0,
@@ -59,6 +59,8 @@ export class AddNewUserComponent {
   private static defaultPassword = '';
 
   addUser() {
+
+
     const lastName = this.newUserForm.value.lastName?.toLowerCase() ?? '';
     const firstName = this.newUserForm.value.firstName?.toLowerCase() ?? '';
     const email = this.newUserForm.value.email?.toLowerCase() ?? '';

@@ -1,19 +1,25 @@
-<div>
+<div class="chart">
   <apx-chart
     [series]="usersChartOptionsApex.series"
     [chart]="usersChartOptionsApex.chart"
     [xaxis]="usersChartOptionsApex.xaxis"
     [title]="usersChartOptionsApex.title"
+    [fill]="usersChartOptionsApex.fill"
+    [plotOptions]="usersChartOptionsApex.plotOptions"
+    [dataLabels]="usersChartOptionsApex.dataLabels"
+    [tooltip]="usersChartOptionsApex.tooltip"
   ></apx-chart>
 </div>
-<div>
+<br>
+<div class="chart">
   <apx-chart
     [series]="productsChartOptionsApex.series"
     [chart]="productsChartOptionsApex.chart"
     [xaxis]="productsChartOptionsApex.xaxis"
     [title]="productsChartOptionsApex.title"
+    [fill]="productsChartOptionsApex.fill"
+    [plotOptions]="productsChartOptionsApex.plotOptions"
+    [dataLabels]="productsChartOptionsApex.dataLabels"
+    [tooltip]="productsChartOptionsApex.tooltip"
   ></apx-chart>
 </div>
-
-
-

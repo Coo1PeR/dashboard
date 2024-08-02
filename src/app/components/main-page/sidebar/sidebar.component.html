@@ -1,0 +1,49 @@
+@if (isMobile) {
+  <mat-nav-list class="menu mobile">
+    <a mat-list-item routerLink="/main/users" routerLinkActive="active">
+      <mat-icon class="tab-icon">group</mat-icon>
+    </a>
+    <a mat-list-item routerLink="/main/statistics" routerLinkActive="active">
+      <mat-icon class="tab-icon">bar_chart</mat-icon>
+    </a>
+      <mat-divider></mat-divider>
+    <a mat-list-item>
+      <div class="theme-control">
+        <mat-slide-toggle (click)="toggleTheme()" [checked]="themeService.themeSignal() === 'dark'" hideIcon="true"></mat-slide-toggle>
+      </div>
+    </a>
+    <a mat-list-item>
+      <mat-icon (click)="logOut()" class="tab-icon">logout</mat-icon>
+    </a>
+  </mat-nav-list>
+} @else {
+    <mat-nav-list class="menu desktop">
+      <div class="logo">
+        <mat-icon class="tab-icon">toll</mat-icon>
+        <span>StatZen</span>
+      </div>
+
+      <a mat-list-item routerLink="/main/users" routerLinkActive="active">
+        <mat-icon class="tab-icon">group</mat-icon>
+        <span>Users</span>
+      </a>
+      <a mat-list-item routerLink="/main/statistics" routerLinkActive="active">
+        <mat-icon class="tab-icon">bar_chart</mat-icon>
+        <span>Statistics</span>
+      </a>
+      <a mat-list-item>
+        <div class="theme-control">
+          <mat-divider></mat-divider>
+          <br>
+          <mat-icon class="tab-icon">brightness_5</mat-icon>
+          <mat-slide-toggle (click)="toggleTheme()" [checked]="themeService.themeSignal() === 'dark'" hideIcon="true"></mat-slide-toggle>
+          <mat-icon class="tab-icon">bedtime</mat-icon>
+        </div>
+      </a>
+      <a mat-list-item (click)="logOut()">
+        <mat-icon class="tab-icon">logout</mat-icon>
+        <span>Log out</span>
+      </a>
+    </mat-nav-list>
+}
+
