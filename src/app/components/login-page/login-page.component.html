@@ -4,7 +4,7 @@
 
     <mat-form-field>
       <mat-label>Логин</mat-label>
-      <input type="text" id="input-login" formControlName="username" matInput required>
+      <input type="text" id="input-login" formControlName="username" matInput required value="johnd">
       @if (loginForm.get('username')?.hasError('required')) {
         <mat-error>Login is required</mat-error>
       }
@@ -12,7 +12,7 @@
     <br>
     <mat-form-field>
       <mat-label>Пароль</mat-label>
-      <input type="password" id="input-password" formControlName="password" matInput required>
+      <input type="password" id="input-password" formControlName="password" matInput required value="m38rmF$">
       @if (loginForm.get('password')?.hasError('required')) {
         <mat-error>Password is required</mat-error>
       }
