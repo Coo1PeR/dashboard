@@ -32,8 +32,8 @@ export class LoginPageComponent {
   private snackBar = inject(MatSnackBar);
 
   loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    username: new FormControl('johnd', [Validators.required, Validators.minLength(4)]),
+    password: new FormControl('m38rmF$', [Validators.required, Validators.minLength(4)]),
   });
 
   onSubmit() {
